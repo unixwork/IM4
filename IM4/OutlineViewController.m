@@ -14,7 +14,7 @@
 - (id)init {
     self = [super init];
     _contacts = [[NSMutableArray alloc]init];
-    Contact *c = [[Contact alloc] initGroup:@"Contacts"];
+    Contact *c = [[Contact alloc] initGroup:@"Offline"];
     
     // Test contacts
     //[c addContact:[[Contact alloc] initContact:@"Contact1" xid:@"Sub1"]];

@@ -79,4 +79,6 @@ int XmppRun(Xmpp *xmpp);
 
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 
+void XmppMessage(Xmpp *xmpp, const char *to, const char *message);
+
 #endif /* xmpp_h */

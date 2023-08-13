@@ -42,6 +42,8 @@
         _xmpp = XmppCreate(settings);
         XmppRun(_xmpp);
     }
+    
+    [self setStatus:0 xmpp:_xmpp];
 }
 
 
@@ -71,6 +73,43 @@
     return [configDir stringByAppendingFormat:@"/%@/%@", IM4_APPNAME_NS, fileName];
 }
 
+- (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
+    // xmpp currently unused, because only one xmpp conn is supported
+    
+    switch(status) {
+        case 0: {
+            [_window setTitle:@"🔴 IM4"];
+            break;
+        }
+        case 1: {
+            [_window setTitle:@"🟢 IM4"];
+            break;
+        }
+        case 2: {
+            [_window setTitle:@"🟡 IM4"];
+            break;
+        }
+    }
+}
+
+- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp {
+    char *res = strchr(from, '/');
+    if(res) {
+        res[0] = '\0';
+    }
+    
+    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    NSString *message_text = [[NSString alloc]initWithUTF8String:msg_body];
+    
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(!conversation) {
+        conversation = [[ConversationWindowController alloc]initConversation:xid xmpp:_xmpp];
+        [_conversations setObject:conversation forKey:xid];
+    }
+    [conversation addReceivedMessage:message_text];
+    [conversation showWindow:nil];
+}
+
 - (void) refreshContactList {
     printf("refresh contact list\n");
     
@@ -83,10 +122,11 @@
     
     ConversationWindowController *conversation = [_conversations objectForKey:contact.xid];
     if(conversation == nil) {
-        conversation = [[ConversationWindowController alloc]initConversation:contact.xid];
+        conversation = [[ConversationWindowController alloc]initConversation:contact.xid xmpp:_xmpp];
         [_conversations setObject:conversation forKey:contact.xid];
     }
     [conversation showWindow:nil];
 }
+
 
 @end

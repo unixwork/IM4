@@ -39,6 +39,33 @@ Xmpp* XmppCreate(XmppSettings settings) {
 static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     Xmpp *xmpp = userdata;
     
+    const char *type = xmpp_stanza_get_type(stanza);
+    if(type && !strcmp(type, "error")) {
+        printf("message_cb: type = error\n");
+        return 1;
+    }
+    
+    const char *from = xmpp_stanza_get_attribute(stanza, "from");
+    if(!from) {
+        printf("message_cb: missing from attribute\n");
+        return 1;
+    }
+    
+    xmpp_stanza_t *body = xmpp_stanza_get_child_by_name(stanza, "body");
+    if(!body) {
+        printf("message_cb: no body\n");
+        return 1;
+    }
+    
+    // debug output
+    char *body_text = xmpp_stanza_get_text(body);
+    printf("message_cb: msg from %s: %s\n", from, body_text);
+    
+    if(body_text) {
+        app_message(xmpp, body_text, from);
+        free(body_text);
+    }
+    
     return 1;
 }
 
@@ -133,6 +160,9 @@ static void connect_cb(
         
         // test
         XmppQueryContacts(xmpp);
+        
+        // set app status
+        app_set_status(xmpp, 1);
     }
     
     xmpp->enablepoll = 1;
@@ -229,8 +259,9 @@ static void* xmpp_run_thread(void *data) {
                 for(int i=0;i<nev;i++) {
                     XmppEvent *xmpp_event = events[i].udata;
                     if(xmpp_event) {
-                        xmpp_event->callback(xmpp, xmpp_event);
+                        xmpp_event->callback(xmpp, xmpp_event->userdata);
                         free(xmpp_event);
+                        
                     }
                 }
                 
@@ -270,6 +301,37 @@ void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata) {
     ev->userdata = userdata;
     
     struct kevent kev;
-    EV_SET(&kev, xmpp->fd, EVFILT_USER, 0, NOTE_TRIGGER, 0, ev);
+    EV_SET(&kev, xmpp->fd, EVFILT_USER, EV_ADD|EV_ONESHOT, NOTE_TRIGGER, 0, ev);
     kevent(xmpp->kqueue, &kev, 1, NULL, 0, NULL);
+    
+}
+
+
+typedef struct {
+    char *to;
+    char *message;
+} xmpp_msg;
+
+static void send_xmpp_msg(Xmpp *xmpp, void *userdata) {
+    xmpp_msg *msg = userdata;
+    
+    char idbuf[16];
+    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    
+    xmpp_stanza_t *message = xmpp_message_new(xmpp->ctx, "chat", msg->to, idbuf);
+    
+    xmpp_message_set_body(message, msg->message);
+    xmpp_send(xmpp->connection, message);
+    xmpp_stanza_release(message);
+    
+    free(msg->to);
+    free(msg->message);
+    free(msg);
+}
+
+void XmppMessage(Xmpp *xmpp, const char *to, const char *message) {
+    xmpp_msg *msg = malloc(sizeof(xmpp_msg));
+    msg->to = strdup(to);
+    msg->message = strdup(message);
+    XmppCall(xmpp, send_xmpp_msg, msg);
 }
