@@ -11,6 +11,12 @@
 		ED3156E42A861FB200D9ADB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED3156E32A861FB200D9ADB3 /* Assets.xcassets */; };
 		ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3156E52A861FB200D9ADB3 /* MainMenu.xib */; };
 		ED3156E92A861FB200D9ADB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3156E82A861FB200D9ADB3 /* main.m */; };
+		ED403C7D2A8812B700E8CDDB /* app.m in Sources */ = {isa = PBXBuildFile; fileRef = ED403C7C2A8812B700E8CDDB /* app.m */; };
+		ED6D36B32A86207E0016D4FA /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B22A86207E0016D4FA /* Contact.m */; };
+		ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B52A8623830016D4FA /* OutlineViewController.m */; };
+		ED6D36B92A862D340016D4FA /* xmpp.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B82A862D340016D4FA /* xmpp.c */; };
+		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
+		EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +27,17 @@
 		ED3156E62A861FB200D9ADB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		ED3156E82A861FB200D9ADB3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ED3156EA2A861FB200D9ADB3 /* IM4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IM4.entitlements; sourceTree = "<group>"; };
+		ED403C7C2A8812B700E8CDDB /* app.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = app.m; sourceTree = "<group>"; };
+		ED403C7E2A8812C400E8CDDB /* app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		ED6D36B12A86207E0016D4FA /* Contact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		ED6D36B22A86207E0016D4FA /* Contact.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		ED6D36B42A8623830016D4FA /* OutlineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutlineViewController.h; sourceTree = "<group>"; };
+		ED6D36B52A8623830016D4FA /* OutlineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutlineViewController.m; sourceTree = "<group>"; };
+		ED6D36B72A862D340016D4FA /* xmpp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xmpp.h; sourceTree = "<group>"; };
+		ED6D36B82A862D340016D4FA /* xmpp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xmpp.c; sourceTree = "<group>"; };
+		EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationWindowController.h; sourceTree = "<group>"; };
+		EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationWindowController.m; sourceTree = "<group>"; };
+		EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +76,17 @@
 				ED3156E52A861FB200D9ADB3 /* MainMenu.xib */,
 				ED3156E82A861FB200D9ADB3 /* main.m */,
 				ED3156EA2A861FB200D9ADB3 /* IM4.entitlements */,
+				ED6D36B12A86207E0016D4FA /* Contact.h */,
+				ED6D36B22A86207E0016D4FA /* Contact.m */,
+				ED6D36B42A8623830016D4FA /* OutlineViewController.h */,
+				ED6D36B52A8623830016D4FA /* OutlineViewController.m */,
+				ED6D36B72A862D340016D4FA /* xmpp.h */,
+				ED6D36B82A862D340016D4FA /* xmpp.c */,
+				ED403C7C2A8812B700E8CDDB /* app.m */,
+				ED403C7E2A8812C400E8CDDB /* app.h */,
+				EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */,
+				EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */,
+				EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -120,6 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */,
 				ED3156E42A861FB200D9ADB3 /* Assets.xcassets in Resources */,
 				ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */,
 			);
@@ -132,8 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
+				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
+				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,
+				ED6D36B32A86207E0016D4FA /* Contact.m in Sources */,
 				ED3156E22A861FB100D9ADB3 /* AppDelegate.m in Sources */,
+				EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +304,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -277,7 +312,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-lotr",
+					"-lstrophe",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.unixwork.IM4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -294,6 +334,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = /opt/homebrew/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -301,7 +342,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/lib;
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-lotr",
+					"-lstrophe",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.unixwork.IM4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

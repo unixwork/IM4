@@ -7,7 +7,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+#include <strophe.h>
+
 int main(int argc, const char * argv[]) {
+    xmpp_initialize();
+    
     @autoreleasepool {
         // Setup code that might create autoreleased objects goes here.
     }
