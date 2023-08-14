@@ -17,6 +17,8 @@ void app_refresh_contactlist(void *xmpp);
 
 void app_set_status(void *xmpp, int status);
 
+void app_handle_presence(void *xmpp, const char *from, const char *status);
+
 void app_message(void *xmpp, const char *msg_body, const char *from);
 
 

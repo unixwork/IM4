@@ -94,6 +94,38 @@ void app_set_status(void *xmpp, int status) {
 
 typedef struct {
     void *xmpp;
+    char *from;
+    char *status
+} app_presence;
+
+void mt_app_handle_presence(void *userdata) {
+    app_presence *p = userdata;
+    
+    char *res = strchr(p->from, '/');
+    if(res) {
+        res[0] = 0;
+    }
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handlePresence:p->from status:p->status xmpp:p->xmpp];
+    
+    free(p->from);
+    free(p->status);
+    free(p);
+}
+
+
+
+void app_handle_presence(void *xmpp, const char *from, const char *status) {
+    app_presence *p = malloc(sizeof(app_presence));
+    p->xmpp = xmpp;
+    p->from = strdup(from);
+    p->status = status ? strdup(status) : NULL;
+    app_call_mainthread(mt_app_handle_presence, p);
+}
+
+typedef struct {
+    void *xmpp;
     char *msg_body;
     char *from;
 } app_recv_message;

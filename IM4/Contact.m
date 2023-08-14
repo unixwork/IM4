@@ -29,4 +29,15 @@
     }
 }
 
+- (NSString*)displayName {
+    if(_contacts != nil) {
+        return _name;
+    }
+    
+    NSString *name = _name == nil ? _xid : _name;
+    NSString *status = _presence == nil ? @"🔴" : @"🟢";
+    NSString *displayName = [[NSString alloc]initWithFormat:@"%@ %@", status, name];
+    return displayName;
+}
+
 @end

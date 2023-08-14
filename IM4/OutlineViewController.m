@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void) refreshContacts:(Xmpp*)xmpp {
+- (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence {
     [_contacts removeAllObjects];
     Contact *c = [[Contact alloc] initGroup:@"Contacts"];
     [_contacts addObject:c];
@@ -46,8 +46,38 @@
         if(name == nil) {
             name = xid;
         }
-        [c addContact:[[Contact alloc] initContact:name xid:xid]];
+        Contact *contact = [[Contact alloc] initContact:name xid:xid];
+        if([presence objectForKey:xid] != nil) {
+            contact.presence = @"online";
+        }
+        
+        [c addContact:contact];
     }
+}
+
+- (Boolean) updatePresence:(NSString*)status xid:(NSString*)xid {
+    NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
+    [stack addObject:_contacts];
+    
+    Boolean update = false;
+    while(stack.count > 0) {
+        NSArray *list = [stack objectAtIndex:0];
+        for(int i=0;i<list.count;i++) {
+            Contact *c = [list objectAtIndex:i];
+            NSArray *sub = c.contacts;
+            if(sub != nil) {
+                [stack addObject:sub];
+            }
+            if([c.xid isEqualTo:xid]) {
+                c.presence = status;
+                update = true;
+            }
+        }
+        
+        [stack removeObject:list];
+    }
+    
+    return update;
 }
 
 // Actions
@@ -85,8 +115,9 @@
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+    Contact *contact = (Contact*)item;
     if([[tableColumn identifier] isEqualToString:@"colName"]) {
-        return [item name];
+        return [contact displayName];
     }
     return @"-";
 }

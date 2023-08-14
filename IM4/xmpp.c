@@ -124,6 +124,18 @@ static int reply_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     return 0;
 }
 
+static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
+    Xmpp *xmpp = userdata;
+    
+    const char *type = xmpp_stanza_get_attribute(stanza, "type");
+    const char *from = xmpp_stanza_get_attribute(stanza, "from");
+    
+    printf("presence: %s\n", from);
+    app_handle_presence(xmpp, from, type);
+    
+    return 1;
+}
+
 static void query_conatcts(Xmpp *xmpp, XmppQuery *xquery) {
     xmpp_stanza_t *iq = xmpp_iq_new(xmpp->ctx, "get", xquery->id);
     xmpp_stanza_t *query = xmpp_stanza_new(xmpp->ctx);
@@ -150,8 +162,8 @@ static void connect_cb(
     Xmpp *xmpp = userdata;
     
     if(status == XMPP_CONN_CONNECT) {
-        xmpp_handler_add(conn, message_cb, NULL, "message", NULL, userdata);
-        
+        xmpp_handler_add(conn, message_cb, NULL, "message", NULL, xmpp);
+        xmpp_handler_add(conn, presence_cb, NULL, "presence", NULL, xmpp);
         
         // move to other func
         xmpp_stanza_t *im_status = xmpp_presence_new(xmpp->ctx);

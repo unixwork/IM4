@@ -27,6 +27,8 @@
     //_outlineViewController = [[OutlineViewController alloc]init];
     //[_contactList setDataSource:_outlineViewController];
     
+    _presence = [[NSMutableDictionary alloc]init];
+    
     // config
     NSString *configFilePath = [self appConfigFilePath:@"config.plist"];
     NSDictionary *config = [NSDictionary dictionaryWithContentsOfFile:configFilePath];
@@ -110,10 +112,29 @@
     [conversation showWindow:nil];
 }
 
+- (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp {
+    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    if(!status) {
+        status = "";
+    }
+    NSString *s = [[NSString alloc]initWithUTF8String:status];
+    
+    if(!strcmp(status, "unavailable")) {
+        [_presence removeObjectForKey:xid];
+        s = nil;
+    } else {
+        [_presence setObject:s forKey:xid];
+    }
+    
+    if([_outlineViewController updatePresence:s xid:xid]) {
+        [_contactList reloadData];
+    }
+}
+
 - (void) refreshContactList {
     printf("refresh contact list\n");
     
-    [_outlineViewController refreshContacts:_xmpp];
+    [_outlineViewController refreshContacts:_xmpp presence:_presence];
     [_contactList reloadData];
 }
 

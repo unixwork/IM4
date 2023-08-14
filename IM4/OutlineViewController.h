@@ -18,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSMutableArray *contacts;
 
-- (void) refreshContacts:(Xmpp*)xmpp;
+- (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence;
+
+- (Boolean) updatePresence:(NSString*)status xid:(NSString*)xid;
 
 - (IBAction) doubleAction:(NSOutlineView*)sender;
 
