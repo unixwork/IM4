@@ -8,9 +8,11 @@
 #import <Cocoa/Cocoa.h>
 
 #include <strophe.h>
+#include "xmpp.h"
 
 int main(int argc, const char * argv[]) {
     xmpp_initialize();
+    OTRL_INIT;
     
     @autoreleasepool {
         // Setup code that might create autoreleased objects goes here.

@@ -131,6 +131,15 @@
     }
 }
 
+- (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp {
+    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(conversation) {
+        [conversation setSecure:status];
+    }
+}
+
 - (void) refreshContactList {
     printf("refresh contact list\n");
     

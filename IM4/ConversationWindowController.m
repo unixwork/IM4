@@ -14,6 +14,7 @@
 @property (strong) IBOutlet NSSplitView *splitview;
 @property (strong) IBOutlet NSTextView *conversationTextView;
 @property (strong) IBOutlet NSTextView *messageInput;
+@property (strong) IBOutlet NSComboButton *secureButton;
 
 @end
 
@@ -37,6 +38,12 @@
     printf("window did load\n");
 }
 
+- (void)setSecure:(Boolean)secure {
+    _secure = secure;
+    // TODO: add message to log
+    _secureButton.title = secure ? @"secure" : @"insecure";
+}
+
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming {
     NSString *name = incoming ? @"<" : @">";
     NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
@@ -51,7 +58,7 @@
     NSString *input = _messageInput.string;
     const char *message = [input UTF8String];
     
-    XmppMessage(_xmpp, [_xid UTF8String], message);
+    XmppMessage(_xmpp, [_xid UTF8String], message, _secure);
     
     [self addLog:input incoming:FALSE];
     [_messageInput setString:@""];
@@ -59,6 +66,11 @@
 
 - (void)addReceivedMessage:(NSString*)msg {
     [self addLog:msg incoming:TRUE];
+}
+
+- (IBAction) secureAction:(id)sender {
+    printf("secure\n");
+    XmppStartOtr(_xmpp, [_xid UTF8String]);
 }
 
 - (IBAction) testAction:(id)sender {
@@ -72,7 +84,6 @@
 }
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
-    printf("> text command\n");
     if(commandSelector == @selector(insertNewline:)) {
         NSEvent *ev = [NSApp currentEvent];
         if(ev.type == NSEventTypeKeyDown) {

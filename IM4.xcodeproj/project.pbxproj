@@ -15,6 +15,7 @@
 		ED6D36B32A86207E0016D4FA /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B22A86207E0016D4FA /* Contact.m */; };
 		ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B52A8623830016D4FA /* OutlineViewController.m */; };
 		ED6D36B92A862D340016D4FA /* xmpp.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B82A862D340016D4FA /* xmpp.c */; };
+		ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED7EEE012A8D34C6007EECC7 /* otr.c */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
 		EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,8 @@
 		ED6D36B52A8623830016D4FA /* OutlineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutlineViewController.m; sourceTree = "<group>"; };
 		ED6D36B72A862D340016D4FA /* xmpp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xmpp.h; sourceTree = "<group>"; };
 		ED6D36B82A862D340016D4FA /* xmpp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xmpp.c; sourceTree = "<group>"; };
+		ED7EEE002A8D34C6007EECC7 /* otr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = otr.h; sourceTree = "<group>"; };
+		ED7EEE012A8D34C6007EECC7 /* otr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = otr.c; sourceTree = "<group>"; };
 		EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationWindowController.h; sourceTree = "<group>"; };
 		EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationWindowController.m; sourceTree = "<group>"; };
 		EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationWindowController.xib; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */,
 				EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */,
 				EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */,
+				ED7EEE002A8D34C6007EECC7 /* otr.h */,
+				ED7EEE012A8D34C6007EECC7 /* otr.c */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
+				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,
 				ED6D36B32A86207E0016D4FA /* Contact.m in Sources */,
 				ED3156E22A861FB100D9ADB3 /* AppDelegate.m in Sources */,

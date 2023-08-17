@@ -30,6 +30,8 @@
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp;
 
+- (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp;
+
 - (void) refreshContactList;
 
 - (void) openConversation:(Contact*)contact;

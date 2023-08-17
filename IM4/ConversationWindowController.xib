@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="conversationTextView" destination="ioY-XJ-ZQP" id="rac-dB-xf7"/>
                 <outlet property="messageInput" destination="LT0-Lp-cE6" id="SRX-Dm-wsg"/>
+                <outlet property="secureButton" destination="QmX-kB-K1b" id="ozV-VX-CtC"/>
                 <outlet property="splitview" destination="XLV-ZD-L4F" id="kZY-OT-csC"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -25,14 +26,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="555" height="443"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <comboButton verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="center" title="Button" imageScaling="proportionallyDown" translatesAutoresizingMaskIntoConstraints="NO" id="QmX-kB-K1b">
-                        <rect key="frame" x="475" y="417" width="75" height="24"/>
+                    <comboButton verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="center" title="insecure" imageScaling="proportionallyDown" translatesAutoresizingMaskIntoConstraints="NO" id="QmX-kB-K1b">
+                        <rect key="frame" x="464" y="417" width="86" height="24"/>
                         <menu key="menu" id="XVB-eg-W54">
                             <items>
                                 <menuItem title="Item 1" id="ceR-Cz-y1S"/>
                                 <menuItem title="Item 2" id="Dgb-G9-mbN"/>
                             </items>
                         </menu>
+                        <connections>
+                            <action selector="secureAction:" target="-2" id="Xag-zv-bB7"/>
+                        </connections>
                     </comboButton>
                     <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="XLV-ZD-L4F">
                         <rect key="frame" x="0.0" y="0.0" width="555" height="415"/>

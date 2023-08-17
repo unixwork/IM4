@@ -12,8 +12,6 @@
 #import "app.h"
 
 
-
-
 @interface AppCallback : NSObject {
     app_func callback;
     void     *userdata;
@@ -50,6 +48,20 @@
 }
 
 @end
+
+char* app_configfile(const char *name) {
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    if([path count] == 0) {
+        return nil;
+    }
+    
+    NSString *configDir = [path objectAtIndex:0];
+    NSString *configFilePath = [configDir stringByAppendingFormat:@"/%@/%s", IM4_APPNAME_NS, name];
+    
+    char *cfPath = strdup([configFilePath UTF8String]);
+    
+    return cfPath;
+}
 
 
 void app_call_mainthread(app_func func, void *userdata) {
@@ -147,4 +159,27 @@ void app_message(void *xmpp, const char *msg_body, const char *from) {
     msg->msg_body = strdup(msg_body);
     msg->from = strdup(from);
     app_call_mainthread(mt_app_message, msg);
+}
+
+typedef struct {
+    void *xmpp;
+    char *from;
+    bool status;
+} app_secure_status;
+
+static void mt_app_update_secure_status(void *userdata) {
+    app_secure_status *s = userdata;
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handleSecureStatus:s->status from:s->from xmpp:s->xmpp];
+    
+    free(s->from);
+    free(s);
+}
+
+void app_update_secure_status(void *xmpp, const char *from, bool issecure) {
+    app_secure_status *status = malloc(sizeof(app_secure_status));
+    status->xmpp = xmpp;
+    status->from = strdup(from);
+    status->status = issecure;
+    app_call_mainthread(mt_app_update_secure_status, status);
 }

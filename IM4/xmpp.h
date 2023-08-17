@@ -9,6 +9,7 @@
 #define xmpp_h
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include <strophe.h>
 
@@ -20,6 +21,11 @@
 #include <pthread.h>
 #include <sys/event.h>
 #include <sys/time.h>
+
+#include <libotr/proto.h>
+#include <libotr/userstate.h>
+#include <libotr/message.h>
+#include <libotr/privkey.h>
 
 typedef struct XmppEvent XmppEvent;
 
@@ -69,6 +75,8 @@ struct XmppEvent {
     void *userdata;
 };
 
+
+
 Xmpp* XmppCreate(XmppSettings settings);
 
 //int XmppConnect(Xmpp *xmpp);
@@ -79,6 +87,10 @@ int XmppRun(Xmpp *xmpp);
 
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 
-void XmppMessage(Xmpp *xmpp, const char *to, const char *message);
+void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
+
+void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt);
+
+void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 
 #endif /* xmpp_h */

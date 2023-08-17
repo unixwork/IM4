@@ -16,11 +16,11 @@
 #include <pthread.h>
 #include <poll.h>
 
+#include "otr.h"
+
 
 // TODO: list of all accounts
 static Xmpp *im_account;
-
-
 
 
 Xmpp* XmppCreate(XmppSettings settings) {
@@ -32,6 +32,18 @@ Xmpp* XmppCreate(XmppSettings settings) {
     xmpp->settings = settings;
     xmpp->log = log;
     xmpp->ctx = ctx;
+    
+    xmpp->userstate = otrl_userstate_create();
+    
+    char *privkey_file = app_configfile("otr.private_key");
+    gcry_error_t otrerr = otrl_privkey_read(xmpp->userstate, privkey_file);
+    printf("otrl_privkey_read: %u\n", otrerr);
+    free(privkey_file);
+    
+    char *instancetags_file = app_configfile("ptr.instance_tags");
+    otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
+    printf("otrl_instag_read: %u\n", otrerr);
+    free(instancetags_file);
     
     return xmpp;
 }
@@ -62,8 +74,28 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     printf("message_cb: msg from %s: %s\n", from, body_text);
     
     if(body_text) {
-        app_message(xmpp, body_text, from);
+        size_t len = strlen(body_text);
+        char *decrypt_msg = NULL;
+        char *user_msg = body_text;
+        if(len > 4 && !memcmp(body_text, "?OTR", 4)) {
+            int otr_err;
+            decrypt_msg = decrypt_message(xmpp, from, body_text, &otr_err);
+            user_msg = decrypt_msg;
+            
+            if(otr_err != 0) {
+                // TODO: handle error
+                printf("otr error: %d\n", otr_err);
+            }
+        }
+        
+        if(user_msg) {
+            app_message(xmpp, user_msg, from);
+        }
+        
         free(body_text);
+        if(decrypt_msg) {
+            free(decrypt_msg);
+        }
     }
     
     return 1;
@@ -318,32 +350,61 @@ void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata) {
     
 }
 
-
 typedef struct {
     char *to;
     char *message;
+    bool encrypt;
 } xmpp_msg;
+
+void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
+    char idbuf[16];
+    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    
+    xmpp_stanza_t *msg = xmpp_message_new(xmpp->ctx, "chat", to, idbuf);
+    
+    xmpp_message_set_body(msg, message);
+    xmpp_send(xmpp->connection, msg);
+    xmpp_stanza_release(msg);
+}
 
 static void send_xmpp_msg(Xmpp *xmpp, void *userdata) {
     xmpp_msg *msg = userdata;
     
-    char idbuf[16];
-    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    char *text = NULL;
+    if(msg->encrypt) {
+        int err;
+        text = encrypt_message(xmpp, msg->to, msg->message, &err);
+    } else {
+        text = msg->message;
+    }
     
-    xmpp_stanza_t *message = xmpp_message_new(xmpp->ctx, "chat", msg->to, idbuf);
+    if(text) {
+        Xmpp_Send(xmpp, msg->to, text);
+    }
     
-    xmpp_message_set_body(message, msg->message);
-    xmpp_send(xmpp->connection, message);
-    xmpp_stanza_release(message);
+    if(text != msg->message) {
+        free(text);
+    }
     
     free(msg->to);
     free(msg->message);
     free(msg);
 }
 
-void XmppMessage(Xmpp *xmpp, const char *to, const char *message) {
+void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt) {
     xmpp_msg *msg = malloc(sizeof(xmpp_msg));
     msg->to = strdup(to);
     msg->message = strdup(message);
+    msg->encrypt = encrypt;
     XmppCall(xmpp, send_xmpp_msg, msg);
+}
+
+static void init_xmpp_otr(Xmpp *xmpp, void *userdata) {
+    start_otr(xmpp, userdata);
+    free(userdata);
+}
+
+void XmppStartOtr(Xmpp *xmpp, const char *recipient) {
+    char *r = strdup(recipient);
+    XmppCall(xmpp, init_xmpp_otr, r);
 }

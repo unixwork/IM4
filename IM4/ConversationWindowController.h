@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConversationWindowController : NSWindowController<NSWindowDelegate, NSTextViewDelegate>
 
 @property (readonly) Xmpp *xmpp;
+@property (readonly) Boolean secure;
 @property (copy) NSString* xid;
 
 - (id)initConversation:(NSString*)xid xmpp:(Xmpp*)xmpp;
@@ -24,7 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addReceivedMessage:(NSString*)msg;
 
+- (void)setSecure:(Boolean)secure;
+
 - (IBAction) testAction:(id)sender;
+
+- (IBAction) secureAction:(id)sender;
 
 @end
 
