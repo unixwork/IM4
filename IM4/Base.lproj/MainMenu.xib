@@ -15,12 +15,17 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
+                <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="eXf-Km-JsS" customClass="OutlineViewController"/>
+        <customObject id="eXf-Km-JsS" customClass="OutlineViewController">
+            <connections>
+                <outlet property="outlineView" destination="HwH-VR-Obo" id="V9s-Cc-tHW"/>
+            </connections>
+        </customObject>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="IM4" id="1Xt-HY-uBw">
@@ -721,6 +726,7 @@
                                     <connections>
                                         <action trigger="doubleAction" selector="doubleAction:" target="eXf-Km-JsS" id="NFy-cH-7U0"/>
                                         <outlet property="dataSource" destination="eXf-Km-JsS" id="6Ns-OQ-Zdq"/>
+                                        <outlet property="menu" destination="Y9e-co-YNx" id="G8f-LQ-2B2"/>
                                     </connections>
                                 </outlineView>
                             </subviews>
@@ -744,5 +750,19 @@
             </view>
             <point key="canvasLocation" x="97" y="398.5"/>
         </window>
+        <menu id="Y9e-co-YNx">
+            <items>
+                <menuItem title="Rename" identifier="CM_Rename" id="oZR-Me-ak4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="renameMenuItem:" target="eXf-Km-JsS" id="NBb-uD-z3D"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="eXf-Km-JsS" id="Vqq-kO-LoQ"/>
+            </connections>
+            <point key="canvasLocation" x="428" y="464"/>
+        </menu>
     </objects>
 </document>

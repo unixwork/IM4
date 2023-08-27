@@ -17,6 +17,7 @@
 @property (strong) IBOutlet NSWindow *window;
 @property (strong) IBOutlet NSOutlineView *contactList;
 @property (strong) IBOutlet OutlineViewController *outlineViewController;
+@property (strong) IBOutlet NSMenu *contactsContextMenu;
 @end
 
 @implementation AppDelegate
@@ -26,6 +27,8 @@
     
     //_outlineViewController = [[OutlineViewController alloc]init];
     //[_contactList setDataSource:_outlineViewController];
+    [_contactList setDelegate:_outlineViewController];
+    
     
     _presence = [[NSMutableDictionary alloc]init];
     
@@ -35,11 +38,15 @@
     
     NSString *jid = [config valueForKey:@"jid"];
     NSString *password = [config valueForKey:@"password"];
+    NSString *alias = [config valueForKey:@"alias"];
     
     if(jid && password) {
         XmppSettings settings = {0};
         settings.jid = strdup([jid UTF8String]);
         settings.password = strdup([password UTF8String]);
+        if(alias) {
+            settings.alias = strdup([alias UTF8String]);
+        }
         
         _xmpp = XmppCreate(settings);
         XmppRun(_xmpp);
@@ -94,6 +101,20 @@
     }
 }
 
+- (NSString*) xidStatus:(NSString*)xid {
+    return [_presence objectForKey:xid];
+}
+
+- (NSString*) xidStatusIcon:(NSString*)xid {
+    NSString *status = [self xidStatus:xid];
+    return status == nil ? @"🔴" : @"🟢";
+}
+
+- (NSString*) xidAlias:(NSString*)xid {
+    NSString *alias = [_outlineViewController contactName:xid];
+    return alias != nil ? alias : xid;
+}
+
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp {
     char *res = strchr(from, '/');
     if(res) {
@@ -128,6 +149,11 @@
     
     if([_outlineViewController updatePresence:s xid:xid]) {
         [_contactList reloadData];
+    }
+    
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(conversation != nil) {
+        [conversation updateStatus];
     }
 }
 

@@ -34,6 +34,7 @@ typedef struct XmppSettings {
     char *password;
     char *cert;
     char *key;
+    char *alias;
     long flags;
 } XmppSettings;
 

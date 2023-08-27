@@ -82,9 +82,26 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
             decrypt_msg = decrypt_message(xmpp, from, body_text, &otr_err);
             user_msg = decrypt_msg;
             
-            if(otr_err != 0) {
-                // TODO: handle error
-                printf("otr error: %d\n", otr_err);
+            if(otr_err == 1) {
+                printf("internal otr message\n");
+                // check conversation encryption status
+                ConnContext *root = xmpp->userstate->context_root;
+                ConnContext *child = root->recent_rcvd_child;
+                
+                // xmpp res not supported yet
+                char *msg_from = strdup(from);
+                char *res = strchr(msg_from, '/');
+                if(res) {
+                    *res = 0;
+                }
+                
+                if(child && child->username && !strcmp(child->username, msg_from)) {
+                    if(child->msgstate == OTRL_MSGSTATE_FINISHED) {
+                        app_update_secure_status(xmpp, msg_from, false);
+                    }
+                }
+                
+                free(msg_from);
             }
         }
         

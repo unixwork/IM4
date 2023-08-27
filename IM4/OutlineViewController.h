@@ -14,15 +14,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OutlineViewController : NSObject <NSOutlineViewDataSource>
+@interface OutlineViewController : NSObject <NSOutlineViewDataSource, NSMenuDelegate, NSOutlineViewDelegate> {
+    Boolean isEditing;
+}
 
 @property (copy) NSMutableArray *contacts;
 
+@property (strong) IBOutlet NSOutlineView *outlineView;
+
 - (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence;
+
+- (Contact*) contact:(NSString*)xid;
+
+- (NSString*) contactName:(NSString*)xid;
 
 - (Boolean) updatePresence:(NSString*)status xid:(NSString*)xid;
 
 - (IBAction) doubleAction:(NSOutlineView*)sender;
+
+- (IBAction) cellAction:(id)sender;
+
+- (IBAction) renameMenuItem:(id)sender;
 
 @end
 

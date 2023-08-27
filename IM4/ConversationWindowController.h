@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initConversation:(NSString*)xid xmpp:(Xmpp*)xmpp;
 
+- (void)updateStatus;
+
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming;
 
 - (void)sendMessage;

@@ -107,7 +107,7 @@ void app_set_status(void *xmpp, int status) {
 typedef struct {
     void *xmpp;
     char *from;
-    char *status
+    char *status;
 } app_presence;
 
 void mt_app_handle_presence(void *userdata) {

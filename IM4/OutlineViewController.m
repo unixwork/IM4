@@ -16,11 +16,6 @@
     _contacts = [[NSMutableArray alloc]init];
     Contact *c = [[Contact alloc] initGroup:@"Offline"];
     
-    // Test contacts
-    //[c addContact:[[Contact alloc] initContact:@"Contact1" xid:@"Sub1"]];
-    //[c addContact:[[Contact alloc] initContact:@"Contact2" xid:@"Sub2"]];
-    //[c addContact:[[Contact alloc] initContact:@"Contact3" xid:@"Sub3"]];
-    
     [_contacts addObject:c];
     
     return self;
@@ -53,6 +48,38 @@
         
         [c addContact:contact];
     }
+}
+
+- (Contact*) contact:(NSString*)xid {
+    NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
+    [stack addObject:_contacts];
+    
+    Boolean update = false;
+    while(stack.count > 0) {
+        NSArray *list = [stack objectAtIndex:0];
+        for(int i=0;i<list.count;i++) {
+            Contact *c = [list objectAtIndex:i];
+            NSArray *sub = c.contacts;
+            if(sub != nil) {
+                [stack addObject:sub];
+            }
+            if([c.xid isEqualTo:xid]) {
+                return c;
+            }
+        }
+        
+        [stack removeObject:list];
+    }
+    
+    return nil;
+}
+
+- (NSString*) contactName:(NSString*)xid {
+    Contact *c = [self contact:xid];
+    if(c) {
+        return c.name;
+    }
+    return nil;
 }
 
 - (Boolean) updatePresence:(NSString*)status xid:(NSString*)xid {
@@ -93,6 +120,46 @@
     }
 }
 
+- (IBAction) renameMenuItem:(id)sender {
+    NSInteger row = _outlineView.clickedRow;
+    Contact *c = [_outlineView itemAtRow:row];
+    
+    if(c.contacts == nil) {
+        printf("rename contact\n");
+        [_outlineView editColumn:0 row:row withEvent:[NSApp currentEvent] select:YES];
+    }
+}
+
+- (IBAction) cellAction:(id)sender {
+    printf("cell action\n");
+}
+
+// NSMenuDelegate implementation
+- (void)menuNeedsUpdate:(NSMenu *)menu {
+    //printf("needs update: %d\n", (int)_outlineView.clickedRow);
+}
+
+// NSOutlineViewDelegate implementation
+- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    //printf("willDisplayCell\n");
+    Contact *c = item;
+    if ([cell isKindOfClass:[NSTextFieldCell class]]) {
+        if(self->isEditing) {
+            [cell setStringValue:c.name];
+        }
+    }
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView
+        shouldEditTableColumn:(NSTableColumn *)tableColumn
+               item:(id)item {
+    Contact *c = item;
+    if(c.contacts == nil) {
+        self->isEditing = YES;
+        return YES;
+    }
+    return NO;
+}
 
 
 // NSOutlineViewDataSource implementation
@@ -122,6 +189,14 @@
     return @"-";
 }
 
+- (void)outlineView:(NSOutlineView *)outlineView
+     setObjectValue:(id)object
+     forTableColumn:(NSTableColumn *)tableColumn
+             byItem:(id)item {
+    Contact *contact = (Contact*)item;
+    [contact setName:object];
+    self->isEditing = NO;
+}
 
 
 @end

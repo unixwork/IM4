@@ -6,6 +6,7 @@
 //
 
 #import "ConversationWindowController.h"
+#import "AppDelegate.h"
 
 #include "xmpp.h"
 
@@ -15,6 +16,7 @@
 @property (strong) IBOutlet NSTextView *conversationTextView;
 @property (strong) IBOutlet NSTextView *messageInput;
 @property (strong) IBOutlet NSComboButton *secureButton;
+@property (strong) IBOutlet NSTextField *statusLabel;
 
 @end
 
@@ -31,11 +33,19 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    
     [_splitview setPosition:320 ofDividerAtIndex:0];
     
     [_messageInput setDelegate:self];
     
-    printf("window did load\n");
+    [self.window setTitle:_xid];
+    
+    [self updateStatus];
+}
+
+- (void)updateStatus {
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [_statusLabel setStringValue:[app xidStatusIcon:_xid]];
 }
 
 - (void)setSecure:(Boolean)secure {
@@ -45,8 +55,30 @@
 }
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming {
-    NSString *name = incoming ? @"<" : @">";
-    NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
+    //NSString *name = incoming ? @"<" : @">";
+    //NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    
+    NSString *name;
+    if(incoming) {
+        name = [app xidAlias:_xid];
+    } else {
+        char *my_alias = _xmpp->settings.alias;
+        if(my_alias) {
+            name = [[NSString alloc]initWithUTF8String: my_alias];
+        } else {
+            name = _xid;
+        }
+    }
+    
+    NSString *incomingStr = incoming ? @"< " : @"> ";
+    
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *time = [dateFormatter stringFromDate:currentDate];
+    
+    NSString *entry = [NSString stringWithFormat:@"%@(%@) %@: %@\n", incomingStr, time, name, message];
     
     NSTextStorage *textStorage = self.conversationTextView.textStorage;
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:entry];

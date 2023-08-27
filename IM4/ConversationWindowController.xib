@@ -12,6 +12,7 @@
                 <outlet property="messageInput" destination="LT0-Lp-cE6" id="SRX-Dm-wsg"/>
                 <outlet property="secureButton" destination="QmX-kB-K1b" id="ozV-VX-CtC"/>
                 <outlet property="splitview" destination="XLV-ZD-L4F" id="kZY-OT-csC"/>
+                <outlet property="statusLabel" destination="vkK-pd-HPs" id="wSR-Wa-L5t"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -123,14 +124,24 @@
                             <real value="367"/>
                         </holdingPriorities>
                     </splitView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-pd-HPs">
+                        <rect key="frame" x="418" y="421" width="43" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Status" id="iQf-cg-1Ia">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="XLV-ZD-L4F" secondAttribute="trailing" id="3z9-nC-k5O"/>
+                    <constraint firstItem="vkK-pd-HPs" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="6" id="4ux-Fm-R65"/>
                     <constraint firstAttribute="bottom" secondItem="XLV-ZD-L4F" secondAttribute="bottom" id="7Sl-GK-7gC"/>
                     <constraint firstItem="QmX-kB-K1b" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="4" id="Cf4-hE-Xga"/>
                     <constraint firstItem="XLV-ZD-L4F" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="a9K-qZ-fUS"/>
                     <constraint firstItem="XLV-ZD-L4F" firstAttribute="top" secondItem="QmX-kB-K1b" secondAttribute="bottom" constant="4" id="m4Q-vG-9e0"/>
                     <constraint firstAttribute="trailing" secondItem="QmX-kB-K1b" secondAttribute="trailing" constant="8" id="qQy-B8-bdb"/>
+                    <constraint firstItem="QmX-kB-K1b" firstAttribute="leading" secondItem="vkK-pd-HPs" secondAttribute="trailing" constant="8" id="wJ4-nO-19X"/>
                 </constraints>
             </view>
             <connections>
