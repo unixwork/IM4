@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED2117262A9B64250059C02C /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2117242A9B64250059C02C /* SettingsController.m */; };
+		ED2117272A9B64250059C02C /* SettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED2117252A9B64250059C02C /* SettingsController.xib */; };
 		ED3156E22A861FB100D9ADB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3156E12A861FB100D9ADB3 /* AppDelegate.m */; };
 		ED3156E42A861FB200D9ADB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED3156E32A861FB200D9ADB3 /* Assets.xcassets */; };
 		ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3156E52A861FB200D9ADB3 /* MainMenu.xib */; };
@@ -21,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED2117232A9B64250059C02C /* SettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		ED2117242A9B64250059C02C /* SettingsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		ED2117252A9B64250059C02C /* SettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsController.xib; sourceTree = "<group>"; };
 		ED3156DD2A861FB100D9ADB3 /* IM4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IM4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED3156E02A861FB100D9ADB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ED3156E12A861FB100D9ADB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -92,6 +97,9 @@
 				EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */,
 				ED7EEE002A8D34C6007EECC7 /* otr.h */,
 				ED7EEE012A8D34C6007EECC7 /* otr.c */,
+				ED2117232A9B64250059C02C /* SettingsController.h */,
+				ED2117242A9B64250059C02C /* SettingsController.m */,
+				ED2117252A9B64250059C02C /* SettingsController.xib */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -153,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED2117272A9B64250059C02C /* SettingsController.xib in Resources */,
 				EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */,
 				ED3156E42A861FB200D9ADB3 /* Assets.xcassets in Resources */,
 				ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */,
@@ -169,6 +178,7 @@
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
+				ED2117262A9B64250059C02C /* SettingsController.m in Sources */,
 				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,
 				ED6D36B32A86207E0016D4FA /* Contact.m in Sources */,

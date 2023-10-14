@@ -112,7 +112,7 @@
 #pragma mark - NSWindowDelegate Methods
 
 - (void)windowWillClose:(NSNotification *)notification {
-    //printf("window close\n");
+    printf("window close\n");
 }
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {

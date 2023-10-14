@@ -11,6 +11,7 @@
 
 #import "AppDelegate.h"
 #import "ConversationWindowController.h"
+#import "SettingsController.h"
 
 @interface AppDelegate ()
 
@@ -33,22 +34,9 @@
     _presence = [[NSMutableDictionary alloc]init];
     
     // config
-    NSString *configFilePath = [self appConfigFilePath:@"config.plist"];
-    NSDictionary *config = [NSDictionary dictionaryWithContentsOfFile:configFilePath];
-    
-    NSString *jid = [config valueForKey:@"jid"];
-    NSString *password = [config valueForKey:@"password"];
-    NSString *alias = [config valueForKey:@"alias"];
-    
-    if(jid && password) {
-        XmppSettings settings = {0};
-        settings.jid = strdup([jid UTF8String]);
-        settings.password = strdup([password UTF8String]);
-        if(alias) {
-            settings.alias = strdup([alias UTF8String]);
-        }
-        
-        _xmpp = XmppCreate(settings);
+    _settingsController = [[SettingsController alloc]initSettings];
+    _xmpp = _settingsController.xmpp;
+    if(_xmpp) {
         XmppRun(_xmpp);
     }
     
@@ -70,16 +58,6 @@
         [_window setIsVisible:YES];
     }
     return YES;
-}
-
-- (NSString*) appConfigFilePath: (NSString*)fileName {
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    if([path count] == 0) {
-        return nil;
-    }
-    
-    NSString *configDir = [path objectAtIndex:0];
-    return [configDir stringByAppendingFormat:@"/%@/%@", IM4_APPNAME_NS, fileName];
 }
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
@@ -184,5 +162,12 @@
     [conversation showWindow:nil];
 }
 
+
+- (IBAction) menuPreferences:(id)sender {
+    if(_settingsController == nil) {
+        _settingsController = [[SettingsController alloc]initWithWindowNibName:@"SettingsController"];
+    }
+    [_settingsController showWindow:nil];
+}
 
 @end

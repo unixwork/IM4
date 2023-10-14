@@ -5,11 +5,9 @@
 //  Created by Olaf Wintermann on 11.08.23.
 //
 
-#define IM4_APPNAME "IM4"
-#define IM4_APPNAME_NS @ IM4_APPNAME
-
 #import <Cocoa/Cocoa.h>
 #import "OutlineViewController.h"
+#import "SettingsController.h"
 
 #import "xmpp.h"
 
@@ -20,6 +18,8 @@
 @property (readonly) NSMutableDictionary *conversations;
 
 @property (readonly) NSMutableDictionary *presence;
+
+@property (strong) SettingsController *settingsController;
 
 
 - (NSString*) appConfigFilePath: (NSString*)fileName;
@@ -39,6 +39,9 @@
 - (void) refreshContactList;
 
 - (void) openConversation:(Contact*)contact;
+
+
+- (IBAction) menuPreferences:(id)sender;
 
 @end
 

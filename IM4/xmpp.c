@@ -40,7 +40,7 @@ Xmpp* XmppCreate(XmppSettings settings) {
     printf("otrl_privkey_read: %u\n", otrerr);
     free(privkey_file);
     
-    char *instancetags_file = app_configfile("ptr.instance_tags");
+    char *instancetags_file = app_configfile("otr.instance_tags");
     otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
     printf("otrl_instag_read: %u\n", otrerr);
     free(instancetags_file);
