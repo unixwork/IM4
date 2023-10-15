@@ -45,7 +45,7 @@
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    [_settingsController storeSettings];
 }
 
 
@@ -164,9 +164,6 @@
 
 
 - (IBAction) menuPreferences:(id)sender {
-    if(_settingsController == nil) {
-        _settingsController = [[SettingsController alloc]initWithWindowNibName:@"SettingsController"];
-    }
     [_settingsController showWindow:nil];
 }
 

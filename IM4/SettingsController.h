@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*) configFilePath: (NSString*)fileName;
 
+- (void) setAlias: (NSString*)alias forXid:(NSString*)xid;
+
+- (NSString*) getAlias: (NSString*)xid;
+
+- (BOOL) storeSettings;
+
 - (IBAction)testAction:(id)sender;
 
 - (IBAction)okAction:(id)sender;

@@ -22,6 +22,9 @@
 }
 
 - (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence {
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    SettingsController *settings = app.settingsController;
+    
     [_contacts removeAllObjects];
     Contact *c = [[Contact alloc] initGroup:@"Contacts"];
     [_contacts addObject:c];
@@ -39,8 +42,14 @@
             xid = [[NSString alloc] initWithCString:x->jid encoding:NSUTF8StringEncoding];
         }
         if(name == nil) {
-            name = xid;
+            if(xid) {
+                name = [settings getAlias:xid];
+            }
+            if(name == nil) {
+                name = xid;
+            }
         }
+        
         Contact *contact = [[Contact alloc] initContact:name xid:xid];
         if([presence objectForKey:xid] != nil) {
             contact.presence = @"online";
@@ -126,6 +135,7 @@
     
     if(c.contacts == nil) {
         printf("rename contact\n");
+        self->isEditing = YES;
         [_outlineView editColumn:0 row:row withEvent:[NSApp currentEvent] select:YES];
     }
 }
@@ -196,6 +206,11 @@
     Contact *contact = (Contact*)item;
     [contact setName:object];
     self->isEditing = NO;
+    
+    // update aliases
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    SettingsController *settings = app.settingsController;
+    [settings setAlias:contact.name forXid:contact.xid];
 }
 
 

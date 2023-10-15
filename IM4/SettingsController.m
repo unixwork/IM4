@@ -20,20 +20,20 @@
 @implementation SettingsController
 
 - (id)initSettings {
-    self = [self initWithWindowNibName:@"ConversationWindowController"];
+    self = [self initWithWindowNibName:@"SettingsController"];
     _xmpp = NULL;
     
     // load settings
     NSString *configFilePath = [self configFilePath:@"config.plist"];
-    _config = [NSDictionary dictionaryWithContentsOfFile:configFilePath];
+    _config = [NSMutableDictionary dictionaryWithContentsOfFile:configFilePath];
     if (_config == nil) {
-        _config = [[NSDictionary alloc]init];
+        _config = [[NSMutableDictionary alloc]init];
     }
     
     NSString *aliasFilePath = [self configFilePath:@"aliases.plist"];
-    _aliases = [NSDictionary dictionaryWithContentsOfFile:aliasFilePath];
+    _aliases = [NSMutableDictionary dictionaryWithContentsOfFile:aliasFilePath];
     if (_aliases == nil) {
-        _aliases = [[NSDictionary alloc]init];
+        _aliases = [[NSMutableDictionary alloc]init];
     }
     
     [self createXmpp];
@@ -47,6 +47,15 @@
     printf("window did load\n");
 }
 
+- (BOOL)storeSettings {
+    NSString *configFilePath = [self configFilePath:@"config.plist"];
+    NSString *aliasFilePath = [self configFilePath:@"aliases.plist"];
+    
+    [_config writeToFile:configFilePath atomically:YES];
+    [_aliases writeToFile:aliasFilePath atomically:YES];
+    
+    return true;
+}
 
 - (NSString*) configFilePath: (NSString*)fileName {
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
@@ -76,6 +85,14 @@
         
         _xmpp = XmppCreate(settings);
     }
+}
+
+- (void) setAlias: (NSString*)alias forXid:(NSString*)xid {
+    [_aliases setValue:alias forKey:xid];
+}
+
+- (NSString*) getAlias: (NSString*)xid {
+    return [_aliases valueForKey:xid];
 }
 
 - (IBAction)testAction:(id)sender {
