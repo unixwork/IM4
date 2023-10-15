@@ -35,12 +35,7 @@
     
     // config
     _settingsController = [[SettingsController alloc]initSettings];
-    _xmpp = _settingsController.xmpp;
-    if(_xmpp) {
-        XmppRun(_xmpp);
-    }
-    
-    [self setStatus:0 xmpp:_xmpp];
+    [self startXmpp];
 }
 
 
@@ -79,13 +74,14 @@
     }
 }
 
-- (NSString*) xidStatus:(NSString*)xid {
-    return [_presence objectForKey:xid];
+- (NSString*) xidStatusIcon:(NSString*)xid {
+    NSDictionary *statusMap = [self xidStatus:xid];
+    
+    return statusMap == nil || [statusMap count] == 0 ? @"🔴" : @"🟢";
 }
 
-- (NSString*) xidStatusIcon:(NSString*)xid {
-    NSString *status = [self xidStatus:xid];
-    return status == nil ? @"🔴" : @"🟢";
+- (NSDictionary*) xidStatus:(NSString*)xid {
+    return [_presence valueForKey:xid];
 }
 
 - (NSString*) xidAlias:(NSString*)xid {
@@ -95,11 +91,16 @@
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp {
     char *res = strchr(from, '/');
+    size_t from_len;
+    NSString *resource = @"";
     if(res) {
-        res[0] = '\0';
+        from_len = res - from;
+        resource = [[NSString alloc]initWithUTF8String:res];
+    } else {
+        from_len = strlen(from);
     }
     
-    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
     NSString *alias = [_settingsController getAlias:xid];
     NSString *message_text = [[NSString alloc]initWithUTF8String:msg_body];
     
@@ -113,21 +114,44 @@
         [_conversations setObject:conversation forKey:xid];
     }
     [conversation showWindow:nil];
-    [conversation addReceivedMessage:message_text];
+    [conversation addReceivedMessage:message_text resource:resource];
 }
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp {
-    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    char *res = strchr(from, '/');
+    size_t from_len;
+    NSString *resource = @"";
+    if(res) {
+        from_len = res - from;
+        resource = [[NSString alloc]initWithUTF8String:res];
+    } else {
+        from_len = strlen(from);
+    }
+    
+    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
     if(!status) {
         status = "";
     }
     NSString *s = [[NSString alloc]initWithUTF8String:status];
     
+    // _presence contains two nested NSMutableDictionary objects
+    // The first dictionary from _presence uses the xid without the resource part as key
+    // and contains a dictionary with the resource part as key and the status string as value.
+    NSMutableDictionary *xid_status = [_presence valueForKey:xid];
     if(!strcmp(status, "unavailable")) {
-        [_presence removeObjectForKey:xid];
+        if(xid_status) {
+            [xid_status removeObjectForKey:resource];
+        }
         s = nil;
     } else {
-        [_presence setObject:s forKey:xid];
+        // if _presence doesn't contain an object for the xid, create a
+        // mutable dictionary and add it
+        if(xid_status == nil) {
+            xid_status = [[NSMutableDictionary alloc]init];
+            [_presence setObject:xid_status forKey:xid];
+        }
+        // set the status for the resource
+        [xid_status setObject:s forKey:resource];
     }
     
     if([_outlineViewController updatePresence:s xid:xid]) {
@@ -141,11 +165,21 @@
 }
 
 - (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp {
-    NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    char *res = strchr(from, '/');
+    size_t from_len;
+    NSString *resource = @"";
+    if(res) {
+        from_len = res - from;
+        resource = [[NSString alloc]initWithUTF8String:res];
+    } else {
+        from_len = strlen(from);
+    }
+    
+    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
     
     ConversationWindowController *conversation = [_conversations objectForKey:xid];
     if(conversation) {
-        [conversation setSecure:status];
+        [conversation setSecure:status session:resource];
     }
 }
 
@@ -174,6 +208,18 @@
     }
 }
 
+- (void) startXmpp {
+    if(_xmpp) {
+        XmppStopAndDestroy(_xmpp);
+        [_outlineViewController clearContacts];
+        [_contactList reloadData];
+    }
+    _xmpp = _settingsController.xmpp;
+    if(_xmpp) {
+        XmppRun(_xmpp);
+    }
+    [self setStatus:0 xmpp:_xmpp];
+}
 
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];

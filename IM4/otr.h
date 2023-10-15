@@ -17,6 +17,8 @@
 
 void start_otr(Xmpp *xmpp, const char *recipient);
 
+void stop_otr(Xmpp *xmpp, const char *recipient);
+
 char *encrypt_message(Xmpp *xmpp, const char *to, const char *message, int *error);
 char *decrypt_message(Xmpp *xmpp, const char *from, const char *message, int *error);
 

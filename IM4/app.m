@@ -113,11 +113,6 @@ typedef struct {
 void mt_app_handle_presence(void *userdata) {
     app_presence *p = userdata;
     
-    char *res = strchr(p->from, '/');
-    if(res) {
-        res[0] = 0;
-    }
-    
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app handlePresence:p->from status:p->status xmpp:p->xmpp];
     

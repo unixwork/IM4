@@ -17,18 +17,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) Boolean secure;
 @property (copy) NSString* xid;
 @property (copy) NSString* alias;
+@property (readonly) NSMutableDictionary* activeSessions;
 
 - (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
 
 - (void)updateStatus;
 
+- (BOOL)selectConversation:(NSMenuItem*)sender;
+
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming;
 
 - (void)sendMessage;
 
-- (void)addReceivedMessage:(NSString*)msg;
+- (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res;
 
-- (void)setSecure:(Boolean)secure;
+- (void)setSecure:(Boolean)secure session:(NSString*)session;
 
 - (IBAction) testAction:(id)sender;
 

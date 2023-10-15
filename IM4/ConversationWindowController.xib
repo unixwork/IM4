@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,12 +30,7 @@
                 <subviews>
                     <comboButton verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="center" title="insecure" imageScaling="proportionallyDown" translatesAutoresizingMaskIntoConstraints="NO" id="QmX-kB-K1b">
                         <rect key="frame" x="464" y="417" width="86" height="24"/>
-                        <menu key="menu" id="XVB-eg-W54">
-                            <items>
-                                <menuItem title="Item 1" id="ceR-Cz-y1S"/>
-                                <menuItem title="Item 2" id="Dgb-G9-mbN"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="XVB-eg-W54"/>
                         <connections>
                             <action selector="secureAction:" target="-2" id="Xag-zv-bB7"/>
                         </connections>
@@ -124,7 +120,7 @@
                             <real value="367"/>
                         </holdingPriorities>
                     </splitView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-pd-HPs">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-pd-HPs">
                         <rect key="frame" x="418" y="421" width="43" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Status" id="iQf-cg-1Ia">
                             <font key="font" usesAppearanceFont="YES"/>

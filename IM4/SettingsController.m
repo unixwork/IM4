@@ -7,11 +7,26 @@
 
 #import "SettingsController.h"
 
+#import "AppDelegate.h"
+
+
+static bool nsstreq(NSString *s1, NSString *s2) {
+    if(s1 == s2) {
+        return true; // equal objects or both nil
+    }
+    if(!s1 || !s2) {
+        return false; // one of them is nil
+    }
+    
+    return [s1 compare:s2] == NSOrderedSame;
+}
+
 @interface SettingsController ()
 
 @property (strong) IBOutlet NSTextField *jid;
 @property (strong) IBOutlet NSTextField *password;
 @property (strong) IBOutlet NSTextField *alias;
+@property (strong) IBOutlet NSTextField *resource;
 @property (strong) IBOutlet NSTextField *host;
 @property (strong) IBOutlet NSTextField *port;
 
@@ -44,7 +59,12 @@
     [super windowDidLoad];
     self.window.title = @"Settings";
     
-    printf("window did load\n");
+    self.jid.stringValue = [_config valueForKey:@"jid"];
+    self.password.stringValue = @"";
+    self.alias.stringValue = [_config valueForKey:@"alias"];
+    self.resource.stringValue = [_config valueForKey:@"resource"];
+    self.host.stringValue = [_config valueForKey:@"host"];
+    self.port.stringValue =[_config valueForKey:@"port"];
 }
 
 - (BOOL)storeSettings {
@@ -73,11 +93,19 @@
     NSString *jid = [_config valueForKey:@"jid"];
     NSString *password = [_config valueForKey:@"password"];
     NSString *alias = [_config valueForKey:@"alias"];
+    NSString *resource = [_config valueForKey:@"resource"];
+    NSString *host = [_config valueForKey:@"host"];
+    NSString *port = [_config valueForKey:@"port"];
+    NSInteger port_num = port ? [port integerValue] : 0;
     
     if(jid && password) {
         XmppSettings settings = {0};
         settings.jid = strdup([jid UTF8String]);
         settings.password = strdup([password UTF8String]);
+        settings.alias = alias ? strdup([alias UTF8String]) : NULL;
+        settings.resource = resource ? strdup([resource UTF8String]) : NULL;
+        settings.host = host ? strdup([host UTF8String]) : NULL;
+        settings.port = port_num;
         settings.flags = XMPP_CONN_FLAG_MANDATORY_TLS;
         if(alias) {
             settings.alias = strdup([alias UTF8String]);
@@ -103,13 +131,39 @@
     NSString *jid = _jid.stringValue;
     NSString *password = _password.stringValue;
     NSString *alias = _alias.stringValue;
+    NSString *resource = _resource.stringValue;
     NSString *host = _host.stringValue;
     NSString *port = _port.stringValue;
-    printf("jid: %s\npassword: %s\nalias: %s\nhost: %s\nport: %s\n", jid.UTF8String, password.UTF8String, alias.UTF8String, host.UTF8String, port.UTF8String);
+    
+    NSString *config_jid = [_config valueForKey:@"jid"];
+    
+    bool restartConnection = !nsstreq(jid, config_jid);
+    [_config setValue:jid forKey:@"jid"];
+    if([password length] > 0) {
+        [_config setValue:password forKey:@"password"];
+    }
+    [_config setValue:alias forKey:@"alias"];
+    [_config setValue:resource forKey:@"resource"];
+    [_config setValue:host forKey:@"host"];
+    [_config setValue:port forKey:@"port"];
+    
+    if(restartConnection) {
+        // create new xmpp object
+        [self createXmpp];
+        
+        // tell the app to restart the xmpp connection,
+        // which will also clear the old xmpp object in the app
+        AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+        [app startXmpp];
+    } else {
+        // TODO: update alias via xmpp call
+    }
+    
+    [[self window] close];
 }
 
 - (IBAction)cancelAction:(id)sender {
-    
+    [[self window] close];
 }
 
 

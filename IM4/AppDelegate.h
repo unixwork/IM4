@@ -26,8 +26,10 @@
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp;
 
-- (NSString*) xidStatus:(NSString*)xid;
 - (NSString*) xidStatusIcon:(NSString*)xid;
+
+- (NSDictionary*) xidStatus:(NSString*)xid;
+
 - (NSString*) xidAlias:(NSString*)xid;
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp;
@@ -41,6 +43,8 @@
 - (void) openConversation:(Contact*)contact;
 
 - (void) updateConversationAlias:(NSString*)xid newAlias:(NSString*)alias;
+
+- (void) startXmpp;
 
 
 - (IBAction) menuPreferences:(id)sender;

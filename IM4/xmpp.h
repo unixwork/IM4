@@ -35,6 +35,9 @@ typedef struct XmppSettings {
     char *cert;
     char *key;
     char *alias;
+    char *resource;
+    char *host;
+    short port;
     long flags;
 } XmppSettings;
 
@@ -54,6 +57,7 @@ typedef struct Xmpp {
     int           kqueue;
     int           enablepoll;
     int           iq_id;
+    int           running;
     
     XmppContact *contacts;
     size_t ncontacts;
@@ -86,6 +90,8 @@ int XmppQueryContacts(Xmpp *xmpp);
 
 int XmppRun(Xmpp *xmpp);
 
+void XmppStopAndDestroy(Xmpp *xmpp);
+
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 
 void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
@@ -93,5 +99,8 @@ void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
 void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt);
 
 void XmppStartOtr(Xmpp *xmpp, const char *recipient);
+
+void XmppStopOtr(Xmpp *xmpp, const char *recipient);
+
 
 #endif /* xmpp_h */

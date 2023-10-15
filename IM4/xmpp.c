@@ -90,10 +90,10 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
                 
                 // xmpp res not supported yet
                 char *msg_from = strdup(from);
-                char *res = strchr(msg_from, '/');
-                if(res) {
-                    *res = 0;
-                }
+                //char *res = strchr(msg_from, '/');
+                //if(res) {
+                //    *res = 0;
+                //}
                 
                 if(child && child->username && !strcmp(child->username, msg_from)) {
                     if(child->msgstate == OTRL_MSGSTATE_FINISHED) {
@@ -283,6 +283,7 @@ int XmppQueryContacts(Xmpp *xmpp) {
 
 static void* xmpp_run_thread(void *data) {
     Xmpp *xmpp = data;
+    xmpp->running = 1;
     
     /*
     struct pollfd pfd[1];
@@ -295,8 +296,7 @@ static void* xmpp_run_thread(void *data) {
     }
     printf("xmpp connected\n");
     
-    int running = 1;
-    while(running) {
+    while(xmpp->running) {
         xmpp_run_once(xmpp->ctx, 10);
         if(xmpp_conn_is_disconnected(xmpp->connection)) {
             break;
@@ -354,6 +354,22 @@ int XmppRun(Xmpp *xmpp) {
     pthread_detach(t);
     
     return 0;
+}
+
+static  void xmpp_stop_cb(Xmpp *xmpp, void *unused) {
+    char *debug = unused;
+    xmpp_stop(xmpp->ctx);
+    xmpp->running = 0;
+    
+    // TODO: free stuff
+}
+
+static int debug_ctn = 0;
+
+void XmppStopAndDestroy(Xmpp *xmpp) {
+    char *debugmsg = malloc(100);
+    snprintf(debugmsg, 100, "%d", debug_ctn++);
+    XmppCall(xmpp, xmpp_stop_cb, debugmsg);
 }
 
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata) {
@@ -424,4 +440,14 @@ static void init_xmpp_otr(Xmpp *xmpp, void *userdata) {
 void XmppStartOtr(Xmpp *xmpp, const char *recipient) {
     char *r = strdup(recipient);
     XmppCall(xmpp, init_xmpp_otr, r);
+}
+
+static void stop_xmpp_otr(Xmpp *xmpp, void *userdata) {
+    stop_otr(xmpp, userdata);
+    free(userdata);
+}
+
+void XmppStopOtr(Xmpp *xmpp, const char *recipient) {
+    char *r = strdup(recipient);
+    XmppCall(xmpp, stop_xmpp_otr, r);
 }

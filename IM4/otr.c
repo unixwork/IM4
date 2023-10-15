@@ -9,6 +9,8 @@
 
 #include "app.h"
 
+#define IM_PROTOCOL "xmpp"
+
 static OtrlMessageAppOps otr_ops = {
     otr_policy,
     otr_create_privkey,
@@ -45,7 +47,7 @@ void start_otr(Xmpp *xmpp, const char *recipient) {
             &otr_ops,
             xmpp,
             xmpp->settings.jid,
-            "jabber",
+            IM_PROTOCOL,
             recipient,
             OTRL_INSTAG_BEST,
             "?OTR?",
@@ -59,6 +61,18 @@ void start_otr(Xmpp *xmpp, const char *recipient) {
     free(msg_crypt);
 }
 
+void stop_otr(Xmpp *xmpp, const char *recipient) {
+    // TODO: this seems to work, however we don't get the gone_insecure message
+    otrl_message_disconnect(
+            xmpp->userstate,
+            &otr_ops,
+            xmpp,
+            xmpp->settings.jid,
+            IM_PROTOCOL,
+            recipient,
+            OTRL_INSTAG_BEST);
+}
+
 char *encrypt_message(Xmpp *xmpp, const char *to, const char *message, int *error) {
     char *enctext = NULL;
     int err = otrl_message_sending(
@@ -66,7 +80,7 @@ char *encrypt_message(Xmpp *xmpp, const char *to, const char *message, int *erro
             &otr_ops,
             xmpp,
             xmpp->settings.jid,
-            "jabber",
+            IM_PROTOCOL,
             to,
             OTRL_INSTAG_BEST,
             message,
@@ -84,17 +98,17 @@ char *encrypt_message(Xmpp *xmpp, const char *to, const char *message, int *erro
 char *decrypt_message(Xmpp *xmpp, const char *from, const char *message, int *error) {
     // currently xmpp res is not supported, remove /res
     char *from_xid = strdup(from);
-    char *res = strchr(from_xid, '/');
-    if(res) {
-        *res = 0;
-    }
+    //char *res = strchr(from_xid, '/');
+    //if(res) {
+    //    *res = 0;
+    //}
     
     char *msg_decrypt = NULL;
     int err = otrl_message_receiving(xmpp->userstate,
                                      &otr_ops,
                                      xmpp,
                                      xmpp->settings.jid,
-                                     "jabber",
+                                     IM_PROTOCOL,
                                      from_xid,
                                      message,
                                      &msg_decrypt,
@@ -121,7 +135,7 @@ void otr_create_privkey(void *opdata, const char *accountname,
     
     char *base = app_configfile("");
     char *filename;
-    asprintf(&filename, "%skeys_%s.txt", base, accountname);
+    asprintf(&filename, "%sotr.private_key", base);
     printf("create_privkey_cb\n");
     printf("account = %s\n", accountname);
     printf("filename = %s\n", filename);
@@ -144,10 +158,10 @@ void otr_inject_message(void *opdata, const char *accountname,
 {
     Xmpp *xmpp = opdata;
     
-    printf("inject_message_cb\n");
-    printf("from = %s\n", accountname);
-    printf("to = %s\n", recipient);
-    printf("message = '%s'\n", message);
+    //printf("inject_message_cb\n");
+    //printf("from = %s\n", accountname);
+    //printf("to = %s\n", recipient);
+    //printf("message = '%s'\n", message);
     
     Xmpp_Send(xmpp, recipient, message);
 }

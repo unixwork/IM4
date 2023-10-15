@@ -59,6 +59,12 @@
     }
 }
 
+- (void) clearContacts {
+    [_contacts removeAllObjects];
+    Contact *c = [[Contact alloc] initGroup:@"Offline"];
+    [_contacts addObject:c];
+}
+
 - (Contact*) contact:(NSString*)xid {
     NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
     [stack addObject:_contacts];
