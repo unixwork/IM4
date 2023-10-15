@@ -22,10 +22,11 @@
 
 @implementation ConversationWindowController
 
-- (id)initConversation:(NSString*)xid xmpp:(Xmpp*)xmpp {
+- (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp {
     self = [self initWithWindowNibName:@"ConversationWindowController"];
     _xmpp = xmpp;
     _xid = [xid copy];
+    _alias = alias != nil ? [alias copy] : [_xid copy];
     
     return self;
 }
@@ -33,12 +34,14 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    
     
     [_splitview setPosition:320 ofDividerAtIndex:0];
     
     [_messageInput setDelegate:self];
     
-    [self.window setTitle:_xid];
+    [self.window setTitle:_alias];
     
     [self updateStatus];
 }
@@ -61,14 +64,10 @@
     
     NSString *name;
     if(incoming) {
-        name = [app xidAlias:_xid];
+        name = _alias;
     } else {
-        char *my_alias = _xmpp->settings.alias;
-        if(my_alias) {
-            name = [[NSString alloc]initWithUTF8String: my_alias];
-        } else {
-            name = _xid;
-        }
+        char *my_alias = _xmpp->settings.alias ? _xmpp->settings.alias : _xmpp->settings.jid;
+        name = [[NSString alloc]initWithUTF8String: my_alias];
     }
     
     NSString *incomingStr = incoming ? @"< " : @"> ";

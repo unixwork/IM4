@@ -100,15 +100,20 @@
     }
     
     NSString *xid = [[NSString alloc]initWithUTF8String:from];
+    NSString *alias = [_settingsController getAlias:xid];
     NSString *message_text = [[NSString alloc]initWithUTF8String:msg_body];
+    
+    if(!alias) {
+        alias = xid;
+    }
     
     ConversationWindowController *conversation = [_conversations objectForKey:xid];
     if(!conversation) {
-        conversation = [[ConversationWindowController alloc]initConversation:xid xmpp:_xmpp];
+        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
         [_conversations setObject:conversation forKey:xid];
     }
-    [conversation addReceivedMessage:message_text];
     [conversation showWindow:nil];
+    [conversation addReceivedMessage:message_text];
 }
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp {
@@ -156,7 +161,7 @@
     
     ConversationWindowController *conversation = [_conversations objectForKey:contact.xid];
     if(conversation == nil) {
-        conversation = [[ConversationWindowController alloc]initConversation:contact.xid xmpp:_xmpp];
+        conversation = [[ConversationWindowController alloc]initConversation:contact.xid alias:contact.name xmpp:_xmpp];
         [_conversations setObject:conversation forKey:contact.xid];
     }
     [conversation showWindow:nil];

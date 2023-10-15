@@ -16,8 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) Xmpp *xmpp;
 @property (readonly) Boolean secure;
 @property (copy) NSString* xid;
+@property (copy) NSString* alias;
 
-- (id)initConversation:(NSString*)xid xmpp:(Xmpp*)xmpp;
+- (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
 
 - (void)updateStatus;
 
