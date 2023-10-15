@@ -40,6 +40,8 @@
 
 - (void) openConversation:(Contact*)contact;
 
+- (void) updateConversationAlias:(NSString*)xid newAlias:(NSString*)alias;
+
 
 - (IBAction) menuPreferences:(id)sender;
 

@@ -210,7 +210,12 @@
     // update aliases
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     SettingsController *settings = app.settingsController;
+    
+    // update alias in the settings (which contains a xid-alias map)
     [settings setAlias:contact.name forXid:contact.xid];
+    
+    // update the alias in an open conversation, if one exists
+    [app updateConversationAlias:contact.xid newAlias:contact.name];
 }
 
 

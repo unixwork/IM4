@@ -167,6 +167,13 @@
     [conversation showWindow:nil];
 }
 
+- (void) updateConversationAlias:(NSString*)xid newAlias:(NSString*)alias {
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(conversation) {
+        conversation.alias = alias;
+    }
+}
+
 
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
