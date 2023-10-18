@@ -53,6 +53,7 @@ typedef struct Xmpp {
     xmpp_ctx_t    *ctx;
     xmpp_log_t    *log;
     xmpp_conn_t   *connection;
+    char          *xid;
     int           fd;
     int           kqueue;
     int           enablepoll;

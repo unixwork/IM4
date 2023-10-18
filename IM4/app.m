@@ -121,14 +121,42 @@ void mt_app_handle_presence(void *userdata) {
     free(p);
 }
 
-
-
 void app_handle_presence(void *xmpp, const char *from, const char *status) {
     app_presence *p = malloc(sizeof(app_presence));
     p->xmpp = xmpp;
     p->from = strdup(from);
     p->status = status ? strdup(status) : NULL;
     app_call_mainthread(mt_app_handle_presence, p);
+}
+
+
+
+typedef struct {
+    void *xmpp;
+    char *from;
+    unsigned char *fingerprint;
+    size_t fingerprint_length;
+} app_newfingerprint;
+
+void mt_app_handle_new_fingerprint(void *userdata) {
+    app_newfingerprint *f = userdata;
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handleNewFingerprint:f->fingerprint length:f->fingerprint_length from:f->from xmpp:f->xmpp];
+    
+    free(f->from);
+    free(f->fingerprint);
+    free(f);
+}
+
+void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned char *fingerprint, size_t fplen) {
+    app_newfingerprint *f = malloc(sizeof(app_newfingerprint));
+    f->xmpp = xmpp;
+    f->from = strdup(from);
+    f->fingerprint = malloc(fplen);
+    memcpy(f->fingerprint, fingerprint, fplen);
+    f->fingerprint_length = fplen;
+    app_call_mainthread(mt_app_handle_new_fingerprint, f);
 }
 
 typedef struct {

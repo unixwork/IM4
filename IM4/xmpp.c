@@ -33,17 +33,25 @@ Xmpp* XmppCreate(XmppSettings settings) {
     xmpp->log = log;
     xmpp->ctx = ctx;
     
-    xmpp->userstate = otrl_userstate_create();
-    
-    char *privkey_file = app_configfile("otr.private_key");
-    gcry_error_t otrerr = otrl_privkey_read(xmpp->userstate, privkey_file);
-    printf("otrl_privkey_read: %u\n", otrerr);
-    free(privkey_file);
-    
-    char *instancetags_file = app_configfile("otr.instance_tags");
-    otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
-    printf("otrl_instag_read: %u\n", otrerr);
-    free(instancetags_file);
+    if(settings.jid) {
+        if(xmpp->settings.resource && strlen(xmpp->settings.resource) > 0) {
+            asprintf(&xmpp->xid, "%s/%s", xmpp->settings.jid, xmpp->settings.resource);
+        } else {
+            xmpp->xid = strdup(xmpp->settings.jid);
+        }
+        
+        xmpp->userstate = otrl_userstate_create();
+        
+        char *privkey_file = app_configfile("otr.private_key");
+        gcry_error_t otrerr = otrl_privkey_read(xmpp->userstate, privkey_file);
+        printf("otrl_privkey_read: %u\n", otrerr);
+        free(privkey_file);
+        
+        char *instancetags_file = app_configfile("otr.instance_tags");
+        otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
+        printf("otrl_instag_read: %u\n", otrerr);
+        free(instancetags_file);
+    }
     
     return xmpp;
 }
@@ -243,8 +251,7 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     
     xmpp_conn_set_sockopt_callback(connection, socketopt_cb);
     
-    
-    xmpp_conn_set_jid(connection, xmpp->settings.jid);
+    xmpp_conn_set_jid(connection, xmpp->xid);
     xmpp_conn_set_pass(connection, xmpp->settings.password);
     
     char *host = NULL;

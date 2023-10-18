@@ -38,6 +38,8 @@
 
 - (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp;
 
+- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from xmpp:(Xmpp*)xmpp;
+
 - (void) refreshContactList;
 
 - (void) openConversation:(Contact*)contact;

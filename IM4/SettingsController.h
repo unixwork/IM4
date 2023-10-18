@@ -8,7 +8,7 @@
 #import <Cocoa/Cocoa.h>
 #import "xmpp.h"
 
-#define IM4_APPNAME "IM4"
+#define IM4_APPNAME "IM4TEST"
 #define IM4_APPNAME_NS @ IM4_APPNAME
 
 NS_ASSUME_NONNULL_BEGIN

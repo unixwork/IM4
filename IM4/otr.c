@@ -133,9 +133,7 @@ void otr_create_privkey(void *opdata, const char *accountname,
 {
     Xmpp *xmpp = opdata;
     
-    char *base = app_configfile("");
-    char *filename;
-    asprintf(&filename, "%sotr.private_key", base);
+    char *filename = app_configfile("otr.private_key");
     printf("create_privkey_cb\n");
     printf("account = %s\n", accountname);
     printf("filename = %s\n", filename);
@@ -143,7 +141,6 @@ void otr_create_privkey(void *opdata, const char *accountname,
     otrl_privkey_read(xmpp->userstate, filename);
     printf("key generated\n");
     
-    free(base);
     free(filename);
 }
 
@@ -174,11 +171,14 @@ void otr_new_fingerprint(void *opdata, OtrlUserState us,
     const char *accountname, const char *protocol,
     const char *username, unsigned char fingerprint[20])
 {
-    
+    Xmpp *xmpp = opdata;
+    app_handle_new_fingerprint(xmpp, username, fingerprint, 20);
 }
 
 void otr_write_fingerprints(void *opdata) {
-    
+    Xmpp *xmpp = opdata;
+    char *filename = app_configfile("otr.fingerprints");
+    otrl_privkey_write_fingerprints(xmpp->userstate, filename);
 }
 
 void otr_gone_secure(void *opdata, ConnContext *context) {
@@ -195,6 +195,8 @@ void otr_gone_insecure(void *opdata, ConnContext *context) {
 
 void otr_still_secure(void *opdata, ConnContext *context, int is_reply) {
     printf("still secure\n");
+    Xmpp *xmpp = opdata;
+    app_update_secure_status(xmpp, context->username, true);
 }
 
 int otr_max_message_size(void *opdata, ConnContext *context) {

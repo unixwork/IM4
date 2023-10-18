@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setSecure:(Boolean)secure session:(NSString*)session;
 
+- (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;
+
 - (IBAction) testAction:(id)sender;
 
 - (IBAction) secureAction:(id)sender;

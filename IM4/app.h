@@ -23,6 +23,8 @@ void app_set_status(void *xmpp, int status);
 
 void app_handle_presence(void *xmpp, const char *from, const char *status);
 
+void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned char *fingerprint, size_t fplen);
+
 void app_message(void *xmpp, const char *msg_body, const char *from);
 
 void app_update_secure_status(void *xmpp, const char *from, bool issecure);

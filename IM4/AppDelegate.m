@@ -176,11 +176,57 @@
     }
     
     NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
-    
-    ConversationWindowController *conversation = [_conversations objectForKey:xid];
-    if(conversation) {
-        [conversation setSecure:status session:resource];
+    NSString *alias = [_settingsController getAlias:xid];
+    if(!alias) {
+        alias = xid;
     }
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(!conversation) {
+        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
+        [_conversations setObject:conversation forKey:xid];
+    }
+    [conversation showWindow:nil];
+    [conversation setSecure:status session:resource];
+}
+
+- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from xmpp:(Xmpp*)xmpp {
+    char *res = strchr(from, '/');
+    size_t from_len;
+    NSString *resource = @"";
+    if(res) {
+        from_len = res - from;
+        resource = [[NSString alloc]initWithUTF8String:res];
+    } else {
+        from_len = strlen(from);
+    }
+    
+    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
+    NSString *alias = [_settingsController getAlias:xid];
+    if(!alias) {
+        alias = xid;
+    }
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(!conversation) {
+        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
+        [_conversations setObject:conversation forKey:xid];
+    }
+    [conversation showWindow:nil];
+    
+    NSString *ns_from = [[NSString alloc]initWithUTF8String:from];
+    
+    size_t fpstr_len = len * 2 + len/4 + 1;
+    char *fpstr = malloc(fpstr_len);
+    char *fpstr_pos = fpstr;
+    for(int i=0;i<len;i++) {
+        int b = (i+1)%4;
+        char *t = i > 0 && b == 0 ? " " : "";
+        size_t w = snprintf(fpstr_pos, fpstr_len - (fpstr_pos - fpstr), "%x%s", (int)fingerprint[i], t);
+        fpstr_pos += w;
+    }
+    NSString *ns_fingerprint = [[NSString alloc]initWithUTF8String: fpstr];
+    
+    
+    [conversation newFingerprint:ns_fingerprint from:ns_from];
 }
 
 - (void) refreshContactList {

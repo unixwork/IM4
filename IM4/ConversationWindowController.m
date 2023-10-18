@@ -84,8 +84,23 @@
 
 - (void)setSecure:(Boolean)secure session:(NSString*)session {
     _secure = secure;
-    // TODO: add message to log
+    NSString *msg = secure ? @"otr: gone secure\n" : @"otr: gone insecure\n";
+    
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
+    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    [textStorage appendAttributedString:attributedText];
+    [self.conversationTextView scrollToEndOfDocument:nil];
+    
     _secureButton.title = secure ? @"secure" : @"insecure";
+}
+
+- (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
+    NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
+    
+    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    [textStorage appendAttributedString:attributedText];
+    [self.conversationTextView scrollToEndOfDocument:nil];
 }
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming {
@@ -114,8 +129,10 @@
     //NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:entry];
     
     NSData* data = [entry dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                        NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithHTML:data
-                                            baseURL:nil
+                                            options:options
                                  documentAttributes:nil];
     NSMutableAttributedString *mutableAttributedString = [attributedText mutableCopy];
     NSRange range = NSMakeRange(0, [mutableAttributedString length]);
