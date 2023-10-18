@@ -161,6 +161,30 @@ void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned cha
 
 typedef struct {
     void *xmpp;
+    char *from;
+    uint64_t error;
+} app_otrerror;
+
+void mt_app_otr_error(void *userdata) {
+    app_otrerror *e = userdata;
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handleOtrError:e->error from:e->from xmpp:e->xmpp];
+    
+    free(e->from);
+    free(e);
+}
+
+void app_otr_error(void *xmpp, const char *from, uint64_t error) {
+    app_otrerror *e = malloc(sizeof(app_otrerror));
+    e->xmpp = xmpp;
+    e->from = strdup(from);
+    e->error = error;
+    app_call_mainthread(mt_app_otr_error, e);
+}
+
+typedef struct {
+    void *xmpp;
     char *msg_body;
     char *from;
 } app_recv_message;

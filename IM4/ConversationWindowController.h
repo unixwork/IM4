@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res;
 
+- (void)otrError:(uint64_t)error from:(NSString*)from;
+
 - (void)setSecure:(Boolean)secure session:(NSString*)session;
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;

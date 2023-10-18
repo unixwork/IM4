@@ -97,6 +97,79 @@
     _secureButton.title = secure ? @"secure" : @"insecure";
 }
 
+- (void)otrError:(uint64_t)error from:(NSString*)from {
+    NSString *msg = @"";
+    switch(error) {
+        case OTRL_MSGEVENT_ENCRYPTION_REQUIRED: {
+            msg = @"encryption required";
+            break;
+        }
+        case OTRL_MSGEVENT_ENCRYPTION_ERROR: {
+            msg = @"encryption error";
+            break;
+        }
+        case OTRL_MSGEVENT_CONNECTION_ENDED: {
+            msg = @"connection ended";
+            break;
+        }
+        case OTRL_MSGEVENT_SETUP_ERROR: {
+            msg = @"setup error";
+            break;
+        }
+        case OTRL_MSGEVENT_MSG_REFLECTED: {
+            msg = @"message reflected";
+            break;
+        }
+        case OTRL_MSGEVENT_MSG_RESENT: {
+            msg = @"message resent";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_NOT_IN_PRIVATE: {
+            msg = @"received message not in private";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_UNREADABLE: {
+            msg = @"received message unreadable";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_MALFORMED: {
+            msg = @"received message malformed";
+            break;
+        }
+        case OTRL_MSGEVENT_LOG_HEARTBEAT_RCVD: {
+            msg = @"log heartbeat rcvd";
+            break;
+        }
+        case OTRL_MSGEVENT_LOG_HEARTBEAT_SENT: {
+            msg = @"log heartbeat sent";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_GENERAL_ERR: {
+            msg = @"received message general err";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_UNENCRYPTED: {
+            msg = @"received message unencrypted";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_UNRECOGNIZED: {
+            msg = @"received message unrecognized";
+            break;
+        }
+        case OTRL_MSGEVENT_RCVDMSG_FOR_OTHER_INSTANCE: {
+            msg = @"received message for other instance";
+            break;
+        }
+    }
+    
+    NSString *otrmsg = [NSString stringWithFormat:@"otr error: from: %@: %@\n", from, msg];
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:otrmsg];
+    
+    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    [textStorage appendAttributedString:attributedText];
+    [self.conversationTextView scrollToEndOfDocument:nil];
+}
+
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];

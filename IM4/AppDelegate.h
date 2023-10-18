@@ -40,6 +40,8 @@
 
 - (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from xmpp:(Xmpp*)xmpp;
 
+- (void) handleOtrError:(uint64_t)error from:(const char*)from xmpp:(Xmpp*)xmpp;
+
 - (void) refreshContactList;
 
 - (void) openConversation:(Contact*)contact;

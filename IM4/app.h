@@ -25,6 +25,8 @@ void app_handle_presence(void *xmpp, const char *from, const char *status);
 
 void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned char *fingerprint, size_t fplen);
 
+void app_otr_error(void *xmpp, const char *from, uint64_t error);
+
 void app_message(void *xmpp, const char *msg_body, const char *from);
 
 void app_update_secure_status(void *xmpp, const char *from, bool issecure);

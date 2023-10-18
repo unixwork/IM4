@@ -250,7 +250,7 @@ void otr_handle_msg_event(void *opdata, OtrlMessageEvent msg_event,
     ConnContext *context, const char *message,
     gcry_error_t err)
 {
-    
+    app_otr_error(opdata, context->username, msg_event);
 }
 
 void otr_create_instag(void *opdata, const char *accountname,
