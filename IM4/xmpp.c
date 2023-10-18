@@ -47,6 +47,9 @@ Xmpp* XmppCreate(XmppSettings settings) {
         printf("otrl_privkey_read: %u\n", otrerr);
         free(privkey_file);
         
+        char *fingerprints_file = app_configfile("otr.fingerprints");
+        otrerr = otrl_privkey_read_fingerprints(xmpp->userstate, fingerprints_file, NULL, NULL);
+        
         char *instancetags_file = app_configfile("otr.instance_tags");
         otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
         printf("otrl_instag_read: %u\n", otrerr);

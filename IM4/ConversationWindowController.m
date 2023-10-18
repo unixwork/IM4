@@ -29,6 +29,8 @@
     _alias = alias != nil ? [alias copy] : [_xid copy];
     _activeSessions = [[NSMutableDictionary alloc]init];
     
+    self.online = false;
+    
     return self;
 }
 
@@ -49,7 +51,8 @@
 - (void)updateStatus {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSDictionary *status = [app xidStatus:_xid];
-    _statusLabel.stringValue = status == nil || [status count] == 0 ? @"🔴" : @"🟢";
+    bool online = status == nil || [status count] == 0 ? false : true;
+    _statusLabel.stringValue = !online ? @"🔴" : @"🟢";
     
     NSMutableDictionary *sessions = [[NSMutableDictionary alloc]init];
     
