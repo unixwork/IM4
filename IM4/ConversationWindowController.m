@@ -10,6 +10,41 @@
 
 #include "xmpp.h"
 
+static NSString* escape_input(NSString *input) {
+    NSMutableString *inputEscaped = [[NSMutableString alloc] init];
+    [input enumerateSubstringsInRange:NSMakeRange(0, [input length])  options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *outStop) {
+        const char *s = [substring UTF8String];
+        switch(*s) {
+            default: {
+                [inputEscaped appendString:substring];
+                break;
+            }
+            case '<': {
+                [inputEscaped appendString:@"&lt;"];
+                break;
+            }
+            case '>': {
+                [inputEscaped appendString:@"&gt;"];
+                break;
+            }
+            case '&' : {
+                [inputEscaped appendString:@"&amp;"];
+                break;
+            }
+            case '"': {
+                [inputEscaped appendString:@"&quot;"];
+                break;
+            }
+            case '\'': {
+                [inputEscaped appendString:@"&#39;"];
+                break;
+            }
+        }
+    }];
+    
+    return [[NSString alloc] initWithString:inputEscaped];
+}
+
 @interface ConversationWindowController ()
 
 @property (strong) IBOutlet NSSplitView *splitview;
@@ -137,12 +172,10 @@
             break;
         }
         case OTRL_MSGEVENT_LOG_HEARTBEAT_RCVD: {
-            msg = @"log heartbeat rcvd";
-            break;
+            return; // no error
         }
         case OTRL_MSGEVENT_LOG_HEARTBEAT_SENT: {
-            msg = @"log heartbeat sent";
-            break;
+            return; // no error
         }
         case OTRL_MSGEVENT_RCVDMSG_GENERAL_ERR: {
             msg = @"received message general err";
@@ -162,7 +195,7 @@
         }
     }
     
-    NSString *otrmsg = [NSString stringWithFormat:@"otr error: from: %@: %@\n", from, msg];
+    NSString *otrmsg = [NSString stringWithFormat:@"otr message: from: %@: %@\n", from, msg];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:otrmsg];
     
     NSTextStorage *textStorage = self.conversationTextView.textStorage;
@@ -221,7 +254,14 @@
 
 - (void)sendMessage {
     NSString *input = _messageInput.string;
-    const char *message = [input UTF8String];
+    NSString *inputEscaped = escape_input(input);
+    
+    // if otr is on, we have to give the Xmpp module an escaped string
+    // without otr, libstrophe will automatically escape the text
+    // maybe the escaping should be moved to xmpp.c, however we also need
+    // an escaped string for the message log
+    // it is also currently impossible to send html when encryption is off
+    const char *message = _secure ? [inputEscaped UTF8String] : [input UTF8String];
     
     for(NSString *session in _activeSessions) {
         NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
@@ -229,7 +269,7 @@
     }
     
     if(_activeSessions.count > 0) {
-        [self addLog:input incoming:FALSE];
+        [self addLog:inputEscaped incoming:FALSE];
     } else {
         NSTextStorage *textStorage = self.conversationTextView.textStorage;
         NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions"];

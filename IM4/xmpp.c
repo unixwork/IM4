@@ -76,7 +76,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     
     xmpp_stanza_t *body = xmpp_stanza_get_child_by_name(stanza, "body");
     if(!body) {
-        printf("message_cb: no body\n");
+        //printf("message_cb: no body\n");
         return 1;
     }
     
@@ -99,20 +99,11 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
                 ConnContext *root = xmpp->userstate->context_root;
                 ConnContext *child = root->recent_rcvd_child;
                 
-                // xmpp res not supported yet
-                char *msg_from = strdup(from);
-                //char *res = strchr(msg_from, '/');
-                //if(res) {
-                //    *res = 0;
-                //}
-                
-                if(child && child->username && !strcmp(child->username, msg_from)) {
+                if(child && child->username && !strcmp(child->username, from)) {
                     if(child->msgstate == OTRL_MSGSTATE_FINISHED) {
-                        app_update_secure_status(xmpp, msg_from, false);
+                        app_update_secure_status(xmpp, from, false);
                     }
                 }
-                
-                free(msg_from);
             }
         }
         

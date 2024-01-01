@@ -96,27 +96,19 @@ char *encrypt_message(Xmpp *xmpp, const char *to, const char *message, int *erro
 }
 
 char *decrypt_message(Xmpp *xmpp, const char *from, const char *message, int *error) {
-    // currently xmpp res is not supported, remove /res
-    char *from_xid = strdup(from);
-    //char *res = strchr(from_xid, '/');
-    //if(res) {
-    //    *res = 0;
-    //}
-    
     char *msg_decrypt = NULL;
     int err = otrl_message_receiving(xmpp->userstate,
                                      &otr_ops,
                                      xmpp,
                                      xmpp->settings.jid,
                                      IM_PROTOCOL,
-                                     from_xid,
+                                     from,
                                      message,
                                      &msg_decrypt,
                                      NULL,
                                      NULL,
                                      NULL,
                                      NULL);
-    free(from_xid);
     *error = err;
     return msg_decrypt;
 }
