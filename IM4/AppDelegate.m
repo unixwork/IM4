@@ -25,7 +25,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     _conversations = [[NSMutableDictionary alloc]init];
-    self.unread = 0;
+    _unread = 0;
     
     //_outlineViewController = [[OutlineViewController alloc]init];
     //[_contactList setDataSource:_outlineViewController];
@@ -59,10 +59,10 @@
 }
 
 - (void) addUnread:(int)num {
-    self.unread += num;
+    _unread += num;
     NSString *badge = nil;
-    if(self.unread != 0) {
-        badge = [@(self.unread) stringValue];
+    if(_unread != 0) {
+        badge = [@(_unread) stringValue];
     }
     [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badge];
 }
@@ -74,11 +74,11 @@
         case 0: {
             [_window setTitle:@"🔴 IM4"];
             
-            [self.presence removeAllObjects];
+            [_presence removeAllObjects];
             [self refreshContactList];
             
-            for(id key in self.conversations) {
-                ConversationWindowController *conv = [self.conversations objectForKey:key];
+            for(id key in _conversations) {
+                ConversationWindowController *conv = [_conversations objectForKey:key];
                 [conv updateStatus];
             }
             

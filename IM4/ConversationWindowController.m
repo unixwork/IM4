@@ -64,8 +64,8 @@ static NSString* escape_input(NSString *input) {
     _alias = alias != nil ? [alias copy] : [_xid copy];
     _activeSessions = [[NSMutableDictionary alloc]init];
     
-    self.online = false;
-    self.unread = 0;
+    _online = false;
+    _unread = 0;
     
     return self;
 }
@@ -87,8 +87,8 @@ static NSString* escape_input(NSString *input) {
 - (void)updateStatus {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     NSDictionary *status = [app xidStatus:_xid];
-    bool online = status == nil || [status count] == 0 ? false : true;
-    _statusLabel.stringValue = !online ? @"🔴" : @"🟢";
+    _online = status == nil || [status count] == 0 ? false : true;
+    _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     
     NSMutableDictionary *sessions = [[NSMutableDictionary alloc]init];
     
@@ -126,9 +126,9 @@ static NSString* escape_input(NSString *input) {
     NSString *msg = secure ? @"otr: gone secure\n" : @"otr: gone insecure\n";
     
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
-    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:attributedText];
-    [self.conversationTextView scrollToEndOfDocument:nil];
+    [_conversationTextView scrollToEndOfDocument:nil];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
 }
@@ -199,18 +199,18 @@ static NSString* escape_input(NSString *input) {
     NSString *otrmsg = [NSString stringWithFormat:@"otr message: from: %@: %@\n", from, msg];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:otrmsg];
     
-    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:attributedText];
-    [self.conversationTextView scrollToEndOfDocument:nil];
+    [_conversationTextView scrollToEndOfDocument:nil];
 }
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
     
-    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:attributedText];
-    [self.conversationTextView scrollToEndOfDocument:nil];
+    [_conversationTextView scrollToEndOfDocument:nil];
 }
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming {
@@ -236,7 +236,7 @@ static NSString* escape_input(NSString *input) {
     
     NSString *entry = [NSString stringWithFormat:@"<span style=\"color: %@\">%@(%@) %@</span>: %@<br/>", color, incomingStr, time, name, message];
     
-    NSTextStorage *textStorage = self.conversationTextView.textStorage;
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
     //NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:entry];
     
     NSData* data = [entry dataUsingEncoding:NSUTF8StringEncoding];
@@ -251,7 +251,7 @@ static NSString* escape_input(NSString *input) {
     [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
     
     [textStorage appendAttributedString:mutableAttributedString];
-    [self.conversationTextView scrollToEndOfDocument:nil];
+    [_conversationTextView scrollToEndOfDocument:nil];
 }
 
 - (void)sendMessage {
@@ -273,10 +273,10 @@ static NSString* escape_input(NSString *input) {
     if(_activeSessions.count > 0) {
         [self addLog:inputEscaped incoming:FALSE];
     } else {
-        NSTextStorage *textStorage = self.conversationTextView.textStorage;
+        NSTextStorage *textStorage = _conversationTextView.textStorage;
         NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions"];
         [textStorage appendAttributedString:attributedText];
-        [self.conversationTextView scrollToEndOfDocument:nil];
+        [_conversationTextView scrollToEndOfDocument:nil];
     }
     [_messageInput setString:@""];
 }
@@ -285,7 +285,7 @@ static NSString* escape_input(NSString *input) {
     [self addLog:msg incoming:TRUE];
     
     if(![self.window isKeyWindow]) {
-        self.unread++;
+        _unread++;
         AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
         [app addUnread:1];
     }
@@ -294,15 +294,28 @@ static NSString* escape_input(NSString *input) {
 - (IBAction) secureAction:(id)sender {
     printf("secure\n");
     if(_secure) {
-        for(NSString *session in _activeSessions) {
-            NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-            XmppStopOtr(_xmpp, [to UTF8String]);
-            [self setSecure:false session:session];
+        if(_online) {
+            for(NSString *session in _activeSessions) {
+                NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
+                XmppStopOtr(_xmpp, [to UTF8String]);
+                [self setSecure:false session:session];
+            }
+        } else {
+            _secure = false;
+            _secureButton.title = @"insecure";
+            
+            NSString *msg = @"otr disabled\n";
+            NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
+            NSTextStorage *textStorage = _conversationTextView.textStorage;
+            [textStorage appendAttributedString:attributedText];
+            [_conversationTextView scrollToEndOfDocument:nil];
         }
     } else {
-        for(NSString *session in _activeSessions) {
-            NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-            XmppStartOtr(_xmpp, [to UTF8String]);
+        if(_online) {
+            for(NSString *session in _activeSessions) {
+                NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
+                XmppStartOtr(_xmpp, [to UTF8String]);
+            }
         }
     }
     
@@ -334,8 +347,8 @@ static NSString* escape_input(NSString *input) {
 
 - (void)windowDidBecomeMain:(NSNotification *)notification {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app addUnread:-self.unread];
-    self.unread = 0;
+    [app addUnread:-_unread];
+    _unread = 0;
 }
 
 @end
