@@ -21,6 +21,8 @@
 
 @property (strong) SettingsController *settingsController;
 
+@property int unread;
+
 
 - (NSString*) appConfigFilePath: (NSString*)fileName;
 
@@ -31,6 +33,8 @@
 - (NSDictionary*) xidStatus:(NSString*)xid;
 
 - (NSString*) xidAlias:(NSString*)xid;
+
+- (void) addUnread:(int)num;
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp;
 

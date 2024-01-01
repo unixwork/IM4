@@ -25,6 +25,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     _conversations = [[NSMutableDictionary alloc]init];
+    self.unread = 0;
     
     //_outlineViewController = [[OutlineViewController alloc]init];
     //[_contactList setDataSource:_outlineViewController];
@@ -36,6 +37,8 @@
     // config
     _settingsController = [[SettingsController alloc]initSettings];
     [self startXmpp];
+    
+    //[[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
 }
 
 
@@ -53,6 +56,15 @@
         [_window setIsVisible:YES];
     }
     return YES;
+}
+
+- (void) addUnread:(int)num {
+    self.unread += num;
+    NSString *badge = nil;
+    if(self.unread != 0) {
+        badge = [@(self.unread) stringValue];
+    }
+    [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badge];
 }
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {

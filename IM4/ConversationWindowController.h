@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy) NSString* alias;
 @property (readonly) NSMutableDictionary* activeSessions;
 @property bool online;
+@property bool loading;
+@property int unread;
+
 
 - (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
 
@@ -41,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) testAction:(id)sender;
 
 - (IBAction) secureAction:(id)sender;
+
+
 
 @end
 

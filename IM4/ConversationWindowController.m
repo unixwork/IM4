@@ -65,6 +65,7 @@ static NSString* escape_input(NSString *input) {
     _activeSessions = [[NSMutableDictionary alloc]init];
     
     self.online = false;
+    self.unread = 0;
     
     return self;
 }
@@ -239,10 +240,10 @@ static NSString* escape_input(NSString *input) {
     
     NSData* data = [entry dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                        NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
+                              NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithHTML:data
-                                            options:options
-                                 documentAttributes:nil];
+                                                                          options:options
+                                                               documentAttributes:nil];
     NSMutableAttributedString *mutableAttributedString = [attributedText mutableCopy];
     NSRange range = NSMakeRange(0, [mutableAttributedString length]);
     NSFont *newFont = [NSFont systemFontOfSize:12];
@@ -281,6 +282,12 @@ static NSString* escape_input(NSString *input) {
 
 - (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res {
     [self addLog:msg incoming:TRUE];
+    
+    if(![self.window isKeyWindow]) {
+        self.unread++;
+        AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+        [app addUnread:1];
+    }
 }
 
 - (IBAction) secureAction:(id)sender {
@@ -324,4 +331,11 @@ static NSString* escape_input(NSString *input) {
     return NO;
 }
 
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app addUnread:-self.unread];
+    self.unread = 0;
+}
+
 @end
+
