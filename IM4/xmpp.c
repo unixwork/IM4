@@ -226,6 +226,8 @@ static void connect_cb(
         
         // set app status
         app_set_status(xmpp, 1);
+    } else {
+        app_set_status(xmpp, 0);
     }
     
     xmpp->enablepoll = 1;

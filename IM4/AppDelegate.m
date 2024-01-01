@@ -73,6 +73,15 @@
     switch(status) {
         case 0: {
             [_window setTitle:@"🔴 IM4"];
+            
+            [self.presence removeAllObjects];
+            [self refreshContactList];
+            
+            for(id key in self.conversations) {
+                ConversationWindowController *conv = [self.conversations objectForKey:key];
+                [conv updateStatus];
+            }
+            
             break;
         }
         case 1: {
