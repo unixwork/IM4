@@ -15,6 +15,7 @@
 
 #include <pthread.h>
 #include <poll.h>
+#include <sys/socket.h>
 
 #include "otr.h"
 
@@ -228,6 +229,7 @@ static void connect_cb(
         app_set_status(xmpp, 1);
     } else {
         app_set_status(xmpp, 0);
+        
     }
     
     xmpp->enablepoll = 1;
@@ -235,6 +237,12 @@ static void connect_cb(
 
 int socketopt_cb(xmpp_conn_t *conn, void *sock) {
     im_account->fd = *((int*)sock);
+    
+    int val = 1;
+    setsockopt(im_account->fd, SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val));
+    
+    xmpp_sockopt_cb_keepalive(conn, sock);
+    
     return 0;
 }
 
@@ -302,6 +310,7 @@ static void* xmpp_run_thread(void *data) {
     while(xmpp->running) {
         xmpp_run_once(xmpp->ctx, 10);
         if(xmpp_conn_is_disconnected(xmpp->connection)) {
+            app_set_status(xmpp, 0);
             break;
         }
         
@@ -310,7 +319,7 @@ static void* xmpp_run_thread(void *data) {
             if(queuelen == 0) {
                 struct timespec timeout;
                 timeout.tv_nsec = 0;
-                timeout.tv_sec = 10000;
+                timeout.tv_sec = 30;
                 struct kevent events[64];
                 struct kevent changes[128];
                 int numchanges = 0;
@@ -328,6 +337,8 @@ static void* xmpp_run_thread(void *data) {
                         
                     }
                 }
+                
+                
                 
                 /*
                 if(poll(pfd, 1, 10000) < 0) {
