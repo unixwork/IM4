@@ -31,5 +31,7 @@ void app_message(void *xmpp, const char *msg_body, const char *from);
 
 void app_update_secure_status(void *xmpp, const char *from, bool issecure);
 
+void app_add_log(const char *msg, size_t len);
+
 
 #endif /* IM4_app_h */

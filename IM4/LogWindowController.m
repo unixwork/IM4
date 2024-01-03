@@ -20,8 +20,17 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+}
+
+- (void)addToLog:(const char *)str length:(size_t)length {
+    NSData *data = [NSData dataWithBytes:str length:length];
+    NSDictionary *options = @{NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithHTML:data
+                                                                          options:options
+                                                               documentAttributes:nil];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    [_log.textStorage appendAttributedString:attributedText];
+    [_log scrollToEndOfDocument:nil];
 }
 
 @end

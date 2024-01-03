@@ -23,15 +23,43 @@
 // TODO: list of all accounts
 static Xmpp *im_account;
 
+void XmppLog(const char *str) {
+    app_add_log(str, strlen(str));
+    fprintf(stderr, "%s", str);
+}
+
+static void log_handler(void *userdata,
+                        xmpp_log_level_t level,
+                        const char *area,
+                        const char *msg)
+{
+    char *str = NULL;
+    char *lvlStr = "-";
+    switch(level) {
+        case XMPP_LEVEL_DEBUG: lvlStr = "DEBUG"; break;
+        case XMPP_LEVEL_INFO: lvlStr = "INFO"; break;
+        case XMPP_LEVEL_WARN: lvlStr = "WARN"; break;
+        case XMPP_LEVEL_ERROR: lvlStr = "ERROR"; break;
+    }
+    asprintf(&str, "%s %s: %s\n", area, lvlStr, msg);
+    
+    XmppLog(str);
+    free(str);
+}
+
+static xmpp_log_t logf = {
+    log_handler,
+    NULL
+};
 
 Xmpp* XmppCreate(XmppSettings settings) {
-    xmpp_log_t *log = xmpp_get_default_logger(XMPP_LEVEL_DEBUG);
-    xmpp_ctx_t *ctx = xmpp_ctx_new(NULL, log);
+    //xmpp_log_t *log = xmpp_get_default_logger(XMPP_LEVEL_DEBUG);
+    xmpp_ctx_t *ctx = xmpp_ctx_new(NULL, &logf);
     
     Xmpp* xmpp = malloc(sizeof(Xmpp));
     memset(xmpp, 0, sizeof(Xmpp));
     xmpp->settings = settings;
-    xmpp->log = log;
+    xmpp->log = &logf;
     xmpp->ctx = ctx;
     
     if(settings.jid) {

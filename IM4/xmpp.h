@@ -81,7 +81,7 @@ struct XmppEvent {
     void *userdata;
 };
 
-
+void XmppLog(const char *str);
 
 Xmpp* XmppCreate(XmppSettings settings);
 

@@ -230,3 +230,25 @@ void app_update_secure_status(void *xmpp, const char *from, bool issecure) {
     status->status = issecure;
     app_call_mainthread(mt_app_update_secure_status, status);
 }
+
+
+typedef struct {
+    char *msg;
+    size_t len;
+} app_log_msg;
+
+static void mt_app_add_log(void *userdata) {
+    app_log_msg *msg = userdata;
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app.logWindowController addToLog:msg->msg length:msg->len];
+    
+    free(msg->msg);
+    free(msg);
+}
+
+void app_add_log(const char *msg, size_t len) {
+    app_log_msg *log = malloc(sizeof(app_log_msg));
+    log->msg = strdup(msg);
+    log->len = len;
+    app_call_mainthread(mt_app_add_log, log);
+}
