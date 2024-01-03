@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "ConversationWindowController.h"
 #import "SettingsController.h"
+#import "LogWindowController.h"
 
 @interface AppDelegate ()
 
@@ -36,6 +37,7 @@
     
     // config
     _settingsController = [[SettingsController alloc]initSettings];
+    _logWindowController = [[LogWindowController alloc] initLogWindow];
     [self startXmpp];
     
     //[[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
@@ -316,6 +318,10 @@
 
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
+}
+
+- (IBAction) menuDebugLog:(id)sender {
+    [_logWindowController showWindow:nil];
 }
 
 @end

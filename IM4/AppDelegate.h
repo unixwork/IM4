@@ -8,6 +8,7 @@
 #import <Cocoa/Cocoa.h>
 #import "OutlineViewController.h"
 #import "SettingsController.h"
+#import "LogWindowController.h"
 
 #import "xmpp.h"
 
@@ -20,6 +21,7 @@
 @property (readonly) NSMutableDictionary *presence;
 
 @property (strong) SettingsController *settingsController;
+@property (strong) LogWindowController *logWindowController;
 
 @property int unread;
 
@@ -56,6 +58,8 @@
 
 
 - (IBAction) menuPreferences:(id)sender;
+
+- (IBAction) menuDebugLog:(id)sender;
 
 @end
 
