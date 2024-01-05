@@ -24,6 +24,9 @@
 - (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     SettingsController *settings = app.settingsController;
+    if(!xmpp) {
+        return;
+    }
     
     [_contacts removeAllObjects];
     Contact *c = [[Contact alloc] initGroup:@"Contacts"];

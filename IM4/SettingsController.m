@@ -74,12 +74,29 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [super windowDidLoad];
     self.window.title = @"Settings";
     
-    self.jid.stringValue = [_config valueForKey:@"jid"];
+    NSString *jid = [_config valueForKey:@"jid"];
+    NSString *alias = [_config valueForKey:@"alias"];
+    NSString *resource = [_config valueForKey:@"resource"];
+    NSString *host = [_config valueForKey:@"host"];
+    NSString *port = [_config valueForKey:@"port"];
+    
+    if(jid) {
+        _jid.stringValue = jid;
+    }
+    if(alias) {
+        _alias.stringValue = alias;
+    }
+    if(resource) {
+        _resource.stringValue = resource;
+    }
+    if(host) {
+        _host.stringValue = host;
+    }
+    if(port) {
+        _port.stringValue = port;
+    }
+    
     self.password.stringValue = @"";
-    self.alias.stringValue = [_config valueForKey:@"alias"];
-    self.resource.stringValue = [_config valueForKey:@"resource"];
-    self.host.stringValue = [_config valueForKey:@"host"];
-    self.port.stringValue =[_config valueForKey:@"port"];
 }
 
 - (BOOL)storeSettings {
