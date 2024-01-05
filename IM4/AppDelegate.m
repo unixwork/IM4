@@ -84,10 +84,13 @@
                 [conv updateStatus];
             }
             
+            [_statusButton selectItemAtIndex:IM4_OFFLINE];
+            
             break;
         }
         case 1: {
             [_window setTitle:@"🟢 IM4"];
+            [_statusButton selectItemAtIndex:IM4_ONLINE];
             break;
         }
         case 2: {
@@ -322,6 +325,20 @@
 
 - (IBAction) menuDebugLog:(id)sender {
     [_logWindowController showWindow:nil];
+}
+
+- (IBAction) statusSelected:(id)sender {
+    NSInteger status = [_statusButton selectedTag];
+    switch(status) {
+        case IM4_OFFLINE: {
+            break;
+        }
+        case IM4_ONLINE: {
+            break;
+        }
+    }
+    
+    //[_statusButton selectItemAtIndex:status];
 }
 
 @end

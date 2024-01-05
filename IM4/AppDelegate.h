@@ -23,6 +23,8 @@
 @property (strong) SettingsController *settingsController;
 @property (strong) LogWindowController *logWindowController;
 
+@property (strong) IBOutlet NSPopUpButton *statusButton;
+
 @property int unread;
 
 
@@ -61,5 +63,11 @@
 
 - (IBAction) menuDebugLog:(id)sender;
 
+- (IBAction) statusSelected:(id)sender;
+
 @end
 
+enum StatusTag {
+    IM4_OFFLINE = 0,
+    IM4_ONLINE
+};

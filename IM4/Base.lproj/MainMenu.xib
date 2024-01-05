@@ -18,6 +18,7 @@
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
+                <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -700,8 +701,8 @@
             </items>
             <point key="canvasLocation" x="200" y="121"/>
         </menu>
-        <window title="IM4" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+        <window title="IM4" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="274" height="357"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
@@ -710,13 +711,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZt-PM-1SH">
-                        <rect key="frame" x="0.0" y="0.0" width="274" height="357"/>
+                        <rect key="frame" x="0.0" y="0.0" width="274" height="331"/>
                         <clipView key="contentView" id="SqP-0g-Zkj">
-                            <rect key="frame" x="1" y="1" width="272" height="355"/>
+                            <rect key="frame" x="1" y="1" width="272" height="329"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView identifier="contactList" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="M2x-SG-Cir" id="HwH-VR-Obo">
-                                    <rect key="frame" x="0.0" y="0.0" width="272" height="355"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="272" height="329"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="17" height="0.0"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -752,10 +753,28 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oW-MG-he7">
+                        <rect key="frame" x="190" y="329" width="80" height="25"/>
+                        <popUpButtonCell key="cell" type="push" title="Offline" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mo3-qS-ikp" id="ngc-98-N1r">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="gyq-QF-MZ5">
+                                <items>
+                                    <menuItem title="Offline" state="on" id="mo3-qS-ikp"/>
+                                    <menuItem title="Online" tag="1" id="G3Q-MF-jI9"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="statusSelected:" target="Voe-Tx-rLC" id="qOU-Id-Brd"/>
+                        </connections>
+                    </popUpButton>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="WZt-PM-1SH" secondAttribute="trailing" id="8kL-AB-AmX"/>
-                    <constraint firstItem="WZt-PM-1SH" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="R1A-Mu-BcC"/>
+                    <constraint firstAttribute="trailing" secondItem="4oW-MG-he7" secondAttribute="trailing" constant="8" id="Fy1-6B-Jgv"/>
+                    <constraint firstItem="WZt-PM-1SH" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="26" id="R1A-Mu-BcC"/>
+                    <constraint firstItem="4oW-MG-he7" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="4" id="TFh-DJ-YdO"/>
                     <constraint firstItem="WZt-PM-1SH" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="XpU-80-QI5"/>
                     <constraint firstAttribute="bottom" secondItem="WZt-PM-1SH" secondAttribute="bottom" id="bpC-02-S5F"/>
                 </constraints>
