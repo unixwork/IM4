@@ -38,6 +38,21 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     self = [self initWithWindowNibName:@"SettingsController"];
     _xmpp = NULL;
     
+    // check config dir
+    NSString *configDir = [self configFilePath:@""];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir = false;
+    if (![fileManager fileExistsAtPath:configDir isDirectory:&isDir]) {
+        NSError *error = nil;
+        if (![fileManager createDirectoryAtPath:configDir withIntermediateDirectories:YES attributes:nil error:&error]) {
+            NSLog(@"Error creating directory: %@", error);
+            exit(10);
+        }
+    } else if(!isDir) {
+        exit(11);
+    }
+        
+    
     // load settings
     NSString *configFilePath = [self configFilePath:@"config.plist"];
     _config = [NSMutableDictionary dictionaryWithContentsOfFile:configFilePath];
