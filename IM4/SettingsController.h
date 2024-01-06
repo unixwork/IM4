@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) createXmpp;
 
+- (void) recreateXmpp;
+
 - (NSString*) configFilePath: (NSString*)fileName;
 
 - (void) setAlias: (NSString*)alias forXid:(NSString*)xid;

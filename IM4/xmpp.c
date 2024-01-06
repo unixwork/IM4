@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <pthread.h>
 #include <poll.h>
@@ -84,6 +85,17 @@ Xmpp* XmppCreate(XmppSettings settings) {
         printf("otrl_instag_read: %u\n", otrerr);
         free(instancetags_file);
     }
+    
+    return xmpp;
+}
+
+Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
+    xmpp_ctx_t *ctx = xmpp_ctx_new(NULL, &logf);
+    
+    xmpp->ctx = ctx;
+    xmpp->running = 0;
+    xmpp->connection = NULL;
+    
     
     return xmpp;
 }
@@ -275,7 +287,8 @@ int socketopt_cb(xmpp_conn_t *conn, void *sock) {
 }
 
 static int session_xmpp_connect(Xmpp *xmpp) {
-    xmpp_conn_t *connection = xmpp_conn_new(xmpp->ctx);
+    xmpp_conn_t *connection = xmpp->connection;
+    connection = xmpp_conn_new(xmpp->ctx);
     xmpp_conn_set_flags(connection, xmpp->settings.flags);
     
     // TODO: replace im_account with threadsafe list
@@ -285,7 +298,7 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     
     xmpp_conn_set_jid(connection, xmpp->xid);
     xmpp_conn_set_pass(connection, xmpp->settings.password);
-    
+
     char *host = NULL;
     unsigned short port = 0;
     
@@ -399,19 +412,19 @@ int XmppRun(Xmpp *xmpp) {
 }
 
 static  void xmpp_stop_cb(Xmpp *xmpp, void *unused) {
-    char *debug = unused;
+    close(xmpp->fd);
     xmpp_stop(xmpp->ctx);
     xmpp->running = 0;
+    xmpp->fd = -1;
+    
+    close(xmpp->kqueue);
     
     // TODO: free stuff
 }
 
-static int debug_ctn = 0;
 
-void XmppStopAndDestroy(Xmpp *xmpp) {
-    char *debugmsg = malloc(100);
-    snprintf(debugmsg, 100, "%d", debug_ctn++);
-    XmppCall(xmpp, xmpp_stop_cb, debugmsg);
+void XmppStop(Xmpp *xmpp) {
+    XmppCall(xmpp, xmpp_stop_cb, NULL);
 }
 
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata) {

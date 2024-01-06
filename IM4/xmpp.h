@@ -85,13 +85,15 @@ void XmppLog(const char *str);
 
 Xmpp* XmppCreate(XmppSettings settings);
 
+Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings);
+
 //int XmppConnect(Xmpp *xmpp);
 
 int XmppQueryContacts(Xmpp *xmpp);
 
 int XmppRun(Xmpp *xmpp);
 
-void XmppStopAndDestroy(Xmpp *xmpp);
+void XmppStop(Xmpp *xmpp);
 
 void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 

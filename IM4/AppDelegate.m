@@ -308,7 +308,7 @@
 
 - (void) startXmpp {
     if(_xmpp) {
-        XmppStopAndDestroy(_xmpp);
+        //XmppStop(_xmpp);
         [_outlineViewController clearContacts];
         [_contactList reloadData];
     }
@@ -331,9 +331,13 @@
     NSInteger status = [_statusButton selectedTag];
     switch(status) {
         case IM4_OFFLINE: {
+            XmppStop(_xmpp);
             break;
         }
         case IM4_ONLINE: {
+            [_settingsController recreateXmpp];
+            _xmpp = _settingsController.xmpp;
+            XmppRun(_xmpp);
             break;
         }
     }

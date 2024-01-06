@@ -147,6 +147,15 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
 }
 
+- (void) recreateXmpp {
+    Xmpp *old = _xmpp;
+    [self createXmpp];
+    Xmpp *new = _xmpp;
+    *old = *new;
+    _xmpp = old;
+    // TODO: free
+}
+
 - (void) setAlias: (NSString*)alias forXid:(NSString*)xid {
     [_aliases setValue:alias forKey:xid];
 }
