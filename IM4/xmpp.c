@@ -100,6 +100,15 @@ Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
     return xmpp;
 }
 
+static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
+    xmpp_stanza_t *disco = xmpp_stanza_get_child_by_name_and_ns(stanza, "query", "http://jabber.org/protocol/disco#info");
+    if(disco) {
+        printf("disco\n");
+    }
+    
+    return 1;
+}
+
 static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     Xmpp *xmpp = userdata;
     
@@ -129,6 +138,10 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
                     app_chatstate(xmpp, from, XMPP_CHATSTATE_PAUSED);
                 } else if(!strcmp(name, "active")) {
                     app_chatstate(xmpp, from, XMPP_CHATSTATE_ACTIVE);
+                } else if(!strcmp(name, "inactive")) {
+                    app_chatstate(xmpp, from, XMPP_CHATSTATE_INACTIVE);
+                } else if(!strcmp(name, "gone")) {
+                    app_chatstate(xmpp, from, XMPP_CHATSTATE_GONE);
                 }
             }
             
@@ -271,6 +284,7 @@ static void connect_cb(
     Xmpp *xmpp = userdata;
     
     if(status == XMPP_CONN_CONNECT) {
+        xmpp_handler_add(conn, iq_cb, NULL, "iq", NULL, xmpp);
         xmpp_handler_add(conn, message_cb, NULL, "message", NULL, xmpp);
         xmpp_handler_add(conn, presence_cb, NULL, "presence", NULL, xmpp);
         
@@ -461,6 +475,68 @@ typedef struct {
     bool encrypt;
 } xmpp_msg;
 
+
+typedef struct {
+    char *to;
+    enum XmppChatstate state;
+} xmpp_state_msg;
+
+static const char* xmpp_state2str(enum XmppChatstate state) {
+    switch(state) {
+        case XMPP_CHATSTATE_ACTIVE: {
+            return "active";
+        }
+        case XMPP_CHATSTATE_PAUSED: {
+            return "paused";
+        }
+        case XMPP_CHATSTATE_COMPOSING: {
+            return "composing";
+        }
+        case XMPP_CHATSTATE_GONE: {
+            return "gone";
+        }
+        case XMPP_CHATSTATE_INACTIVE: {
+            return "inactive";
+        }
+    }
+    return NULL;
+}
+
+void Xmpp_Send_State(Xmpp *xmpp, const char *to, enum XmppChatstate s) {
+    char idbuf[16];
+    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    xmpp_stanza_t *chatmsg = xmpp_message_new(xmpp->ctx, "chat", to, idbuf);
+    xmpp_stanza_t *state = xmpp_stanza_new(xmpp->ctx);
+    const char *state_str = xmpp_state2str(s);
+    if(state_str) {
+        xmpp_stanza_set_name(state, state_str);
+        xmpp_stanza_set_ns(state, "http://jabber.org/protocol/chatstates");
+        
+        xmpp_stanza_add_child(chatmsg, state);
+        
+        xmpp_send(xmpp->connection, chatmsg);
+        xmpp_stanza_release(chatmsg);
+    }
+}
+
+static void send_xmpp_state_msg(Xmpp *xmpp, void *userdata) {
+    xmpp_state_msg *msg = userdata;
+    
+    Xmpp_Send_State(xmpp, msg->to, msg->state);
+
+    free(msg->to);
+    free(msg);
+}
+
+
+
+void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state) {
+    xmpp_state_msg *msg = malloc(sizeof(xmpp_state_msg));
+    msg->to = strdup(to);
+    msg->state = state;
+    XmppCall(xmpp, send_xmpp_state_msg, msg);
+}
+
 void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
     char idbuf[16];
     snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
@@ -474,6 +550,7 @@ void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
 
 static void send_xmpp_msg(Xmpp *xmpp, void *userdata) {
     xmpp_msg *msg = userdata;
+    printf("send_xmpp_msg\n");
     
     char *text = NULL;
     if(msg->encrypt) {
@@ -485,6 +562,7 @@ static void send_xmpp_msg(Xmpp *xmpp, void *userdata) {
     
     if(text) {
         Xmpp_Send(xmpp, msg->to, text);
+        Xmpp_Send_State(xmpp, msg->to, XMPP_CHATSTATE_ACTIVE);
     }
     
     if(text != msg->message) {

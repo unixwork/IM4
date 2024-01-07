@@ -93,6 +93,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     _online = false;
     _unread = 0;
+    _composing = false;
     
     return self;
 }
@@ -202,7 +203,18 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             _chatstateMsg = @"paused\n";
             break;
         }
-        default: return;
+        case XMPP_CHATSTATE_INACTIVE: {
+            _chatstateMsg = @"inactive";
+            break;
+        }
+        case XMPP_CHATSTATE_GONE: {
+            _chatstateMsg = @"gone";
+            break;
+        }
+        default: {
+            _chatstateMsg = @"";
+            break;
+        }
     }
     
     [self addStringToLog:_chatstateMsg];
@@ -369,6 +381,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     if(msgSent) {
         [self addLog:inputEscaped incoming:FALSE];
+        _composing = FALSE;
     } else {
         // inform the user that no message was sent
         NSTextStorage *textStorage = _conversationTextView.textStorage;
@@ -377,6 +390,13 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         [_conversationTextView scrollToEndOfDocument:nil];
     }
     [_messageInput setString:@""];
+}
+
+- (void)sendState:(enum XmppChatstate)state {
+    for(NSString *session in _activeSessions) {
+        NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
+        XmppStateMessage(_xmpp, [to UTF8String], state);
+    }
 }
 
 - (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res {
@@ -424,6 +444,24 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (IBAction) testAction:(id)sender {
     printf("testAction\n");
+}
+
+#pragma mark - NSTextViewDelegate Methods
+
+-(void)textDidChange:(NSNotification *)notification {
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
+    NSUInteger len = textStorage.length;
+    if(_composing) {
+        if(len == 0) {
+            [self sendState:XMPP_CHATSTATE_ACTIVE];
+            _composing = FALSE;
+        }
+    } else {
+        if(len != 0) {
+            [self sendState:XMPP_CHATSTATE_COMPOSING];
+            _composing = TRUE;
+        }
+    }
 }
 
 #pragma mark - NSWindowDelegate Methods

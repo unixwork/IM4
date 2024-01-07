@@ -69,7 +69,9 @@ typedef struct Xmpp {
 enum XmppChatstate {
     XMPP_CHATSTATE_ACTIVE = 0,
     XMPP_CHATSTATE_COMPOSING,
-    XMPP_CHATSTATE_PAUSED
+    XMPP_CHATSTATE_PAUSED,
+    XMPP_CHATSTATE_INACTIVE,
+    XMPP_CHATSTATE_GONE
 };
 
 
@@ -105,7 +107,11 @@ void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 
 void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
 
+void Xmpp_Send_State(Xmpp *xmpp, const char *to, enum XmppChatstate s);
+
 void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt);
+
+void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state);
 
 void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 

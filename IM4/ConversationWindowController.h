@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSMutableDictionary* activeSessions;
 @property bool online;
 @property bool loading;
+@property bool composing;
 @property int unread;
 @property NSString* chatstateMsg;
 
@@ -35,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming;
 
 - (void)sendMessage;
+
+- (void)sendState:(enum XmppChatstate) state;
 
 - (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res;
 
