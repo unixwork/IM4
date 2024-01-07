@@ -66,6 +66,12 @@ typedef struct Xmpp {
     OtrlUserState userstate;
 } Xmpp;
 
+enum XmppChatstate {
+    XMPP_CHATSTATE_ACTIVE = 0,
+    XMPP_CHATSTATE_COMPOSING,
+    XMPP_CHATSTATE_PAUSED
+};
+
 
 typedef void(*xmpp_callback_func)(Xmpp*, void*);
 

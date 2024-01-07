@@ -211,6 +211,30 @@ void app_message(void *xmpp, const char *msg_body, const char *from) {
 typedef struct {
     void *xmpp;
     char *from;
+    enum XmppChatstate state;
+} app_chatstate_msg;
+
+static void mt_app_chatstate(void *userdata) {
+    app_chatstate_msg *st = userdata;
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handleChatstate:st->from state:st->state];
+    
+    free(st->from);
+    free(st);
+}
+
+void app_chatstate(void *xmpp, const char *from, enum XmppChatstate state) {
+    app_chatstate_msg *st = malloc(sizeof(app_chatstate_msg));
+    st->xmpp = xmpp;
+    st->from = strdup(from);
+    st->state = state;
+    app_call_mainthread(mt_app_chatstate, st);
+}
+
+typedef struct {
+    void *xmpp;
+    char *from;
     bool status;
 } app_secure_status;
 

@@ -117,7 +117,24 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     
     xmpp_stanza_t *body = xmpp_stanza_get_child_by_name(stanza, "body");
     if(!body) {
-        //printf("message_cb: no body\n");
+        xmpp_stanza_t *children = xmpp_stanza_get_children(stanza);
+        while(children) {
+            const char *ns = xmpp_stanza_get_ns(children);
+            const char *name = xmpp_stanza_get_name(children);
+            if(!strcmp(ns, "http://jabber.org/protocol/chatstates")) {
+                // chat status updates
+                if(!strcmp(name, "composing")) {
+                    app_chatstate(xmpp, from, XMPP_CHATSTATE_COMPOSING);
+                } else if(!strcmp(name, "paused")) {
+                    app_chatstate(xmpp, from, XMPP_CHATSTATE_PAUSED);
+                } else if(!strcmp(name, "active")) {
+                    app_chatstate(xmpp, from, XMPP_CHATSTATE_ACTIVE);
+                }
+            }
+            
+            children = xmpp_stanza_get_next(children);
+        }
+        
         return 1;
     }
     

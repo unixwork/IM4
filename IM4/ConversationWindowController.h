@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property bool online;
 @property bool loading;
 @property int unread;
+@property NSString* chatstateMsg;
 
 
 - (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
@@ -29,11 +30,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)selectConversation:(NSMenuItem*)sender;
 
+- (void)addStringToLog:(NSString*)str;
+
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming;
 
 - (void)sendMessage;
 
 - (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res;
+
+- (void)clearChatStateMsg;
+
+- (void)chatState:(enum XmppChatstate)state;
 
 - (void)otrError:(uint64_t)error from:(NSString*)from;
 

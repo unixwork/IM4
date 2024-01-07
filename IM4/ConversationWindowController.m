@@ -117,8 +117,22 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _online = status == nil || [status count] == 0 ? false : true;
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     
+    // check if there is currently an active otr session
+    // we want the conversations menu always contain active otr sessions
+    NSMutableDictionary *activeOtrSession = nil;
+    if(_secure) {
+        activeOtrSession = [[NSMutableDictionary alloc]init];
+        for(NSString *session in _activeSessions) {
+            NSString *asValue = [_activeSessions valueForKey:session];
+            if([@"1" isEqualTo:asValue]) {
+                [activeOtrSession setValue:@"1" forKey:session];
+            }
+        }
+    }
+    
     NSMutableDictionary *sessions = [[NSMutableDictionary alloc]init];
     
+    // create menu items for all available contacts
     NSMenu *comboMenu = [[NSMenu alloc] initWithTitle:@"Conversations"];
     NSMenuItem *lastItem = nil;
     for(NSString *res in status) {
@@ -136,6 +150,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             [sessions setValue:@"1" forKey:res];
         }
     }
+    
+    
+    
     [comboMenu addItem:[NSMenuItem separatorItem]];
     
     
@@ -158,6 +175,37 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [_conversationTextView scrollToEndOfDocument:nil];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
+}
+
+- (void)clearChatStateMsg {
+    if(_chatstateMsg == nil) {
+        return;
+    }
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
+    NSUInteger textLen = [textStorage length];
+    NSRange range = { textLen - _chatstateMsg.length, _chatstateMsg.length };
+    [textStorage deleteCharactersInRange:range];
+}
+
+- (void)chatState:(enum XmppChatstate)state {
+    [self clearChatStateMsg];
+    switch(state) {
+        case XMPP_CHATSTATE_ACTIVE: {
+            _chatstateMsg = @"";
+            break;
+        }
+        case XMPP_CHATSTATE_COMPOSING: {
+            _chatstateMsg = @"composing\n";
+            break;
+        }
+        case XMPP_CHATSTATE_PAUSED: {
+            _chatstateMsg = @"paused\n";
+            break;
+        }
+        default: return;
+    }
+    
+    [self addStringToLog:_chatstateMsg];
 }
 
 - (void)otrError:(uint64_t)error from:(NSString*)from {
@@ -224,17 +272,26 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
     
     NSString *otrmsg = [NSString stringWithFormat:@"otr message: from: %@: %@\n", from, msg];
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:otrmsg];
     
-    NSTextStorage *textStorage = _conversationTextView.textStorage;
-    [textStorage appendAttributedString:attributedText];
-    [_conversationTextView scrollToEndOfDocument:nil];
+    [self clearChatStateMsg];
+    [self addStringToLog:otrmsg];
+    [self addStringToLog:_chatstateMsg];
 }
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
     
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
+    [textStorage appendAttributedString:attributedText];
+    [_conversationTextView scrollToEndOfDocument:nil];
+}
+
+- (void)addStringToLog:(NSString*)str {
+    if(str == nil) {
+        return;
+    }
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:str];
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:attributedText];
     [_conversationTextView scrollToEndOfDocument:nil];
@@ -277,7 +334,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSFont *newFont = [NSFont systemFontOfSize:12];
     [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
     
+    [self clearChatStateMsg];
     [textStorage appendAttributedString:mutableAttributedString];
+    [self addStringToLog:_chatstateMsg];
+    
     [_conversationTextView scrollToEndOfDocument:nil];
 }
 

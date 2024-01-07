@@ -190,6 +190,24 @@
     }
 }
 
+- (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state {
+    char *res = strchr(from, '/');
+    size_t from_len;
+    NSString *resource = @"";
+    if(res) {
+        from_len = res - from;
+        resource = [[NSString alloc]initWithUTF8String:res];
+    } else {
+        from_len = strlen(from);
+    }
+    
+    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
+    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    if(conversation != nil) {
+        [conversation chatState:state];
+    }
+}
+
 - (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp {
     char *res = strchr(from, '/');
     size_t from_len;

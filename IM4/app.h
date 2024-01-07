@@ -11,6 +11,8 @@
 
 #include <stdbool.h>
 
+
+
 typedef void(*app_func)(void*);
 
 char* app_configfile(const char *name);
@@ -28,6 +30,8 @@ void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned cha
 void app_otr_error(void *xmpp, const char *from, uint64_t error);
 
 void app_message(void *xmpp, const char *msg_body, const char *from);
+
+void app_chatstate(void *xmpp, const char *from, enum XmppChatstate state);
 
 void app_update_secure_status(void *xmpp, const char *from, bool issecure);
 
