@@ -449,7 +449,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 #pragma mark - NSTextViewDelegate Methods
 
 -(void)textDidChange:(NSNotification *)notification {
-    NSTextStorage *textStorage = _conversationTextView.textStorage;
+    NSTextStorage *textStorage = _messageInput.textStorage;
     NSUInteger len = textStorage.length;
     if(_composing) {
         if(len == 0) {
