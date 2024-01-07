@@ -292,16 +292,27 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     // it is also currently impossible to send html when encryption is off
     const char *message = _secure ? [inputEscaped UTF8String] : [convert_urls_to_links(input, false) UTF8String];
     
-    for(NSString *session in _activeSessions) {
-        NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-        XmppMessage(_xmpp, [to UTF8String], message, _secure);
+    BOOL msgSent = FALSE;
+    if(_activeSessions.count == 0 && !_secure) {
+        // a secure (otr) chat doesn't allow offline messages
+        // unsecure messages can be sent offline
+        // send the message to the xid without resource part
+        XmppMessage(_xmpp, [_xid UTF8String], message, FALSE);
+        msgSent = TRUE;
+    } else {
+        for(NSString *session in _activeSessions) {
+            NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
+            XmppMessage(_xmpp, [to UTF8String], message, _secure);
+        }
+        msgSent = TRUE;
     }
     
-    if(_activeSessions.count > 0) {
+    if(msgSent) {
         [self addLog:inputEscaped incoming:FALSE];
     } else {
+        // inform the user that no message was sent
         NSTextStorage *textStorage = _conversationTextView.textStorage;
-        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions"];
+        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions: no meesage sent"];
         [textStorage appendAttributedString:attributedText];
         [_conversationTextView scrollToEndOfDocument:nil];
     }
