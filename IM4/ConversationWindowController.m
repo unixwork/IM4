@@ -13,9 +13,11 @@
 static NSString* escape_input(NSString *input) {
     NSMutableString *inputEscaped = [[NSMutableString alloc] init];
     [input enumerateSubstringsInRange:NSMakeRange(0, [input length])  options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *outStop) {
+
         const char *s = [substring UTF8String];
         switch(*s) {
             default: {
+                
                 [inputEscaped appendString:substring];
                 break;
             }
@@ -42,7 +44,32 @@ static NSString* escape_input(NSString *input) {
         }
     }];
     
-    return [[NSString alloc] initWithString:inputEscaped];
+    return inputEscaped;
+}
+
+static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
+    NSMutableString *inputEscaped = [[NSMutableString alloc] init];
+    
+    NSString *regex = @"https?:\\/\\/{1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\\S*)";
+    
+    NSRange url = [input rangeOfString:regex options:NSRegularExpressionSearch];
+    while(url.location != NSNotFound) {
+        NSString *urlStr = [input substringWithRange:url];
+        
+        NSString *pre = [input substringToIndex:url.location];
+        [inputEscaped appendString:escape?escape_input(pre):pre];
+        [inputEscaped appendString:@"<a href=\""];
+        [inputEscaped appendString:urlStr];
+        [inputEscaped appendString:@"\">"];
+        [inputEscaped appendString:escape?escape_input(urlStr):urlStr];
+        [inputEscaped appendString:@"</a>"];
+        
+        input = [input substringFromIndex:url.location + url.length];
+        url = [input rangeOfString:regex options:NSRegularExpressionSearch];
+    }
+    [inputEscaped appendString:input];
+    
+    return inputEscaped;
 }
 
 @interface ConversationWindowController ()
@@ -256,14 +283,14 @@ static NSString* escape_input(NSString *input) {
 
 - (void)sendMessage {
     NSString *input = _messageInput.string;
-    NSString *inputEscaped = escape_input(input);
+    NSString *inputEscaped = convert_urls_to_links(input, true);
     
     // if otr is on, we have to give the Xmpp module an escaped string
     // without otr, libstrophe will automatically escape the text
     // maybe the escaping should be moved to xmpp.c, however we also need
     // an escaped string for the message log
     // it is also currently impossible to send html when encryption is off
-    const char *message = _secure ? [inputEscaped UTF8String] : [input UTF8String];
+    const char *message = _secure ? [inputEscaped UTF8String] : [convert_urls_to_links(input, false) UTF8String];
     
     for(NSString *session in _activeSessions) {
         NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
