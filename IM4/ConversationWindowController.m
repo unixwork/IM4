@@ -234,7 +234,7 @@ static NSString* escape_input(NSString *input) {
     NSString *time = [dateFormatter stringFromDate:currentDate];
     NSString *color = incoming ? @"red" : @"blue";
     
-    NSString *entry = [NSString stringWithFormat:@"<span style=\"color: %@\">%@(%@) %@</span>: <pre>%@</pre><br/>", color, incomingStr, time, name, message];
+    NSString *entry = [NSString stringWithFormat:@"<pre><span style=\"color: %@\">%@(%@) %@</span>: %@</pre>", color, incomingStr, time, name, message];
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     //NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:entry];
