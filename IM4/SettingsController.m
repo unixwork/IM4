@@ -100,6 +100,10 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
     
     self.password.stringValue = @"";
+    
+    if(_fingerprint) {
+        _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
+    }
 }
 
 - (BOOL)storeSettings {
