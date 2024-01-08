@@ -29,6 +29,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSTextField *resource;
 @property (strong) IBOutlet NSTextField *host;
 @property (strong) IBOutlet NSTextField *port;
+@property (strong) IBOutlet NSTextField *otrFingerprint;
 
 @end
 
@@ -208,8 +209,13 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 
+
 - (void)windowWillClose:(NSNotification *)notification {
     printf("window close\n");
+}
+
+- (IBAction)otrGenKey:(id)sender {
+    
 }
 
 @end

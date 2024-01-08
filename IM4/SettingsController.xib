@@ -11,6 +11,7 @@
                 <outlet property="alias" destination="1lt-Uk-Qz3" id="uZk-4p-8D5"/>
                 <outlet property="host" destination="HVI-i9-lKi" id="QSE-lG-ala"/>
                 <outlet property="jid" destination="MBc-Ab-z6z" id="4eq-Bt-BPZ"/>
+                <outlet property="otrFingerprint" destination="kCa-2n-uLh" id="dfc-gr-zGW"/>
                 <outlet property="password" destination="A4W-J6-G5V" id="vT3-8x-fwP"/>
                 <outlet property="port" destination="SJc-h7-mzy" id="xcE-H4-fjr"/>
                 <outlet property="resource" destination="AfC-cE-KQF" id="PGv-9l-yQ1"/>
@@ -191,6 +192,32 @@
                                 <view key="view" id="5iW-c4-4Td">
                                     <rect key="frame" x="10" y="33" width="449" height="281"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kCa-2n-uLh">
+                                            <rect key="frame" x="6" y="257" width="78" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Fingerprint: " id="CKv-DA-7Td">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TSC-F2-hum">
+                                            <rect key="frame" x="1" y="210" width="188" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Generate new private key" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ecH-EN-nG7">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="otrGenKey:" target="-2" id="wD3-PD-ttu"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="TSC-F2-hum" firstAttribute="leading" secondItem="5iW-c4-4Td" secondAttribute="leading" constant="8" id="5qv-xx-D9J"/>
+                                        <constraint firstItem="kCa-2n-uLh" firstAttribute="top" secondItem="5iW-c4-4Td" secondAttribute="top" constant="8" id="Q66-3h-Rhk"/>
+                                        <constraint firstItem="kCa-2n-uLh" firstAttribute="leading" secondItem="5iW-c4-4Td" secondAttribute="leading" constant="8" id="hgO-ZA-xmn"/>
+                                        <constraint firstItem="TSC-F2-hum" firstAttribute="top" secondItem="kCa-2n-uLh" secondAttribute="bottom" constant="20" id="jav-Jg-Huw"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>

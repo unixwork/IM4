@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)cancelAction:(id)sender;
 
+- (IBAction)otrGenKey:(id)sender;
+
 
 @end
 
