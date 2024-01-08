@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL) storeSettings;
 
+- (void) createFingerprintFromPubkey;
+
 - (IBAction)testAction:(id)sender;
 
 - (IBAction)okAction:(id)sender;

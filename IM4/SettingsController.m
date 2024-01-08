@@ -11,6 +11,7 @@
 
 #import <CommonCrypto/CommonDigest.h>
 
+#import "app.h"
 
 static bool nsstreq(NSString *s1, NSString *s2) {
     if(s1 == s2) {
@@ -99,7 +100,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         _port.stringValue = port;
     }
     
-    self.password.stringValue = @"";
+    _password.stringValue = @"";
     
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
@@ -114,6 +115,22 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_aliases writeToFile:aliasFilePath atomically:YES];
     
     return true;
+}
+
+- (void) createFingerprintFromPubkey {
+    if(_xmpp && _xmpp->userstate && _xmpp->userstate->privkey_root) {
+        OtrlPrivKey *privkey_root = _xmpp->userstate->privkey_root;
+        
+        unsigned char fingerprint_data[CC_SHA1_DIGEST_LENGTH];
+        CC_SHA1(privkey_root->pubkey_data, (CC_LONG)privkey_root->pubkey_datalen, fingerprint_data);
+        
+        NSMutableString *fingerprint_str = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+        for(int i=0;i<CC_SHA1_DIGEST_LENGTH;i++) {
+            [fingerprint_str appendFormat:@"%02x", fingerprint_data[i]];
+        }
+        
+        _fingerprint = fingerprint_str;
+    }
 }
 
 - (NSString*) configFilePath: (NSString*)fileName {
@@ -152,19 +169,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         
         _xmpp = XmppCreate(settings);
         
-        if(_xmpp && _xmpp->userstate && _xmpp->userstate->privkey_root) {
-            OtrlPrivKey *privkey_root = _xmpp->userstate->privkey_root;
-            
-            unsigned char fingerprint_data[CC_SHA1_DIGEST_LENGTH];
-            CC_SHA1(privkey_root->pubkey_data, (CC_LONG)privkey_root->pubkey_datalen, fingerprint_data);
-            
-            NSMutableString *fingerprint_str = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-            for(int i=0;i<CC_SHA1_DIGEST_LENGTH;i++) {
-                [fingerprint_str appendFormat:@"%02x", fingerprint_data[i]];
-            }
-            
-            _fingerprint = fingerprint_str;
-        }
+        [self createFingerprintFromPubkey];
     }
 }
 
@@ -235,7 +240,18 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (IBAction)otrGenKey:(id)sender {
+    char *filename = app_configfile("otr.private_key");
+    printf("create_privkey_cb\n");
+    printf("account = %s\n", _xmpp->userstate->privkey_root->accountname);
+    printf("filename = %s\n", filename);
+    otrl_privkey_generate(_xmpp->userstate, filename, _xmpp->userstate->privkey_root->accountname, _xmpp->userstate->privkey_root->protocol);
+    otrl_privkey_read(_xmpp->userstate, filename);
+    printf("key generated\n");
     
+    [self createFingerprintFromPubkey];
+    if(_fingerprint) {
+        _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
+    }
 }
 
 @end
