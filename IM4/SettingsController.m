@@ -9,6 +9,8 @@
 
 #import "AppDelegate.h"
 
+#import <CommonCrypto/CommonDigest.h>
+
 
 static bool nsstreq(NSString *s1, NSString *s2) {
     if(s1 == s2) {
@@ -145,6 +147,20 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
         
         _xmpp = XmppCreate(settings);
+        
+        if(_xmpp && _xmpp->userstate && _xmpp->userstate->privkey_root) {
+            OtrlPrivKey *privkey_root = _xmpp->userstate->privkey_root;
+            
+            unsigned char fingerprint_data[CC_SHA1_DIGEST_LENGTH];
+            CC_SHA1(privkey_root->pubkey_data, (CC_LONG)privkey_root->pubkey_datalen, fingerprint_data);
+            
+            NSMutableString *fingerprint_str = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+            for(int i=0;i<CC_SHA1_DIGEST_LENGTH;i++) {
+                [fingerprint_str appendFormat:@"%02x", fingerprint_data[i]];
+            }
+            
+            _fingerprint = fingerprint_str;
+        }
     }
 }
 

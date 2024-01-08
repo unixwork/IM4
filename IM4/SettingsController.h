@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSDictionary *config;
 @property (readonly) NSDictionary *aliases;
 
+@property (copy) NSString *fingerprint;
+
 - (id)initSettings;
 
 - (void) createXmpp;
