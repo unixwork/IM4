@@ -670,6 +670,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
+                            <menuItem title="Contact List" id="Ped-8U-YWs">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuContactList:" target="Voe-Tx-rLC" id="NxX-0c-yBR"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Debug Log" id="RMf-69-7h3">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

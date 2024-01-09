@@ -345,6 +345,10 @@
     [_logWindowController showWindow:nil];
 }
 
+- (IBAction) menuContactList:(id)sender {
+    [_window makeKeyAndOrderFront:self];
+}
+
 - (IBAction) statusSelected:(id)sender {
     NSInteger status = [_statusButton selectedTag];
     switch(status) {

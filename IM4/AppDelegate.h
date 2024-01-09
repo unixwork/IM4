@@ -62,8 +62,8 @@
 
 
 - (IBAction) menuPreferences:(id)sender;
-
 - (IBAction) menuDebugLog:(id)sender;
+- (IBAction) menuContactList:(id)sender;
 
 - (IBAction) statusSelected:(id)sender;
 
