@@ -48,6 +48,20 @@ typedef struct XmppContact {
     char *group;
 } XmppContact;
 
+typedef struct XmppRecipient {
+    char *recipient;
+    bool otr;
+    bool enabled;
+} XmppRecipient;
+
+typedef struct XmppConversation {
+    char *xid;
+    XmppRecipient *res;
+    size_t nres;
+} XmppConversation;
+
+
+
 typedef struct Xmpp {
     XmppSettings  settings;
     xmpp_ctx_t    *ctx;
@@ -63,8 +77,13 @@ typedef struct Xmpp {
     XmppContact *contacts;
     size_t ncontacts;
     
+    XmppConversation *conversations;
+    size_t nconversations;
+    
     OtrlUserState userstate;
 } Xmpp;
+
+
 
 enum XmppChatstate {
     XMPP_CHATSTATE_ACTIVE = 0,
@@ -116,6 +135,8 @@ void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state);
 void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 
 void XmppStopOtr(Xmpp *xmpp, const char *recipient);
+
+void XmppOpenConversation(Xmpp *xmpp, const char *recipient);
 
 
 #endif /* xmpp_h */

@@ -601,3 +601,28 @@ void XmppStopOtr(Xmpp *xmpp, const char *recipient) {
     char *r = strdup(recipient);
     XmppCall(xmpp, stop_xmpp_otr, r);
 }
+
+
+void XmppOpenConversation(Xmpp *xmpp, const char *recipient) {
+    char *xid = strdup(recipient);
+    char *res = strchr(xid, '/');
+    if(res) {
+        *res = 0;
+    }
+    
+    XmppConversation *conv = NULL;
+    for(int i=0;i<xmpp->nconversations;i++) {
+        if(!strcmp(xmpp->conversations[i].xid, xid)) {
+            conv = &xmpp->conversations[i];
+            break;
+        }
+    }
+    
+    if(!conv) {
+        xmpp->conversations = realloc(xmpp->conversations, sizeof(XmppConversation*) * xmpp->nconversations);
+        conv = &xmpp->conversations[xmpp->nconversations++];
+    }
+    
+    // todo check res and add recipient if required
+}
+
