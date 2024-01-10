@@ -45,4 +45,10 @@
     [_log scrollToEndOfDocument:nil];
 }
 
+- (IBAction) clearAction:(id)sender {
+    NSTextStorage *textStorage = _log.textStorage;
+    NSAttributedString *attributedText = [[NSAttributedString alloc] init];
+    [textStorage setAttributedString:attributedText];
+}
+
 @end

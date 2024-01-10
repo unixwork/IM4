@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addToLog:(const char *)str length:(size_t)length;
 
+- (IBAction) clearAction:(id)sender;
+
 
 @end
 
