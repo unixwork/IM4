@@ -179,6 +179,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         }
         
         if(user_msg) {
+            XmppSession *sn = XmppGetSession(xmpp, from); // test
             app_message(xmpp, user_msg, from);
         }
         
@@ -603,26 +604,71 @@ void XmppStopOtr(Xmpp *xmpp, const char *recipient) {
 }
 
 
-void XmppOpenConversation(Xmpp *xmpp, const char *recipient) {
+XmppSession* XmppGetSession(Xmpp *xmpp, const char *recipient) {
     char *xid = strdup(recipient);
     char *res = strchr(xid, '/');
     if(res) {
+        char *resource = strdup(res);
         *res = 0;
+        res = resource;
     }
     
+    // Is the conversation already open?
+    // This could potentially optimized with an sorted array if it is necessary
     XmppConversation *conv = NULL;
     for(int i=0;i<xmpp->nconversations;i++) {
-        if(!strcmp(xmpp->conversations[i].xid, xid)) {
-            conv = &xmpp->conversations[i];
+        if(!strcmp(xmpp->conversations[i]->xid, xid)) {
+            conv = xmpp->conversations[i];
             break;
         }
     }
     
+    // If no conversation is found, create a new conversation and add it to the array
     if(!conv) {
-        xmpp->conversations = realloc(xmpp->conversations, sizeof(XmppConversation*) * xmpp->nconversations);
-        conv = &xmpp->conversations[xmpp->nconversations++];
+        if(xmpp->nconversations >= xmpp->conversationsalloc) {
+            xmpp->conversationsalloc += 8;
+            xmpp->conversations = realloc(xmpp->conversations, sizeof(XmppConversation*) * xmpp->conversationsalloc);
+        }
+        
+        conv = malloc(sizeof(XmppConversation));
+        memset(conv, 0, sizeof(XmppConversation));
+        xmpp->conversations[xmpp->nconversations++] = conv;
+        
+        conv->xid = xid;
+        xid = NULL; // disable free(xid)
     }
     
-    // todo check res and add recipient if required
+    // Add recipient to the conversation if not present
+    XmppSession *session = NULL;
+    for(int i=0;i<conv->nsessions;i++) {
+        if(!strcmp(conv->sessions[i]->resource, res)) {
+            session = conv->sessions[i];
+            break;
+        }
+    }
+    
+    if(!session) {
+        if(conv->nsessions >= conv->snalloc) {
+            conv->snalloc += 4;
+            conv->sessions = realloc(conv->sessions, sizeof(XmppSession*) * conv->nsessions);
+        }
+        
+        session = malloc(sizeof(XmppSession));
+        memset(session, 0, sizeof(XmppSession));
+        conv->sessions[conv->nsessions++] = session;
+        
+        session->resource = res;
+        session->conversation = conv;
+        res = NULL; // disable free(res)
+    } 
+    
+    
+    if(xid) {
+        free(xid);
+    }
+    if(res) {
+        free(res);
+    }
+    return session;
 }
 

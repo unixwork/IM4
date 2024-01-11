@@ -27,7 +27,10 @@
 #include <libotr/message.h>
 #include <libotr/privkey.h>
 
-typedef struct XmppEvent XmppEvent;
+typedef struct XmppEvent        XmppEvent;
+typedef struct XmppSession      XmppSession;
+typedef struct XmppConversation XmppConversation;
+typedef struct Xmpp             Xmpp;
 
 typedef struct XmppSettings {
     char *jid;
@@ -48,21 +51,56 @@ typedef struct XmppContact {
     char *group;
 } XmppContact;
 
-typedef struct XmppRecipient {
-    char *recipient;
+struct XmppSession {
+    /*
+     * parent conversation object
+     */
+    XmppConversation *conversation;
+    
+    /*
+     * resource part
+     */
+    char *resource;
+    
     bool otr;
     bool enabled;
-} XmppRecipient;
+};
 
-typedef struct XmppConversation {
+struct XmppConversation {
+    /*
+     * recipient xid
+     */
     char *xid;
-    XmppRecipient *res;
-    size_t nres;
-} XmppConversation;
+    
+    /*
+     * recipient array
+     */
+    XmppSession **sessions;
+    
+    /*
+     * number of XmppSession elements
+     */
+    size_t nsessions;
+    
+    /*
+     * number of XmppSession elements allocated
+     */
+    size_t snalloc;
+    
+    /*
+     * custom user data 1
+     */
+    void *userdata1;
+    
+    /*
+     * custom user data 2
+     */
+    void *userdata2;
+};
 
 
 
-typedef struct Xmpp {
+struct Xmpp {
     XmppSettings  settings;
     xmpp_ctx_t    *ctx;
     xmpp_log_t    *log;
@@ -77,11 +115,23 @@ typedef struct Xmpp {
     XmppContact *contacts;
     size_t ncontacts;
     
-    XmppConversation *conversations;
+    /*
+     * conversations array
+     */
+    XmppConversation **conversations;
+    
+    /*
+     * number of conversation elements
+     */
     size_t nconversations;
     
+    /*
+     * number of XmppConversation elements allocated
+     */
+    size_t conversationsalloc;
+    
     OtrlUserState userstate;
-} Xmpp;
+};
 
 
 
@@ -136,7 +186,7 @@ void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 
 void XmppStopOtr(Xmpp *xmpp, const char *recipient);
 
-void XmppOpenConversation(Xmpp *xmpp, const char *recipient);
+XmppSession* XmppGetSession(Xmpp *xmpp, const char *recipient);
 
 
 #endif /* xmpp_h */
