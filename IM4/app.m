@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "AppDelegate.h"
+#import "ConversationWindowController.h"
 
 #import "app.h"
 
@@ -184,25 +185,27 @@ void app_otr_error(void *xmpp, const char *from, uint64_t error) {
 }
 
 typedef struct {
-    void *xmpp;
-    char *msg_body;
+    Xmpp *xmpp;
+    XmppSession *session;
     char *from;
+    char *msg_body;
 } app_recv_message;
 
 static void mt_app_message(void *userdata) {
     app_recv_message *msg = userdata;
     
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app handleXmppMessage:msg->msg_body from:msg->from xmpp:msg->xmpp];
+    [app handleXmppMessage:msg->msg_body from:msg->from session:msg->session xmpp:msg->xmpp];
     
     free(msg->from);
     free(msg->msg_body);
     free(msg);
 }
 
-void app_message(void *xmpp, const char *msg_body, const char *from) {
+void app_message(Xmpp *xmpp, XmppSession *session, const char *from, const char *msg_body) {
     app_recv_message *msg = malloc(sizeof(app_recv_message));
     msg->xmpp = xmpp;
+    msg->session = session;
     msg->msg_body = strdup(msg_body);
     msg->from = strdup(from);
     app_call_mainthread(mt_app_message, msg);

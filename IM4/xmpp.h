@@ -98,8 +98,6 @@ struct XmppConversation {
     void *userdata2;
 };
 
-
-
 struct Xmpp {
     XmppSettings  settings;
     xmpp_ctx_t    *ctx;

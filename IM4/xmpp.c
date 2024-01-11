@@ -180,7 +180,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         
         if(user_msg) {
             XmppSession *sn = XmppGetSession(xmpp, from); // test
-            app_message(xmpp, user_msg, from);
+            app_message(xmpp, sn, from, user_msg);
         }
         
         free(body_text);

@@ -115,18 +115,9 @@
     return alias != nil ? alias : xid;
 }
 
-- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from xmpp:(Xmpp*)xmpp {
-    char *res = strchr(from, '/');
-    size_t from_len;
-    NSString *resource = @"";
-    if(res) {
-        from_len = res - from;
-        resource = [[NSString alloc]initWithUTF8String:res];
-    } else {
-        from_len = strlen(from);
-    }
-    
-    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
+- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
+    NSString *xid = [[NSString alloc] initWithUTF8String:session->conversation->xid];
+    NSString *resource = [[NSString alloc] initWithUTF8String:session->resource];
     NSString *alias = [_settingsController getAlias:xid];
     NSString *message_text = [[NSString alloc]initWithUTF8String:msg_body];
     
@@ -134,10 +125,11 @@
         alias = xid;
     }
     
-    ConversationWindowController *conversation = [_conversations objectForKey:xid];
+    ConversationWindowController *conversation = (__bridge ConversationWindowController*)session->conversation->userdata1;
     if(!conversation) {
         conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:xid];
+        [_conversations setObject:conversation forKey:xid]; // only used for memory management
+        session->conversation->userdata1 = (__bridge void*)conversation;
     }
     [conversation showWindow:nil];
     [conversation addReceivedMessage:message_text resource:resource];

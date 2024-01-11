@@ -11,7 +11,7 @@
 
 #include <stdbool.h>
 
-
+#include "xmpp.h"
 
 typedef void(*app_func)(void*);
 
@@ -29,7 +29,7 @@ void app_handle_new_fingerprint(void *xmpp, const char *from, const unsigned cha
 
 void app_otr_error(void *xmpp, const char *from, uint64_t error);
 
-void app_message(void *xmpp, const char *msg_body, const char *from);
+void app_message(Xmpp *xmpp, XmppSession *session, const char *from, const char *msg_body);
 
 void app_chatstate(void *xmpp, const char *from, enum XmppChatstate state);
 
