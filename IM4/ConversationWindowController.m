@@ -89,19 +89,19 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _xmpp = xmpp;
     _xid = [xid copy];
     _alias = alias != nil ? [alias copy] : [_xid copy];
-    _activeSessions = [[NSMutableDictionary alloc]init];
-    
+
     _online = false;
     _unread = 0;
     _composing = false;
+    
+    XmppSession *sn = XmppGetSession(_xmpp, [_xid UTF8String]);
+    _conversation = sn->conversation;
     
     return self;
 }
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    
-    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     
     [_splitview setPosition:320 ofDividerAtIndex:0];
     
@@ -118,47 +118,21 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _online = status == nil || [status count] == 0 ? false : true;
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     
-    // check if there is currently an active otr session
-    // we want the conversations menu always contain active otr sessions
-    NSMutableDictionary *activeOtrSession = nil;
-    if(_secure) {
-        activeOtrSession = [[NSMutableDictionary alloc]init];
-        for(NSString *session in _activeSessions) {
-            NSString *asValue = [_activeSessions valueForKey:session];
-            if([@"1" isEqualTo:asValue]) {
-                [activeOtrSession setValue:@"1" forKey:session];
-            }
-        }
-    }
-    
-    NSMutableDictionary *sessions = [[NSMutableDictionary alloc]init];
-    
     // create menu items for all available contacts
     NSMenu *comboMenu = [[NSMenu alloc] initWithTitle:@"Conversations"];
-    NSMenuItem *lastItem = nil;
-    for(NSString *res in status) {
-        NSString *itemText = [NSString stringWithFormat:@"%@%@", _xid, res];
+    for(int i=0;i<_conversation->nsessions;i++) {
+        NSString *itemText = [NSString stringWithFormat:@"%@%s", _xid, _conversation->sessions[i]->resource];
         NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:itemText action:@selector(selectConversation:) keyEquivalent:@""];
         item.target = self;
-        if(status.count == 1) {
+        if(_conversation->sessions[i]->enabled) {
             item.state = NSControlStateValueOn;
-        } else {
-            
         }
         [comboMenu addItem:item];
-        
-        if(item.state == NSControlStateValueOn) {
-            [sessions setValue:@"1" forKey:res];
-        }
     }
-    
-    
     
     [comboMenu addItem:[NSMenuItem separatorItem]];
     
-    
     _secureButton.menu = comboMenu;
-    _activeSessions = sessions;
 }
 
 - (BOOL)selectConversation:(NSMenuItem*)sender {
@@ -166,7 +140,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     return true;
 }
 
-- (void)setSecure:(Boolean)secure session:(NSString*)session {
+- (void)setSecure:(Boolean)secure {
     _secure = secure;
     NSString *msg = secure ? @"otr: gone secure\n" : @"otr: gone insecure\n";
     
@@ -312,7 +286,6 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming {
     //NSString *name = incoming ? @"<" : @">";
     //NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
-    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     
     NSString *name;
     if(incoming) {
@@ -365,18 +338,13 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     const char *message = _secure ? [inputEscaped UTF8String] : [convert_urls_to_links(input, false) UTF8String];
     
     BOOL msgSent = FALSE;
-    if(_activeSessions.count == 0 && !_secure) {
-        // a secure (otr) chat doesn't allow offline messages
-        // unsecure messages can be sent offline
-        // send the message to the xid without resource part
-        XmppMessage(_xmpp, [_xid UTF8String], message, FALSE);
-        msgSent = TRUE;
-    } else {
-        for(NSString *session in _activeSessions) {
-            NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
+    for(int i=0;i<_conversation->nsessions;i++) {
+        XmppSession *sn = _conversation->sessions[i];
+        if(sn->enabled) {
+            NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
             XmppMessage(_xmpp, [to UTF8String], message, _secure);
+            msgSent = TRUE;
         }
-        msgSent = TRUE;
     }
     
     if(msgSent) {
@@ -393,9 +361,12 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (void)sendState:(enum XmppChatstate)state {
-    for(NSString *session in _activeSessions) {
-        NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-        XmppStateMessage(_xmpp, [to UTF8String], state);
+    for(int i=0;i<_conversation->nsessions;i++) {
+        XmppSession *sn = _conversation->sessions[i];
+        if(sn->enabled) {
+            NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
+            XmppStateMessage(_xmpp, [to UTF8String], state);
+        }
     }
 }
 
@@ -413,10 +384,13 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     printf("secure\n");
     if(_secure) {
         if(_online) {
-            for(NSString *session in _activeSessions) {
-                NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-                XmppStopOtr(_xmpp, [to UTF8String]);
-                [self setSecure:false session:session];
+            for(int i=0;i<_conversation->nsessions;i++) {
+                XmppSession *sn = _conversation->sessions[i];
+                if(sn->enabled) {
+                    NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
+                    XmppStopOtr(_xmpp, [to UTF8String]);
+                    [self setSecure:false];
+                }
             }
         } else {
             _secure = false;
@@ -430,15 +404,14 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         }
     } else {
         if(_online) {
-            for(NSString *session in _activeSessions) {
-                NSString *to = [NSString stringWithFormat:@"%@%@", _xid, session];
-                XmppStartOtr(_xmpp, [to UTF8String]);
+            for(int i=0;i<_conversation->nsessions;i++) {
+                XmppSession *sn = _conversation->sessions[i];
+                if(sn->enabled) {
+                    NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
+                    XmppStartOtr(_xmpp, [to UTF8String]);
+                }
             }
         }
-    }
-    
-    if(_activeSessions.count == 0) {
-        // TODO: add message
     }
 }
 

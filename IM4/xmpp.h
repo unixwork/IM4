@@ -62,6 +62,7 @@ struct XmppSession {
      */
     char *resource;
     
+    bool online;
     bool otr;
     bool enabled;
 };
@@ -71,6 +72,11 @@ struct XmppConversation {
      * recipient xid
      */
     char *xid;
+    
+    /*
+     * dummy session without resource string
+     */
+    XmppSession *nores;
     
     /*
      * recipient array
@@ -86,6 +92,11 @@ struct XmppConversation {
      * number of XmppSession elements allocated
      */
     size_t snalloc;
+    
+    /*
+     * the active sessions were manually selected
+     */
+    bool sessionselected;
     
     /*
      * custom user data 1

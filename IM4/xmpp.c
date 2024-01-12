@@ -179,8 +179,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         }
         
         if(user_msg) {
-            XmppSession *sn = XmppGetSession(xmpp, from); // test
-            app_message(xmpp, sn, from, user_msg);
+            app_message(xmpp, from, user_msg);
         }
         
         free(body_text);
@@ -640,10 +639,21 @@ XmppSession* XmppGetSession(Xmpp *xmpp, const char *recipient) {
     
     // Add recipient to the conversation if not present
     XmppSession *session = NULL;
-    for(int i=0;i<conv->nsessions;i++) {
-        if(!strcmp(conv->sessions[i]->resource, res)) {
-            session = conv->sessions[i];
-            break;
+    if(res) {
+        for(int i=0;i<conv->nsessions;i++) {
+            if(!strcmp(conv->sessions[i]->resource, res)) {
+                session = conv->sessions[i];
+                break;
+            }
+        }
+    } else {
+        if(conv->nores) {
+            session = conv->nores;
+        } else {
+            session = malloc(sizeof(XmppSession));
+            memset(session, 0, sizeof(XmppSession));
+            session->conversation = conv;
+            conv->nores = session;
         }
     }
     

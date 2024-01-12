@@ -60,6 +60,32 @@
     return YES;
 }
 
+- (ConversationWindowController*) conversationController:(XmppSession*)session {
+    NSString *xid = [[NSString alloc] initWithUTF8String:session->conversation->xid];
+    NSString *alias = [_settingsController getAlias:xid];
+    if(!alias) {
+        alias = xid;
+    }
+    
+    ConversationWindowController *conversation = (__bridge ConversationWindowController*)session->conversation->userdata1;
+    if(!conversation) {
+        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
+        [_conversations setObject:conversation forKey:xid];
+        session->conversation->userdata1 = (__bridge void*)conversation;
+        
+        // add all online sessions
+        NSDictionary *status = [self xidStatus:xid];
+        for(NSString *res in status) {
+            NSString *contact = [NSString stringWithFormat:@"%@%@", xid, res];
+            (void)XmppGetSession(_xmpp, [contact UTF8String]); // adds a session, if it doesn't exist
+        }
+    }
+    if(![conversation.window isVisible]) {
+        [conversation showWindow:nil];
+    }
+    return conversation;
+}
+
 - (void) addUnread:(int)num {
     _unread += num;
     NSString *badge = nil;
@@ -125,13 +151,7 @@
         alias = xid;
     }
     
-    ConversationWindowController *conversation = (__bridge ConversationWindowController*)session->conversation->userdata1;
-    if(!conversation) {
-        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:xid]; // only used for memory management
-        session->conversation->userdata1 = (__bridge void*)conversation;
-    }
-    [conversation showWindow:nil];
+    ConversationWindowController *conversation = [self conversationController:session];
     [conversation addReceivedMessage:message_text resource:resource];
 }
 
@@ -176,13 +196,43 @@
         [_contactList reloadData];
     }
     
+    // add new session, if required
+    XmppSession *sn = XmppGetSession(_xmpp, from);
+    XmppConversation *conv = sn->conversation;
+    if(!conv->sessionselected) {
+        // active session not manually selected, select this session as active
+        // and all other sessions as inactive
+        int snindex= -1;
+        for(int i=0;i<conv->nsessions;i++) {
+            conv->sessions[i]->enabled = FALSE; // first, disable all sessions
+            if(conv->sessions[i] == sn) {
+                snindex = i;
+            }
+        }
+        
+        // s is nil when status is unavailable
+        if(s) {
+            sn->enabled = TRUE; // enable the current session
+        } else {
+            sn->enabled = FALSE;
+            // remove session
+            if(snindex >= 0) {
+                if(snindex+1 < conv->nsessions) {
+                    memmove(conv->sessions+snindex, conv->sessions+snindex+1, conv->nsessions - snindex + 1);
+                }
+                //TODO: free session
+                conv->nsessions--;
+            }
+        }
+    }
+    
     ConversationWindowController *conversation = [_conversations objectForKey:xid];
     if(conversation != nil) {
         [conversation updateStatus];
     }
 }
 
-- (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state {
+- (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state session:(XmppSession*)session {
     char *res = strchr(from, '/');
     size_t from_len;
     NSString *resource = @"";
@@ -200,53 +250,14 @@
     }
 }
 
-- (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp {
-    char *res = strchr(from, '/');
-    size_t from_len;
-    NSString *resource = @"";
-    if(res) {
-        from_len = res - from;
-        resource = [[NSString alloc]initWithUTF8String:res];
-    } else {
-        from_len = strlen(from);
-    }
-    
-    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
-    NSString *alias = [_settingsController getAlias:xid];
-    if(!alias) {
-        alias = xid;
-    }
-    ConversationWindowController *conversation = [_conversations objectForKey:xid];
-    if(!conversation) {
-        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:xid];
-    }
-    [conversation showWindow:nil];
-    [conversation setSecure:status session:resource];
+- (void) handleSecureStatus:(Boolean)status from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
+    ConversationWindowController *conversation = [self conversationController:session];
+    NSString *resource = [[NSString alloc] initWithUTF8String:session->resource];
+    [conversation setSecure:status];
 }
 
-- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from xmpp:(Xmpp*)xmpp {
-    char *res = strchr(from, '/');
-    size_t from_len;
-    NSString *resource = @"";
-    if(res) {
-        from_len = res - from;
-        resource = [[NSString alloc]initWithUTF8String:res];
-    } else {
-        from_len = strlen(from);
-    }
-    
-    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
-    NSString *alias = [_settingsController getAlias:xid];
-    if(!alias) {
-        alias = xid;
-    }
-    ConversationWindowController *conversation = [_conversations objectForKey:xid];
-    if(!conversation) {
-        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:xid];
-    }
-    [conversation showWindow:nil];
+- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
+    ConversationWindowController *conversation = [self conversationController:session];
     
     NSString *ns_from = [[NSString alloc]initWithUTF8String:from];
     
@@ -265,29 +276,10 @@
     [conversation newFingerprint:ns_fingerprint from:ns_from];
 }
 
-- (void) handleOtrError:(uint64_t)error from:(const char*)from xmpp:(Xmpp*)xmpp {
-    char *res = strchr(from, '/');
-    size_t from_len;
-    NSString *resource = @"";
-    if(res) {
-        from_len = res - from;
-        resource = [[NSString alloc]initWithUTF8String:res];
-    } else {
-        from_len = strlen(from);
-    }
+- (void) handleOtrError:(uint64_t)error from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
     NSString *nsfrom = [[NSString alloc]initWithUTF8String:from];
     
-    NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
-    NSString *alias = [_settingsController getAlias:xid];
-    if(!alias) {
-        alias = xid;
-    }
-    ConversationWindowController *conversation = [_conversations objectForKey:xid];
-    if(!conversation) {
-        conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:xid];
-    }
-    [conversation showWindow:nil];
+    ConversationWindowController *conversation = [self conversationController:session];
     [conversation otrError:error from:nsfrom];
 }
 
@@ -301,11 +293,9 @@
 - (void) openConversation:(Contact*)contact {
     printf("Open Conversation: %s\n", [contact.xid UTF8String]);
     
-    ConversationWindowController *conversation = [_conversations objectForKey:contact.xid];
-    if(conversation == nil) {
-        conversation = [[ConversationWindowController alloc]initConversation:contact.xid alias:contact.name xmpp:_xmpp];
-        [_conversations setObject:conversation forKey:contact.xid];
-    }
+    XmppSession *session = XmppGetSession(_xmpp, [contact.xid UTF8String]);
+    
+    ConversationWindowController *conversation = [self conversationController:session];
     [conversation showWindow:nil];
 }
 

@@ -9,6 +9,7 @@
 #import "OutlineViewController.h"
 #import "SettingsController.h"
 #import "LogWindowController.h"
+#import "ConversationWindowController.h"
 
 #import "xmpp.h"
 
@@ -38,19 +39,21 @@
 
 - (NSString*) xidAlias:(NSString*)xid;
 
+- (ConversationWindowController*) conversationController:(XmppSession*)session;
+
 - (void) addUnread:(int)num;
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp;
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp;
 
-- (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state;
+- (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state session:(XmppSession*)session;
 
-- (void) handleSecureStatus:(Boolean)status from:(const char*)from xmpp:(Xmpp*)xmpp;
+- (void) handleSecureStatus:(Boolean)status from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp;
 
-- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from xmpp:(Xmpp*)xmpp;
+- (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp;
 
-- (void) handleOtrError:(uint64_t)error from:(const char*)from xmpp:(Xmpp*)xmpp;
+- (void) handleOtrError:(uint64_t)error from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp;
 
 - (void) refreshContactList;
 

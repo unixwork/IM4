@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConversationWindowController : NSWindowController<NSWindowDelegate, NSTextViewDelegate>
 
 @property (readonly) Xmpp *xmpp;
+@property (readonly) XmppConversation *conversation;
 @property (readonly) Boolean secure;
 @property (copy) NSString* xid;
 @property (copy) NSString* alias;
-@property (readonly) NSMutableDictionary* activeSessions;
 @property bool online;
 @property bool loading;
 @property bool composing;
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)otrError:(uint64_t)error from:(NSString*)from;
 
-- (void)setSecure:(Boolean)secure session:(NSString*)session;
+- (void)setSecure:(Boolean)secure;
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;
 
