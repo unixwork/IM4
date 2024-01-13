@@ -23,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property bool composing;
 @property int unread;
 @property NSString* chatstateMsg;
-
+@property bool selectSingleSession;
+@property (readonly) NSMenuItem *singleSessionMenuItem;
+@property (readonly) NSMenuItem *multiSessionMenuItem;
 
 - (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
 

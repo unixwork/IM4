@@ -93,6 +93,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _online = false;
     _unread = 0;
     _composing = false;
+    _selectSingleSession = true;
     
     XmppSession *sn = XmppGetSession(_xmpp, [_xid UTF8String]);
     _conversation = sn->conversation;
@@ -132,11 +133,25 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     [comboMenu addItem:[NSMenuItem separatorItem]];
     
+    _singleSessionMenuItem = [[NSMenuItem alloc]initWithTitle:@"Select Single Session" action:@selector(singleSession:) keyEquivalent:@""];
+    _singleSessionMenuItem.target = self;
+    [comboMenu addItem:_singleSessionMenuItem];
+    
+    _multiSessionMenuItem = [[NSMenuItem alloc]initWithTitle:@"Select Multiple Sessions" action:@selector(multiSession:) keyEquivalent:@""];
+    _multiSessionMenuItem.target = self;
+    [comboMenu addItem:_multiSessionMenuItem];
+    
+    if(_selectSingleSession) {
+        _singleSessionMenuItem.state = NSControlStateValueOn;
+    } else {
+        _multiSessionMenuItem.state = NSControlStateValueOn;
+    }
+ 
     _secureButton.menu = comboMenu;
 }
 
 - (BOOL)selectConversation:(NSMenuItem*)sender {
-    if(sender.state == NSControlStateValueOn) {
+    if(sender.state == NSControlStateValueOn && !_selectSingleSession) {
         sender.state = NSControlStateValueOff;
     } else {
         sender.state = NSControlStateValueOn;
@@ -146,6 +161,15 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         NSString *itemText = [NSString stringWithFormat:@"%@%s", _xid, _conversation->sessions[i]->resource];
         if([itemText isEqualTo:sender.title]) {
             _conversation->sessions[i]->enabled = sender.state;
+            if(_secure && _conversation->sessions[i]->enabled && !_conversation->sessions[i]->otr) {
+                // new session selected, that doesn't has an otr session
+                // automatically create a new otr session
+                XmppStartOtr(_xmpp, [itemText UTF8String]);
+            }
+        } else if(_selectSingleSession) {
+            NSMenuItem *item = [sender.menu itemAtIndex:i];
+            item.state = NSControlStateValueOff;
+            _conversation->sessions[i]->enabled = NO;
         }
     }
     
@@ -153,9 +177,15 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (BOOL)singleSession:(NSMenuItem*)sender {
+    _singleSessionMenuItem.state = NSControlStateValueOn;
+    _multiSessionMenuItem.state = NSControlStateValueOff;
+    _selectSingleSession = YES;
     return YES;
 }
 - (BOOL)multiSession:(NSMenuItem*)sender {
+    _singleSessionMenuItem.state = NSControlStateValueOff;
+    _multiSessionMenuItem.state = NSControlStateValueOn;
+    _selectSingleSession = NO;
     return YES;
 }
 
@@ -372,7 +402,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     } else {
         // inform the user that no message was sent
         NSTextStorage *textStorage = _conversationTextView.textStorage;
-        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions: no meesage sent"];
+        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions: no meesage sent\n"];
         [textStorage appendAttributedString:attributedText];
         [_conversationTextView scrollToEndOfDocument:nil];
     }
@@ -405,7 +435,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         if(_online) {
             for(int i=0;i<_conversation->nsessions;i++) {
                 XmppSession *sn = _conversation->sessions[i];
-                if(sn->enabled) {
+                if(sn->otr) {
                     NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
                     XmppStopOtr(_xmpp, [to UTF8String]);
                     [self setSecure:false];
