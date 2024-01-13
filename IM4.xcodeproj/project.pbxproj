@@ -22,7 +22,45 @@
 		ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
 		EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */; };
+		EDC98B772B531DE700928CF4 /* libssl.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B712B531DE700928CF4 /* libssl.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDC98B782B531DE700928CF4 /* libgcrypt.20.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B722B531DE700928CF4 /* libgcrypt.20.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDC98B792B531DE700928CF4 /* libgpg-error.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B732B531DE700928CF4 /* libgpg-error.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDC98B7A2B531DE700928CF4 /* libotr.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B742B531DE700928CF4 /* libotr.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDC98B7B2B531DE700928CF4 /* libcrypto.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDC98B7C2B531DE700928CF4 /* libstrophe.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B762B531DE700928CF4 /* libstrophe.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		EDC98B692B531B5000928CF4 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n\n";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EDC98B6A2B531B7D00928CF4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				EDC98B772B531DE700928CF4 /* libssl.3.dylib in CopyFiles */,
+				EDC98B782B531DE700928CF4 /* libgcrypt.20.dylib in CopyFiles */,
+				EDC98B792B531DE700928CF4 /* libgpg-error.0.dylib in CopyFiles */,
+				EDC98B7A2B531DE700928CF4 /* libotr.5.dylib in CopyFiles */,
+				EDC98B7B2B531DE700928CF4 /* libcrypto.3.dylib in CopyFiles */,
+				EDC98B7C2B531DE700928CF4 /* libstrophe.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		ED2117232A9B64250059C02C /* SettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
@@ -51,6 +89,12 @@
 		EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationWindowController.h; sourceTree = "<group>"; };
 		EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationWindowController.m; sourceTree = "<group>"; };
 		EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationWindowController.xib; sourceTree = "<group>"; };
+		EDC98B712B531DE700928CF4 /* libssl.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.3.dylib; path = dep/install/lib/libssl.3.dylib; sourceTree = "<group>"; };
+		EDC98B722B531DE700928CF4 /* libgcrypt.20.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgcrypt.20.dylib; path = dep/install/lib/libgcrypt.20.dylib; sourceTree = "<group>"; };
+		EDC98B732B531DE700928CF4 /* libgpg-error.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgpg-error.0.dylib"; path = "dep/install/lib/libgpg-error.0.dylib"; sourceTree = "<group>"; };
+		EDC98B742B531DE700928CF4 /* libotr.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libotr.5.dylib; path = dep/install/lib/libotr.5.dylib; sourceTree = "<group>"; };
+		EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.3.dylib; path = dep/install/lib/libcrypto.3.dylib; sourceTree = "<group>"; };
+		EDC98B762B531DE700928CF4 /* libstrophe.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libstrophe.0.dylib; path = dep/install/lib/libstrophe.0.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +111,12 @@
 		ED3156D42A861FB100D9ADB3 = {
 			isa = PBXGroup;
 			children = (
+				EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */,
+				EDC98B722B531DE700928CF4 /* libgcrypt.20.dylib */,
+				EDC98B732B531DE700928CF4 /* libgpg-error.0.dylib */,
+				EDC98B742B531DE700928CF4 /* libotr.5.dylib */,
+				EDC98B712B531DE700928CF4 /* libssl.3.dylib */,
+				EDC98B762B531DE700928CF4 /* libstrophe.0.dylib */,
 				ED3156DF2A861FB100D9ADB3 /* IM4 */,
 				ED3156DE2A861FB100D9ADB3 /* Products */,
 			);
@@ -122,8 +172,10 @@
 				ED3156D92A861FB100D9ADB3 /* Sources */,
 				ED3156DA2A861FB100D9ADB3 /* Frameworks */,
 				ED3156DB2A861FB100D9ADB3 /* Resources */,
+				EDC98B6A2B531B7D00928CF4 /* CopyFiles */,
 			);
 			buildRules = (
+				EDC98B692B531B5000928CF4 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -327,9 +379,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = IM4/IM4.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = dep/install/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -337,7 +392,7 @@
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/lib",
+					"@executable_path",
 				);
 				LIBRARY_SEARCH_PATHS = dep/install/lib;
 				MARKETING_VERSION = 1.0;
@@ -347,6 +402,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.unixwork.IM4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
@@ -358,9 +414,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = IM4/IM4.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = dep/install/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -368,7 +427,7 @@
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/lib",
+					"@executable_path",
 				);
 				LIBRARY_SEARCH_PATHS = dep/install/lib;
 				MARKETING_VERSION = 1.0;
@@ -378,6 +437,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.unixwork.IM4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;

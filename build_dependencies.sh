@@ -34,18 +34,18 @@ mkdir -p $DEPDIR
 cd $DEPDIR
 
 
-#for url in $DL_OPENSSL $DL_LIBSTROPHE $DL_LIBGPGERR $DL_LIBCRYPT $DL_LIBOTR; do
-#	# clear previous downloads
-#	rm -Rf $(basename $url)
-#
-#	echo "download: $url"
-#	if ! curl -L -O $url; then
-#		echo "download failed"
-#		exit 1
-#	fi
-#
-#	tar xvfz $(basename $url)
-#done
+for url in $DL_OPENSSL $DL_LIBSTROPHE $DL_LIBGPGERR $DL_LIBCRYPT $DL_LIBOTR; do
+	# clear previous downloads
+	rm -Rf $(basename $url)
+
+	echo "download: $url"
+	if ! curl -L -O $url; then
+		echo "download failed"
+		exit 1
+	fi
+
+	tar xvfz $(basename $url)
+done
 
 # build openssl
 cd $DIR_OPENSSL
@@ -68,6 +68,10 @@ if [ $? -ne 0 ]; then
 	exit 2
 fi
 cd ..
+
+install_name_tool -id @rpath/libcrypto.3.dylib $INSTALL_DIR/lib/libcrypto.3.dylib
+install_name_tool -id @rpath/libssl.3.dylib $INSTALL_DIR/lib/libssl.3.dylib
+install_name_tool -change $INSTALL_DIR/lib/libcrypto.3.dylib @rpath/libcrypto.3.dylib $INSTALL_DIR/lib/libssl.3.dylib
 
 
 # build libstrophe
@@ -94,6 +98,8 @@ if [ -$? -ne 0]; then
 fi
 cd ..
 
+install_name_tool -id @rpath/libstrophe.0.dylib $INSTALL_DIR/lib/libstrophe.0.dylib
+
 
 # build libgpg-error
 cd $DIR_LIBGPGERR
@@ -109,12 +115,13 @@ if [ $? -ne 0 ]; then
 	exit 2
 fi
 make install
-if [ -$? -ne 0]; then
+if [ -$? -ne 0 ]; then
 	echo "libgpg-error make install failed"
 	exit 2
 fi
 cd ..
 
+install_name_tool -id @rpath/libgpg-error.0.dylib $INSTALL_DIR/lib/libgpg-error.0.dylib
 
 # build libgcrypt
 cd $DIR_LIBGCRYPT
@@ -136,6 +143,8 @@ if [ -$? -ne 0]; then
 fi
 cd ..
 
+install_name_tool -id @rpath/libgcrypt.20.dylib $INSTALL_DIR/lib/libgcrypt.20.dylib
+
 
 # build libotr
 cd $DIR_LIBOTR
@@ -156,3 +165,5 @@ if [ -$? -ne 0 ]; then
 	exit 2
 fi
 cd ..
+
+install_name_tool -id @rpath/libotr.5.dylib $INSTALL_DIR/lib/libotr.5.dylib
