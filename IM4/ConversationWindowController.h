@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateStatus;
 
 - (BOOL)selectConversation:(NSMenuItem*)sender;
+- (BOOL)singleSession:(NSMenuItem*)sender;
+- (BOOL)multiSession:(NSMenuItem*)sender;
 
 - (void)addStringToLog:(NSString*)str;
 

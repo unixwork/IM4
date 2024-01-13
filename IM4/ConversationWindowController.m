@@ -136,8 +136,27 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (BOOL)selectConversation:(NSMenuItem*)sender {
-    // TODO
-    return true;
+    if(sender.state == NSControlStateValueOn) {
+        sender.state = NSControlStateValueOff;
+    } else {
+        sender.state = NSControlStateValueOn;
+    }
+    
+    for(int i=0;i<_conversation->nsessions;i++) {
+        NSString *itemText = [NSString stringWithFormat:@"%@%s", _xid, _conversation->sessions[i]->resource];
+        if([itemText isEqualTo:sender.title]) {
+            _conversation->sessions[i]->enabled = sender.state;
+        }
+    }
+    
+    return YES;
+}
+
+- (BOOL)singleSession:(NSMenuItem*)sender {
+    return YES;
+}
+- (BOOL)multiSession:(NSMenuItem*)sender {
+    return YES;
 }
 
 - (void)setSecure:(Boolean)secure {

@@ -257,12 +257,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 
 - (IBAction)otrGenKey:(id)sender {
     char *filename = app_configfile("otr.private_key");
-    printf("create_privkey_cb\n");
-    printf("account = %s\n", _xmpp->userstate->privkey_root->accountname);
-    printf("filename = %s\n", filename);
     otrl_privkey_generate(_xmpp->userstate, filename, _xmpp->userstate->privkey_root->accountname, _xmpp->userstate->privkey_root->protocol);
     otrl_privkey_read(_xmpp->userstate, filename);
-    printf("key generated\n");
     
     [self createFingerprintFromPubkey];
     if(_fingerprint) {
