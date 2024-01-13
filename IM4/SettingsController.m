@@ -70,6 +70,18 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         _aliases = [[NSMutableDictionary alloc]init];
     }
     
+    // create ssl config if needed
+    NSString *ssl_file = [self configFilePath:@"certs.pem"];
+    isDir = false;
+    if (![fileManager fileExistsAtPath:ssl_file isDirectory:&isDir]) {
+        char *cmd = NULL;
+        asprintf(&cmd, "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain /Library/Keychains/System.keychain ~/Library/Keychains/login.keychain-db > \"%s\"", [ssl_file UTF8String]);
+        system(cmd);
+        free(cmd);
+    }
+    setenv("SSL_CERT_FILE", [ssl_file UTF8String], 0);
+    
+    
     [self createXmpp];
     return self;
 }

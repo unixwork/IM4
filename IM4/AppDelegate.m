@@ -38,6 +38,7 @@
     // config
     _settingsController = [[SettingsController alloc]initSettings];
     _logWindowController = [[LogWindowController alloc] initLogWindow];
+    
     [self startXmpp];
     
     //[[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
