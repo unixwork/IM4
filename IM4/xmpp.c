@@ -464,7 +464,7 @@ void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata) {
     ev->userdata = userdata;
     
     struct kevent kev;
-    EV_SET(&kev, xmpp->fd, EVFILT_USER, EV_ADD|EV_ONESHOT, NOTE_TRIGGER, 0, ev);
+    EV_SET(&kev, (uintptr_t)ev, EVFILT_USER, EV_ADD|EV_ONESHOT, NOTE_TRIGGER, 0, ev);
     kevent(xmpp->kqueue, &kev, 1, NULL, 0, NULL);
     
 }
