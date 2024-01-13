@@ -143,14 +143,14 @@
     Contact *c = [_outlineView itemAtRow:row];
     
     if(c.contacts == nil) {
-        printf("rename contact\n");
+        //printf("rename contact\n");
         self->isEditing = YES;
         [_outlineView editColumn:0 row:row withEvent:[NSApp currentEvent] select:YES];
     }
 }
 
 - (IBAction) cellAction:(id)sender {
-    printf("cell action\n");
+    //printf("cell action\n");
 }
 
 // NSMenuDelegate implementation
