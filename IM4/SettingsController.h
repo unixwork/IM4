@@ -8,10 +8,13 @@
 #import <Cocoa/Cocoa.h>
 #import "xmpp.h"
 
-// Xcode debug builds have IM4_APPNAME=IM4TEST defined
-#ifndef IM4_APPNAME
+// Xcode debug builds have IM4_TEST=1 defined
+#ifdef IM4_TEST
 #define IM4_APPNAME "IM4TEST"
+#else
+#define IM4_APPNAME "IM4"
 #endif
+
 #define IM4_APPNAME_NS @ IM4_APPNAME
 
 NS_ASSUME_NONNULL_BEGIN
