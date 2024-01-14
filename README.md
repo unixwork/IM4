@@ -5,7 +5,7 @@ IM4 is a native XMPP client for macOS that supports end-to-end encryption via OT
 is at an early stage, but some basic functionality works.
 
 Already implemented:
- - Simple contact list with only status
+ - Simple contact list with online status
  - Chat window
  - Encryption (OTR)
  - Basic configuration GUI
