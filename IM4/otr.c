@@ -1,9 +1,31 @@
-//
-//  otr.c
-//  IM4
-//
-//  Created by Olaf Wintermann on 16.08.23.
-//
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2024 Olaf Wintermann. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright
+ *      notice, this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright
+ *      notice, this list of conditions and the following disclaimer in the
+ *      documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
 
 #include "otr.h"
 
@@ -62,7 +84,7 @@ void start_otr(Xmpp *xmpp, const char *recipient) {
 }
 
 void stop_otr(Xmpp *xmpp, const char *recipient) {
-    // TODO: this seems to work, however we don't get the gone_insecure message
+    // this seems to work, however we don't get the gone_insecure message
     otrl_message_disconnect(
             xmpp->userstate,
             &otr_ops,
@@ -146,12 +168,6 @@ void otr_inject_message(void *opdata, const char *accountname,
     const char *protocol, const char *recipient, const char *message)
 {
     Xmpp *xmpp = opdata;
-    
-    //printf("inject_message_cb\n");
-    //printf("from = %s\n", accountname);
-    //printf("to = %s\n", recipient);
-    //printf("message = '%s'\n", message);
-    
     Xmpp_Send(xmpp, recipient, message);
 }
 
@@ -192,7 +208,7 @@ void otr_still_secure(void *opdata, ConnContext *context, int is_reply) {
 }
 
 int otr_max_message_size(void *opdata, ConnContext *context) {
-    return 1024*64;
+    return 1024*1024;
 }
 
 const char * otr_account_name(void *opdata, const char *account,
@@ -203,7 +219,7 @@ const char * otr_account_name(void *opdata, const char *account,
 }
 
 void otr_account_name_free(void *opdata, const char *account_name) {
-    
+    // TODO
 }
 
 void otr_received_symkey(void *opdata, ConnContext *context,
@@ -235,7 +251,7 @@ void otr_handle_smp_event(void *opdata, OtrlSMPEvent smp_event,
     ConnContext *context, unsigned short progress_percent,
     char *question)
 {
-    
+    // TODO
 }
 
 void otr_handle_msg_event(void *opdata, OtrlMessageEvent msg_event,
@@ -252,7 +268,6 @@ void otr_create_instag(void *opdata, const char *accountname,
     
     char *basepath = app_configfile("");
     
-    printf("create_instag(accountname=\"%s\", protocol=\"%s\")\n", accountname, protocol);
     char *filename;
     asprintf(&filename, "%s/instag_%s.txt", basepath, accountname);
     otrl_instag_generate(xmpp->userstate, filename, accountname, protocol);

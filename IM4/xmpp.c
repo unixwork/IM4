@@ -1,9 +1,30 @@
-//
-//  xmpp.c
-//  IM4
-//
-//  Created by Olaf Wintermann on 11.08.23.
-//
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2024 Olaf Wintermann. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright
+ *      notice, this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright
+ *      notice, this list of conditions and the following disclaimer in the
+ *      documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include "xmpp.h"
 
@@ -74,7 +95,6 @@ Xmpp* XmppCreate(XmppSettings settings) {
         
         char *privkey_file = app_configfile("otr.private_key");
         gcry_error_t otrerr = otrl_privkey_read(xmpp->userstate, privkey_file);
-        printf("otrl_privkey_read: %u\n", otrerr);
         free(privkey_file);
         
         char *fingerprints_file = app_configfile("otr.fingerprints");
@@ -82,7 +102,6 @@ Xmpp* XmppCreate(XmppSettings settings) {
         
         char *instancetags_file = app_configfile("otr.instance_tags");
         otrerr = otrl_instag_read(xmpp->userstate, instancetags_file);
-        printf("otrl_instag_read: %u\n", otrerr);
         free(instancetags_file);
     }
     
@@ -102,13 +121,16 @@ Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
 
 static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     xmpp_stanza_t *disco = xmpp_stanza_get_child_by_name_and_ns(stanza, "query", "http://jabber.org/protocol/disco#info");
-    if(disco) {
-        printf("disco\n");
-    }
+    //if(disco) {
+    //    printf("disco\n");
+    //}
     
     return 1;
 }
 
+/*
+ * xmpp message handler
+ */
 static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     Xmpp *xmpp = userdata;
     
@@ -126,6 +148,9 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     
     xmpp_stanza_t *body = xmpp_stanza_get_child_by_name(stanza, "body");
     if(!body) {
+        // usually messages should contain a body
+        // other messages (that are currently implemented here) are
+        // chat state messages
         xmpp_stanza_t *children = xmpp_stanza_get_children(stanza);
         while(children) {
             const char *ns = xmpp_stanza_get_ns(children);
@@ -151,20 +176,22 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         return 1;
     }
     
-    // debug output
     char *body_text = xmpp_stanza_get_text(body);
-    printf("message_cb: msg from %s: %s\n", from, body_text);
+    //printf("message_cb: msg from %s: %s\n", from, body_text);
     
     if(body_text) {
         size_t len = strlen(body_text);
         char *decrypt_msg = NULL;
         char *user_msg = body_text;
+        
+        // check for otr messages
         if(len > 4 && !memcmp(body_text, "?OTR", 4)) {
             int otr_err;
             decrypt_msg = decrypt_message(xmpp, from, body_text, &otr_err);
             user_msg = decrypt_msg;
             
             if(otr_err == 1) {
+                // this message could be part of an otr handshake
                 printf("internal otr message\n");
                 // check conversation encryption status
                 ConnContext *root = xmpp->userstate->context_root;
@@ -178,6 +205,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
             }
         }
         
+        // send the mssage to the app thread
         if(user_msg) {
             app_message(xmpp, from, user_msg);
         }
@@ -191,7 +219,10 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     return 1;
 }
 
-static int reply_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
+/*
+ * callback function for roster queries
+ */
+static int query_roster_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     XmppQuery *xquery = userdata;
     
     const char *type = xmpp_stanza_get_type(stanza);
@@ -204,6 +235,7 @@ static int reply_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
         size_t contactsNum = 0;
         XmppContact *contacts = calloc(contactsAlloc, sizeof(XmppContact));
         
+        // TODO: the contacts list should be updated in the app thread
         printf("BEGIN CONTACTS\n");
         for (xmpp_stanza_t *item = xmpp_stanza_get_children(query);item;item = xmpp_stanza_get_next(item)) {
             const char *contactName = xmpp_stanza_get_attribute(item, "name");
@@ -266,7 +298,7 @@ static void query_conatcts(Xmpp *xmpp, XmppQuery *xquery) {
     xmpp_stanza_add_child(iq, query);
 
 
-    xmpp_id_handler_add(xmpp->connection, reply_cb, xquery->id, xquery);
+    xmpp_id_handler_add(xmpp->connection, query_roster_cb, xquery->id, xquery);
     xmpp_send(xmpp->connection, iq);
     
     xmpp_stanza_release(query);
@@ -307,10 +339,11 @@ static void connect_cb(
 }
 
 int socketopt_cb(xmpp_conn_t *conn, void *sock) {
+    // we need the socket to use our own polling
     im_account->fd = *((int*)sock);
     
-    int val = 1;
-    setsockopt(im_account->fd, SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val));
+    //int val = 1;
+    //setsockopt(im_account->fd, SOL_SOCKET, SO_KEEPALIVE, &val, sizeof(val));
     
     xmpp_sockopt_cb_keepalive(conn, sock);
     
@@ -322,7 +355,7 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     connection = xmpp_conn_new(xmpp->ctx);
     xmpp_conn_set_flags(connection, xmpp->settings.flags);
     
-    // TODO: replace im_account with threadsafe list
+    // TODO: replace im_account with threadsafe list, when multi account is implemented
     im_account = xmpp;
     
     xmpp_conn_set_sockopt_callback(connection, socketopt_cb);
@@ -410,8 +443,6 @@ static void* xmpp_run_thread(void *data) {
                     }
                 }
                 
-                
-                
                 /*
                 if(poll(pfd, 1, 10000) < 0) {
                     perror("poll");
@@ -425,6 +456,9 @@ static void* xmpp_run_thread(void *data) {
     return NULL;
 }
 
+/*
+ * start the xmpp thread and connect to the server
+ */
 int XmppRun(Xmpp *xmpp) {
     xmpp->kqueue = kqueue();
     if(xmpp->kqueue < 0) {

@@ -1,9 +1,31 @@
-//
-//  ConversationWindowController.m
-//  IM4
-//
-//  Created by Olaf Wintermann on 13.08.23.
-//
+/*
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright 2024 Olaf Wintermann. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright
+ *      notice, this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright
+ *      notice, this list of conditions and the following disclaimer in the
+ *      documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
 
 #import "ConversationWindowController.h"
 #import "AppDelegate.h"
@@ -207,40 +229,55 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     NSUInteger textLen = [textStorage length];
-    NSRange range = { textLen - _chatstateMsg.length, _chatstateMsg.length };
-    [textStorage deleteCharactersInRange:range];
+    NSRange range0 = { textLen - _chatstateMsg.length, _chatstateMsg.length };
+    NSRange range = { textLen-3, 3 };
+    [textStorage deleteCharactersInRange:range0];
 }
 
 - (void)chatState:(enum XmppChatstate)state {
     [self clearChatStateMsg];
+    NSString *msg;
     switch(state) {
         case XMPP_CHATSTATE_ACTIVE: {
-            _chatstateMsg = @"";
+            msg = @"";
             break;
         }
         case XMPP_CHATSTATE_COMPOSING: {
-            _chatstateMsg = @"composing\n";
+            msg = @"composing\n";
             break;
         }
         case XMPP_CHATSTATE_PAUSED: {
-            _chatstateMsg = @"paused\n";
+            msg = @"paused\n";
             break;
         }
         case XMPP_CHATSTATE_INACTIVE: {
-            _chatstateMsg = @"inactive";
+            msg = @"inactive";
             break;
         }
         case XMPP_CHATSTATE_GONE: {
-            _chatstateMsg = @"gone";
+            msg = @"gone";
             break;
         }
         default: {
-            _chatstateMsg = @"";
+            msg = @"";
             break;
         }
     }
     
-    [self addStringToLog:_chatstateMsg];
+    NSString *html = [NSString stringWithFormat:@"<span style=\"color: %@\">%@</span><br/>", @"darkgrey", msg];
+    NSData* data = [html dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                              NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithHTML:data
+                                                                          options:options
+                                                               documentAttributes:nil];
+    NSMutableAttributedString *mutableAttributedString = [attributedText mutableCopy];
+    NSRange range = NSMakeRange(0, [mutableAttributedString length]);
+    NSFont *newFont = [NSFont systemFontOfSize:10];
+    [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
+    _chatstateMsg = mutableAttributedString;
+    
+    [self addAttributedStringToLog:_chatstateMsg];
 }
 
 - (void)otrError:(uint64_t)error from:(NSString*)from {
@@ -310,7 +347,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     [self clearChatStateMsg];
     [self addStringToLog:otrmsg];
-    [self addStringToLog:_chatstateMsg];
+    [self addAttributedStringToLog:_chatstateMsg];
 }
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
@@ -327,8 +364,15 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         return;
     }
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:str];
+    [self addAttributedStringToLog:attributedText];
+}
+
+- (void)addAttributedStringToLog:(NSAttributedString*)str {
+    if(str == nil) {
+        return;
+    }
     NSTextStorage *textStorage = _conversationTextView.textStorage;
-    [textStorage appendAttributedString:attributedText];
+    [textStorage appendAttributedString:str];
     [_conversationTextView scrollToEndOfDocument:nil];
 }
 
@@ -368,9 +412,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSFont *newFont = [NSFont systemFontOfSize:12];
     [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
     
-    [self clearChatStateMsg];
-    [textStorage appendAttributedString:mutableAttributedString];
-    [self addStringToLog:_chatstateMsg];
+    NSUInteger chatStateLen = _chatstateMsg == nil ? 0 : _chatstateMsg.length;
+    [textStorage insertAttributedString:mutableAttributedString atIndex:textStorage.length - chatStateLen];
     
     [_conversationTextView scrollToEndOfDocument:nil];
 }
