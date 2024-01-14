@@ -23,7 +23,7 @@ Some features that will probably never be implemented:
 BUILDING
 --------
 
-IM4 depends on *libstrophe* and *libotr*, which, in turn, depend on OpenSSL and libgcrypt. To build all dependencies,
+IM4 depends on *libstrophe* and *libotr*, which, in turn, depend on *OpenSSL* and *libgcrypt*. To build all dependencies,
 run the `build_dependencies.sh` script from the project root directory. If *homebrew* is installed, it es recommended to
 temporally rename `/opt/homebrew`.
 
