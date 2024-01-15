@@ -207,6 +207,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (void) recreateXmpp {
+    if(!_xmpp) {
+        [self createXmpp];
+        return;
+    }
+    
     // not so nice way to re-create the Xmpp object
     // maybe rewrite it (or find a way to reconnect without recreating the object
     

@@ -17,6 +17,8 @@
             <connections>
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
+                <outlet property="offlineItem" destination="mo3-qS-ikp" id="34Q-uV-ITI"/>
+                <outlet property="onlineItem" destination="G3Q-MF-jI9" id="xaw-Yi-FgS"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
                 <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>

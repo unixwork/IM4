@@ -363,7 +363,9 @@
                 [conv updateStatus];
             }
             
-            XmppStop(_xmpp);
+            if(_xmpp) {
+                XmppStop(_xmpp);
+            }
             [_outlineViewController clearContacts];
             [_contactList reloadData];
             
@@ -372,7 +374,9 @@
         case IM4_ONLINE: {
             [_settingsController recreateXmpp];
             _xmpp = _settingsController.xmpp;
-            XmppRun(_xmpp);
+            if(_xmpp) {
+                XmppRun(_xmpp);
+            } // TODO: select offline
             break;
         }
     }

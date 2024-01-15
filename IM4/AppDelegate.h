@@ -46,6 +46,8 @@
 @property (strong) LogWindowController *logWindowController;
 
 @property (strong) IBOutlet NSPopUpButton *statusButton;
+@property (strong) IBOutlet NSMenuItem *onlineItem;
+@property (strong) IBOutlet NSMenuItem *offlineItem;
 
 @property int unread;
 
