@@ -24,7 +24,7 @@ BUILDING
 --------
 
 IM4 depends on *libstrophe* and *libotr*, which, in turn, depend on *OpenSSL* and *libgcrypt*. To build all dependencies,
-run the `build_dependencies.sh` script from the project root directory. If *homebrew* is installed, it es recommended to
+run the `build_dependencies.sh` script from the project root directory. If *homebrew* is installed, it is recommended to
 temporarily rename `/opt/homebrew`.
 
 After the dependencies are built successfully, IM4 can be built with Xcode.
