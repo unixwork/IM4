@@ -30,8 +30,8 @@ temporarily rename `/opt/homebrew`.
 After the dependencies are built successfully, IM4 can be built with Xcode.
 
 There are two configurations available:
-- *IM4:* This is the debug build that stores its settings in `~Library/Application Support/IM4TEST`.
-- *IM4 Release:* This configuration stores its settings in `~Library/Application Support/IM4`.
+- *IM4:* This is the debug build that stores its settings in `~/Library/Application Support/IM4TEST`.
+- *IM4 Release:* This configuration stores its settings in `~/Library/Application Support/IM4`.
 
 
 
