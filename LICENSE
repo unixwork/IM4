@@ -70,25 +70,4 @@ covered by the following (LGPL) license:
     write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
     Floor, Boston, MA 02110-1301 USA
 
-The Off-the-Record Messaging Toolkit (in the toolkit directory) is covered
-by the following (GPL) license:
-
-    Off-the-Record Messaging Toolkit
-    Copyright (C) 2004-2014  Ian Goldberg, David Goulet, Rob Smits,
-                             Chris Alexander, Nikita Borisov
-                   <otr@cypherpunks.ca>
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of version 2 of the GNU General Public License as
-    published by the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    There is a copy of the GNU General Public License in the COPYING file
-    packaged with this toolkit; if you cannot find it, write to the Free
-    Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-    02110-1301 USA
 

@@ -550,6 +550,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app addUnread:-_unread];
     _unread = 0;
+    [self.window makeFirstResponder:_messageInput];
 }
 
 @end
