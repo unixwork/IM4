@@ -396,10 +396,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSString *time = [dateFormatter stringFromDate:currentDate];
     NSString *color = incoming ? @"red" : @"blue";
     
-    NSString *entry = [NSString stringWithFormat:@"<pre><span style=\"color: %@\">%@(%@) %@</span>: %@</pre>", color, incomingStr, time, name, message];
+    NSString *entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@(%@) %@</span>: %@</pre>", color, incomingStr, time, name, message];
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
-    //NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:entry];
     
     NSData* data = [entry dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
@@ -407,13 +406,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithHTML:data
                                                                           options:options
                                                                documentAttributes:nil];
-    NSMutableAttributedString *mutableAttributedString = [attributedText mutableCopy];
-    NSRange range = NSMakeRange(0, [mutableAttributedString length]);
-    NSFont *newFont = [NSFont systemFontOfSize:12];
-    [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
     
     NSUInteger chatStateLen = _chatstateMsg == nil ? 0 : _chatstateMsg.length;
-    [textStorage insertAttributedString:mutableAttributedString atIndex:textStorage.length - chatStateLen];
+    [textStorage insertAttributedString:attributedText atIndex:textStorage.length - chatStateLen];
     
     [_conversationTextView scrollToEndOfDocument:nil];
 }

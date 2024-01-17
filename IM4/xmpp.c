@@ -147,6 +147,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
     }
     
     xmpp_stanza_t *body = xmpp_stanza_get_child_by_name(stanza, "body");
+    xmpp_stanza_t *html =xmpp_stanza_get_child_by_name(stanza, "html");
     if(!body) {
         // usually messages should contain a body
         // other messages (that are currently implemented here) are
