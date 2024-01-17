@@ -210,24 +210,26 @@ typedef struct {
     Xmpp *xmpp;
     char *from;
     char *msg_body;
+    bool secure;
 } app_recv_message;
 
 static void mt_app_message(void *userdata) {
     app_recv_message *msg = userdata;
     
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app handleXmppMessage:msg->msg_body from:msg->from session:XmppGetSession(msg->xmpp, msg->from) xmpp:msg->xmpp];
+    [app handleXmppMessage:msg->msg_body from:msg->from session:XmppGetSession(msg->xmpp, msg->from) secure:msg->secure xmpp:msg->xmpp];
     
     free(msg->from);
     free(msg->msg_body);
     free(msg);
 }
 
-void app_message(Xmpp *xmpp, const char *from, const char *msg_body) {
+void app_message(Xmpp *xmpp, const char *from, const char *msg_body, bool secure) {
     app_recv_message *msg = malloc(sizeof(app_recv_message));
     msg->xmpp = xmpp;
     msg->msg_body = strdup(msg_body);
     msg->from = strdup(from);
+    msg->secure = secure;
     app_call_mainthread(mt_app_message, msg);
 }
 

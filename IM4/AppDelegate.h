@@ -64,7 +64,7 @@
 
 - (void) addUnread:(int)num;
 
-- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp;
+- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session secure:(BOOL)secure xmpp:(Xmpp*)xmpp;
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp;
 

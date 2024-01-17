@@ -163,7 +163,7 @@
     return alias != nil ? alias : xid;
 }
 
-- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
+- (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session secure:(BOOL)secure xmpp:(Xmpp*)xmpp {
     NSString *xid = [[NSString alloc] initWithUTF8String:session->conversation->xid];
     NSString *resource = [[NSString alloc] initWithUTF8String:session->resource];
     NSString *alias = [_settingsController getAlias:xid];
@@ -174,7 +174,7 @@
     }
     
     ConversationWindowController *conversation = [self conversationController:session];
-    [conversation addReceivedMessage:message_text resource:resource];
+    [conversation addReceivedMessage:message_text resource:resource secure:secure];
 }
 
 - (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp {

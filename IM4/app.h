@@ -50,7 +50,7 @@ void app_handle_new_fingerprint(Xmpp *xmpp, const char *from, const unsigned cha
 
 void app_otr_error(Xmpp *xmpp, const char *from, uint64_t error);
 
-void app_message(Xmpp *xmpp, const char *from, const char *msg_body);
+void app_message(Xmpp *xmpp, const char *from, const char *msg_body, bool secure);
 
 void app_chatstate(Xmpp *xmpp, const char *from, enum XmppChatstate state);
 

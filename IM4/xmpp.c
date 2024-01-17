@@ -183,12 +183,14 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         size_t len = strlen(body_text);
         char *decrypt_msg = NULL;
         char *user_msg = body_text;
+        bool secure = false;
         
         // check for otr messages
         if(len > 4 && !memcmp(body_text, "?OTR", 4)) {
             int otr_err;
             decrypt_msg = decrypt_message(xmpp, from, body_text, &otr_err);
             user_msg = decrypt_msg;
+            secure = true;
             
             if(otr_err == 1) {
                 // this message could be part of an otr handshake
@@ -207,7 +209,7 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         
         // send the mssage to the app thread
         if(user_msg) {
-            app_message(xmpp, from, user_msg);
+            app_message(xmpp, from, user_msg, secure);
         }
         
         free(body_text);

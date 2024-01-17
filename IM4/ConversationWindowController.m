@@ -376,7 +376,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [_conversationTextView scrollToEndOfDocument:nil];
 }
 
-- (void)addLog:(NSString*)message incoming:(Boolean)incoming {
+- (void)addLog:(NSString*)message incoming:(Boolean)incoming secure:(Boolean)secure {
     //NSString *name = incoming ? @"<" : @">";
     //NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
     
@@ -435,7 +435,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
     
     if(msgSent) {
-        [self addLog:inputEscaped incoming:FALSE];
+        [self addLog:inputEscaped incoming:FALSE secure:_secure];
         _composing = FALSE;
     } else {
         // inform the user that no message was sent
@@ -457,8 +457,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
 }
 
-- (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res {
-    [self addLog:msg incoming:TRUE];
+- (void)addReceivedMessage:(NSString*)msg resource:(NSString*)res secure:(BOOL)secure {
+    [self addLog:msg incoming:TRUE secure:secure];
     
     if(![self.window isKeyWindow]) {
         _unread++;
