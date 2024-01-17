@@ -89,7 +89,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         input = [input substringFromIndex:url.location + url.length];
         url = [input rangeOfString:regex options:NSRegularExpressionSearch];
     }
-    [inputEscaped appendString:input];
+    [inputEscaped appendString:escape?escape_input(input):input];
     
     return inputEscaped;
 }

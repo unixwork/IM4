@@ -263,6 +263,11 @@ typedef struct {
 
 static void mt_app_update_secure_status(void *userdata) {
     app_secure_status *s = userdata;
+    XmppSession *sn = XmppGetSession(s->xmpp, s->from);
+    if(sn) {
+        sn->otr = s->status;
+    }
+    
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app handleSecureStatus:s->status from:s->from session:XmppGetSession(s->xmpp, s->from) xmpp:s->xmpp];
     
