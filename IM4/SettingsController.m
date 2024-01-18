@@ -91,6 +91,14 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         _aliases = [[NSMutableDictionary alloc]init];
     }
     
+    NSString *templateFilePath = [self configFilePath:@"uitemplates.plist"];
+    NSMutableDictionary *tplDict = [NSMutableDictionary dictionaryWithContentsOfFile:templateFilePath];
+    if (tplDict) {
+        _templateSettings = [[UITemplate alloc]init:tplDict];
+    } else {
+        _templateSettings = [[UITemplate alloc]initDefault];
+    }
+    
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
     isDir = false;

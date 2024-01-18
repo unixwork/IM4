@@ -18,6 +18,7 @@
 		ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B52A8623830016D4FA /* OutlineViewController.m */; };
 		ED6D36B92A862D340016D4FA /* xmpp.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B82A862D340016D4FA /* xmpp.c */; };
 		ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED7EEE012A8D34C6007EECC7 /* otr.c */; };
+		ED96BF4D2B59BD4200AA4394 /* UITemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED96BF4C2B59BD4200AA4394 /* UITemplate.m */; };
 		ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */; };
 		ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
@@ -83,6 +84,8 @@
 		ED6D36B82A862D340016D4FA /* xmpp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xmpp.c; sourceTree = "<group>"; };
 		ED7EEE002A8D34C6007EECC7 /* otr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = otr.h; sourceTree = "<group>"; };
 		ED7EEE012A8D34C6007EECC7 /* otr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = otr.c; sourceTree = "<group>"; };
+		ED96BF4B2B59BD4200AA4394 /* UITemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITemplate.h; sourceTree = "<group>"; };
+		ED96BF4C2B59BD4200AA4394 /* UITemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITemplate.m; sourceTree = "<group>"; };
 		ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogWindowController.h; sourceTree = "<group>"; };
 		ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogWindowController.m; sourceTree = "<group>"; };
 		ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWindowController.xib; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 				ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */,
 				ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */,
 				ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */,
+				ED96BF4B2B59BD4200AA4394 /* UITemplate.h */,
+				ED96BF4C2B59BD4200AA4394 /* UITemplate.m */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
+				ED96BF4D2B59BD4200AA4394 /* UITemplate.m in Sources */,
 				ED2117262A9B64250059C02C /* SettingsController.m in Sources */,
 				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,

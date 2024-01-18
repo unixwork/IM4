@@ -28,12 +28,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "UITemplate.h"
+
 #include "xmpp.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConversationWindowController : NSWindowController<NSWindowDelegate, NSTextViewDelegate>
 
+@property (readonly) UITemplate *tpl;
 @property (readonly) Xmpp *xmpp;
 @property (readonly) XmppConversation *conversation;
 @property (readonly) Boolean secure;

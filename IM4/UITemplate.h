@@ -26,56 +26,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Cocoa/Cocoa.h>
-#import "xmpp.h"
+// user interface template strings
 
-#import "UITemplate.h"
-
-// Xcode debug builds have IM4_TEST=1 defined
-#ifdef IM4_TEST
-#define IM4_APPNAME "IM4TEST"
-#else
-#define IM4_APPNAME "IM4"
-#endif
-
-#define IM4_APPNAME_NS @ IM4_APPNAME
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SettingsController : NSWindowController<NSWindowDelegate>
+@interface UITemplate : NSObject
 
-@property (readonly) Xmpp *xmpp;
+@property (readonly) NSMutableDictionary *dict;
 
-@property (readonly) NSDictionary *config;
-@property (readonly) NSDictionary *aliases;
+- (id) init:(NSMutableDictionary*)configDict;
+- (id) initDefault;
 
-@property (copy) NSString *fingerprint;
-@property (readonly) UITemplate *templateSettings;
-
-- (id)initSettings;
-
-- (void) createXmpp;
-
-- (void) recreateXmpp;
-
-- (NSString*) configFilePath: (NSString*)fileName;
-
-- (void) setAlias: (NSString*)alias forXid:(NSString*)xid;
-
-- (NSString*) getAlias: (NSString*)xid;
-
-- (BOOL) storeSettings;
-
-- (void) createFingerprintFromPubkey;
-
-- (IBAction)testAction:(id)sender;
-
-- (IBAction)okAction:(id)sender;
-
-- (IBAction)cancelAction:(id)sender;
-
-- (IBAction)otrGenKey:(id)sender;
-
+- (NSString*) otrGoneSecure;
+- (NSString*) otrGoneInsecure;
+- (NSString*) otrDisabled;
+- (NSString*) otrSecure;
+- (NSString*) otrInsecure;
+- (NSString*) chatStateComposing;
+- (NSString*) chatStatePaused;
+- (NSString*) chatStateInactive;
+- (NSString*) chatStateGone;
 
 @end
 

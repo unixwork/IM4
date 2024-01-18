@@ -117,6 +117,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _composing = false;
     _selectSingleSession = true;
     
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    _tpl = app.settingsController.templateSettings;
+    
     XmppSession *sn = XmppGetSession(_xmpp, [_xid UTF8String]);
     _conversation = sn->conversation;
     
@@ -213,7 +216,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (void)setSecure:(Boolean)secure {
     _secure = secure;
-    NSString *msg = secure ? @"otr: gone secure\n" : @"otr: gone insecure\n";
+    NSString *msg =  [[NSString alloc]initWithFormat:@"%@\n", secure ? _tpl.otrGoneSecure : _tpl.otrGoneInsecure ];
     
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
     NSTextStorage *textStorage = _conversationTextView.textStorage;
@@ -243,19 +246,19 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             break;
         }
         case XMPP_CHATSTATE_COMPOSING: {
-            msg = @"composing\n";
+            msg = [[NSString alloc]initWithFormat:@"%@\n", _tpl.chatStateComposing ];
             break;
         }
         case XMPP_CHATSTATE_PAUSED: {
-            msg = @"paused\n";
+            msg = [[NSString alloc]initWithFormat:@"%@\n", _tpl.chatStatePaused ];
             break;
         }
         case XMPP_CHATSTATE_INACTIVE: {
-            msg = @"inactive";
+            msg = [[NSString alloc]initWithFormat:@"%@\n", _tpl.chatStateInactive ];
             break;
         }
         case XMPP_CHATSTATE_GONE: {
-            msg = @"gone";
+            msg = [[NSString alloc]initWithFormat:@"%@\n", _tpl.chatStateGone ];
             break;
         }
         default: {
