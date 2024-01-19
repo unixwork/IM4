@@ -48,6 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*) chatStatePaused;
 - (NSString*) chatStateInactive;
 - (NSString*) chatStateGone;
+- (NSString*) msgInPrefixFormat;
+- (NSString*) msgOutPrefixFormat;
+
+- (NSString*) msgPrefixFormat:(NSString*)format xid:(NSString*)xid alias:(NSString*)alias secure:(Boolean)secure;
 
 @end
 

@@ -399,7 +399,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSString *time = [dateFormatter stringFromDate:currentDate];
     NSString *color = incoming ? @"red" : @"blue";
     
-    NSString *entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@(%@) %@</span>: %@</pre>", color, incomingStr, time, name, message];
+    NSString *msgPrefix = [_tpl msgPrefixFormat:incoming ? _tpl.msgInPrefixFormat : _tpl.msgOutPrefixFormat xid:_xid alias:name secure:secure];
+    
+    NSString *entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@</span>%@</pre>", color, msgPrefix, message];
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     

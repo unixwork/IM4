@@ -98,4 +98,75 @@
     }
 }
 
+- (NSString*) msgInPrefixFormat {
+    NSString *val = [_dict valueForKey:@"msg.in.format"];
+    if(val) {
+        return val;
+    } else {
+        return @"< (%t) %a: ";
+    }
+}
+
+- (NSString*) msgOutPrefixFormat {
+    NSString *val = [_dict valueForKey:@"msg.out.format"];
+    if(val) {
+        return val;
+    } else {
+        return @"> (%t) %a: ";
+    }
+}
+
+
+- (NSString*) msgPrefixFormat:(NSString*)format xid:(NSString*)xid alias:(NSString*)alias secure:(Boolean)secure {
+    NSMutableString *fstr = [[NSMutableString alloc] init];
+    
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *time = [dateFormatter stringFromDate:currentDate];
+    
+    __block Boolean placeholder = false;
+    [format enumerateSubstringsInRange:NSMakeRange(0, [format length])  options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *outStop) {
+
+        const char *s = [substring UTF8String];
+        char c = *s;
+        
+        
+        if(placeholder) {
+            switch(c) {
+                default: {
+                    [fstr appendString:substring];
+                    break;
+                }
+                case 't': {
+                    [fstr appendString:time];
+                    break;
+                }
+                case 'x': {
+                    [fstr appendString:xid];
+                    break;
+                }
+                case 'a': {
+                    [fstr appendString:alias];
+                    break;
+                }
+                case 's': {
+                    [fstr appendString:secure ? self.otrSecure : self.otrInsecure];
+                    break;
+                }
+            }
+            placeholder = false;
+        } else {
+            if(c == '%') {
+                placeholder = true;
+            } else {
+                [fstr appendString:substring];
+            }
+        }
+    }];
+    
+    
+    return fstr;
+}
+
 @end
