@@ -14,11 +14,11 @@
 		ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3156E52A861FB200D9ADB3 /* MainMenu.xib */; };
 		ED3156E92A861FB200D9ADB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3156E82A861FB200D9ADB3 /* main.m */; };
 		ED403C7D2A8812B700E8CDDB /* app.m in Sources */ = {isa = PBXBuildFile; fileRef = ED403C7C2A8812B700E8CDDB /* app.m */; };
+		ED6957392B5BD61A00D65664 /* UITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6957382B5BD61A00D65664 /* UITemplate.swift */; };
 		ED6D36B32A86207E0016D4FA /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B22A86207E0016D4FA /* Contact.m */; };
 		ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B52A8623830016D4FA /* OutlineViewController.m */; };
 		ED6D36B92A862D340016D4FA /* xmpp.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B82A862D340016D4FA /* xmpp.c */; };
 		ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED7EEE012A8D34C6007EECC7 /* otr.c */; };
-		ED96BF4D2B59BD4200AA4394 /* UITemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED96BF4C2B59BD4200AA4394 /* UITemplate.m */; };
 		ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */; };
 		ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
@@ -76,6 +76,8 @@
 		ED3156EA2A861FB200D9ADB3 /* IM4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IM4.entitlements; sourceTree = "<group>"; };
 		ED403C7C2A8812B700E8CDDB /* app.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = app.m; sourceTree = "<group>"; };
 		ED403C7E2A8812C400E8CDDB /* app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		ED6957372B5BD61900D65664 /* IM4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IM4-Bridging-Header.h"; sourceTree = "<group>"; };
+		ED6957382B5BD61A00D65664 /* UITemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITemplate.swift; sourceTree = "<group>"; };
 		ED6D36B12A86207E0016D4FA /* Contact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		ED6D36B22A86207E0016D4FA /* Contact.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		ED6D36B42A8623830016D4FA /* OutlineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutlineViewController.h; sourceTree = "<group>"; };
@@ -84,8 +86,6 @@
 		ED6D36B82A862D340016D4FA /* xmpp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xmpp.c; sourceTree = "<group>"; };
 		ED7EEE002A8D34C6007EECC7 /* otr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = otr.h; sourceTree = "<group>"; };
 		ED7EEE012A8D34C6007EECC7 /* otr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = otr.c; sourceTree = "<group>"; };
-		ED96BF4B2B59BD4200AA4394 /* UITemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITemplate.h; sourceTree = "<group>"; };
-		ED96BF4C2B59BD4200AA4394 /* UITemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITemplate.m; sourceTree = "<group>"; };
 		ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogWindowController.h; sourceTree = "<group>"; };
 		ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogWindowController.m; sourceTree = "<group>"; };
 		ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWindowController.xib; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 				ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */,
 				ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */,
 				ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */,
-				ED96BF4B2B59BD4200AA4394 /* UITemplate.h */,
-				ED96BF4C2B59BD4200AA4394 /* UITemplate.m */,
+				ED6957382B5BD61A00D65664 /* UITemplate.swift */,
+				ED6957372B5BD61900D65664 /* IM4-Bridging-Header.h */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -200,6 +200,7 @@
 				TargetAttributes = {
 					ED3156DC2A861FB100D9ADB3 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -244,12 +245,12 @@
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
-				ED96BF4D2B59BD4200AA4394 /* UITemplate.m in Sources */,
 				ED2117262A9B64250059C02C /* SettingsController.m in Sources */,
 				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,
 				ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */,
 				ED6D36B32A86207E0016D4FA /* Contact.m in Sources */,
+				ED6957392B5BD61A00D65664 /* UITemplate.swift in Sources */,
 				ED3156E22A861FB100D9ADB3 /* AppDelegate.m in Sources */,
 				EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */,
 			);
@@ -386,6 +387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = IM4/IM4.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -412,6 +414,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IM4/IM4-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -421,6 +426,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = IM4/IM4.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -447,6 +453,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IM4/IM4-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

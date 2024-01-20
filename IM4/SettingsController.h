@@ -29,7 +29,8 @@
 #import <Cocoa/Cocoa.h>
 #import "xmpp.h"
 
-#import "UITemplate.h"
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
 
 // Xcode debug builds have IM4_TEST=1 defined
 #ifdef IM4_TEST

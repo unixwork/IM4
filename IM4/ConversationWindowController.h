@@ -28,9 +28,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "UITemplate.h"
-
 #include "xmpp.h"
+
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
