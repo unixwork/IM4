@@ -41,6 +41,7 @@
 @property (strong) IBOutlet NSOutlineView *contactList;
 @property (strong) IBOutlet OutlineViewController *outlineViewController;
 @property (strong) IBOutlet NSMenu *contactsContextMenu;
+@property (strong) IBOutlet NSWindow *passwordDialog;
 @end
 
 @implementation AppDelegate
@@ -336,6 +337,14 @@
     }
     _xmpp = _settingsController.xmpp;
     if(_xmpp) {
+        if(!_xmpp->settings.password || strlen(_xmpp->settings.password) == 0) {
+            if(!_passwordDialog.isVisible) {
+                NSString *loginPrompt = [[NSString alloc]initWithFormat:@"Enter password for %s", _xmpp->settings.jid ];
+                _loginDialogXidLabel.stringValue = loginPrompt;
+                [_passwordDialog makeKeyAndOrderFront:nil];
+            }
+            return;
+        }
         XmppRun(_xmpp);
     }
     [self setStatus:0 xmpp:_xmpp];
@@ -382,6 +391,21 @@
     }
     
     //[_statusButton selectItemAtIndex:status];
+}
+
+
+- (IBAction) loginCancel:(id)sender {
+    _loginDialogPassword.stringValue = @"";
+    _passwordDialog.isVisible = NO;
+}
+
+- (IBAction) loginOK:(id)sender {
+    NSString *password = _loginDialogPassword.stringValue;
+    if(password && password.length > 0) {
+        _xmpp->settings.password = strdup([password UTF8String]);
+        [self startXmpp];
+        _passwordDialog.isVisible = NO;
+    }
 }
 
 @end

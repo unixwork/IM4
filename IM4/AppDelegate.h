@@ -49,6 +49,9 @@
 @property (strong) IBOutlet NSMenuItem *onlineItem;
 @property (strong) IBOutlet NSMenuItem *offlineItem;
 
+@property (strong) IBOutlet NSTextField *loginDialogXidLabel;
+@property (strong) IBOutlet NSTextField *loginDialogPassword;
+
 @property int unread;
 
 
@@ -90,6 +93,9 @@
 - (IBAction) menuContactList:(id)sender;
 
 - (IBAction) statusSelected:(id)sender;
+
+- (IBAction) loginCancel:(id)sender;
+- (IBAction) loginOK:(id)sender;
 
 @end
 

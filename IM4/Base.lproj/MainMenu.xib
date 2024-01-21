@@ -17,9 +17,12 @@
             <connections>
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
+                <outlet property="loginDialogPassword" destination="TQT-9G-EOx" id="6er-dK-DkX"/>
+                <outlet property="loginDialogXidLabel" destination="3Gf-uh-O53" id="S3H-nf-VKs"/>
                 <outlet property="offlineItem" destination="mo3-qS-ikp" id="34Q-uV-ITI"/>
                 <outlet property="onlineItem" destination="G3Q-MF-jI9" id="xaw-Yi-FgS"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
+                <outlet property="passwordDialog" destination="S4C-6S-cqP" id="jMy-3A-X4h"/>
                 <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -803,5 +806,81 @@
             </connections>
             <point key="canvasLocation" x="428" y="464"/>
         </menu>
+        <window title="Password" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="S4C-6S-cqP">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="283" y="305" width="345" height="145"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="w07-mH-A74">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="145"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hmn-05-dMo">
+                        <rect key="frame" x="258" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hjU-Uf-OWk">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="KmS-W9-78l"/>
+                        </constraints>
+                        <connections>
+                            <action selector="loginOK:" target="Voe-Tx-rLC" id="NKD-dK-YhH"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="310-FK-fEx">
+                        <rect key="frame" x="178" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Qo-j7-Pix">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="R3u-Ao-5RO"/>
+                        </constraints>
+                        <connections>
+                            <action selector="loginCancel:" target="Voe-Tx-rLC" id="pTb-WW-dko"/>
+                        </connections>
+                    </button>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
+                        <rect key="frame" x="22" y="105" width="301" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Login" id="BhT-jm-J9p">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
+                        <rect key="frame" x="24" y="64" width="297" height="21"/>
+                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </secureTextFieldCell>
+                    </secureTextField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="310-FK-fEx" secondAttribute="bottom" constant="10" id="1YQ-br-0y4"/>
+                    <constraint firstItem="3Gf-uh-O53" firstAttribute="top" secondItem="w07-mH-A74" secondAttribute="top" constant="24" id="3cz-Lx-KiB"/>
+                    <constraint firstItem="TQT-9G-EOx" firstAttribute="top" secondItem="3Gf-uh-O53" secondAttribute="bottom" constant="20" id="3oK-iy-zQA"/>
+                    <constraint firstItem="TQT-9G-EOx" firstAttribute="leading" secondItem="w07-mH-A74" secondAttribute="leading" constant="24" id="7r5-bb-rVa"/>
+                    <constraint firstItem="hmn-05-dMo" firstAttribute="leading" secondItem="310-FK-fEx" secondAttribute="trailing" constant="10" id="KI7-tF-Nbb"/>
+                    <constraint firstAttribute="bottom" secondItem="hmn-05-dMo" secondAttribute="bottom" constant="10" id="ULS-ab-clP"/>
+                    <constraint firstAttribute="trailing" secondItem="TQT-9G-EOx" secondAttribute="trailing" constant="24" id="fW1-8T-a2B"/>
+                    <constraint firstAttribute="trailing" secondItem="hmn-05-dMo" secondAttribute="trailing" constant="10" id="pCo-8g-oQK"/>
+                    <constraint firstAttribute="trailing" secondItem="3Gf-uh-O53" secondAttribute="trailing" constant="24" id="yLi-Wb-B7A"/>
+                    <constraint firstItem="3Gf-uh-O53" firstAttribute="leading" secondItem="w07-mH-A74" secondAttribute="leading" constant="24" id="zHw-RG-gpg"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="212.5" y="794.5"/>
+        </window>
     </objects>
 </document>

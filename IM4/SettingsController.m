@@ -195,10 +195,12 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     NSString *port = [_config valueForKey:@"port"];
     NSInteger port_num = port ? [port integerValue] : 0;
     
-    if(jid && password) {
+    if(jid) {
         XmppSettings settings = {0};
         settings.jid = strdup([jid UTF8String]);
-        settings.password = strdup([password UTF8String]);
+        if(password && password.length > 0) {
+            settings.password = strdup([password UTF8String]);
+        }
         settings.alias = alias ? strdup([alias UTF8String]) : NULL;
         settings.resource = resource ? strdup([resource UTF8String]) : NULL;
         settings.host = host ? strdup([host UTF8String]) : NULL;
