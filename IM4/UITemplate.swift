@@ -64,6 +64,14 @@ import Cocoa
         return dict["msg.out.format"] as? String ?? "> (%t) %a: "
     }
     
+    @objc func htmlMsgInFormat() -> String? {
+        return dict["msg.htmlin.format"] as? String;
+    }
+    
+    @objc func htmlMsgOutFormat() -> String? {
+        return dict["msg.htmlout.format"] as? String;
+    }
+    
     @objc func msgPrefixFormat(format: String, xid: String, alias: String, secure: Bool) -> String {
         var fstr = ""
         let currentDate = Date()

@@ -391,17 +391,23 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         name = [[NSString alloc]initWithUTF8String: my_alias];
     }
     
-    NSString *incomingStr = incoming ? @"< " : @"> ";
-    
-    NSDate *currentDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"HH:mm:ss"];
-    NSString *time = [dateFormatter stringFromDate:currentDate];
     NSString *color = incoming ? @"red" : @"blue";
     
-    NSString *msgPrefix = [_tpl msgPrefixFormatWithFormat:incoming ? _tpl.msgInPrefixFormat : _tpl.msgOutPrefixFormat xid:_xid alias:name secure:secure];
+    NSString *htmlFormat = nil;
+    if(incoming) {
+        htmlFormat = _tpl.htmlMsgInFormat;
+    } else {
+        htmlFormat = _tpl.htmlMsgOutFormat;
+    }
     
-    NSString *entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@</span>%@</pre>", color, msgPrefix, message];
+    NSString *entry;
+    if(htmlFormat == nil) {
+        // no html format defined, use plain text msg prefix settings
+        NSString *msgPrefix = [_tpl msgPrefixFormatWithFormat:incoming ? _tpl.msgInPrefixFormat : _tpl.msgOutPrefixFormat xid:_xid alias:name secure:secure];
+        entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@</span>%@</pre>", color, msgPrefix, message];
+    } else {
+        entry = [_tpl msgPrefixFormatWithFormat:htmlFormat xid:_xid alias:name secure:secure];
+    }
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     
