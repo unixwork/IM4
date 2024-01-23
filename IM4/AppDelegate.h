@@ -42,6 +42,9 @@
 
 @property (readonly) NSMutableDictionary *presence;
 
+@property (strong) IBOutlet NSOutlineView *contactList;
+@property (strong) IBOutlet OutlineViewController *outlineViewController;
+
 @property (strong) SettingsController *settingsController;
 @property (strong) LogWindowController *logWindowController;
 

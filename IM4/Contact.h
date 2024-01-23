@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy) NSString *name;
 @property (copy) NSString *xid;
 @property (copy) NSString *presence;
+@property int unread;
 @property (readonly, copy) NSMutableArray *contacts;
 
 - (id)initContact:(NSString *) name xid:(NSString *)xid;

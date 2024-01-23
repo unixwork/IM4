@@ -475,6 +475,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         _unread++;
         AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
         [app addUnread:1];
+        
+        if([app.outlineViewController updateContact:_xid status:nil unread:_unread]) {
+            [app.contactList reloadData];
+        }
     }
 }
 
@@ -556,6 +560,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app addUnread:-_unread];
     _unread = 0;
+    
+    if([app.outlineViewController updateContact:_xid status:nil unread:0]) {
+        [app.contactList reloadData];
+    }
+    
     [self.window makeFirstResponder:_messageInput];
 }
 

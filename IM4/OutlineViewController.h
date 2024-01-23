@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*) contactName:(NSString*)xid;
 
-- (Boolean) updatePresence:(NSString*)status xid:(NSString*)xid;
+- (Boolean) updateContact:(NSString*)xid status:(nullable NSString*)status unread:(int)unread;
 
 - (IBAction) doubleAction:(NSOutlineView*)sender;
 

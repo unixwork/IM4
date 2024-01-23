@@ -38,8 +38,6 @@
 @interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
-@property (strong) IBOutlet NSOutlineView *contactList;
-@property (strong) IBOutlet OutlineViewController *outlineViewController;
 @property (strong) IBOutlet NSMenu *contactsContextMenu;
 @property (strong) IBOutlet NSWindow *passwordDialog;
 @end
@@ -215,7 +213,7 @@
         [xid_status setObject:s forKey:resource];
     }
     
-    if([_outlineViewController updatePresence:s xid:xid]) {
+    if([_outlineViewController updateContact:xid status:s unread:-1]) {
         [_contactList reloadData];
     }
     
