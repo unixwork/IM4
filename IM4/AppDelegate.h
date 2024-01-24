@@ -55,6 +55,8 @@
 @property (strong) IBOutlet NSTextField *loginDialogXidLabel;
 @property (strong) IBOutlet NSTextField *loginDialogPassword;
 
+@property (strong) IBOutlet NSTextField *openConversationXidTextField;
+
 @property int unread;
 
 
@@ -90,7 +92,6 @@
 
 - (void) startXmpp;
 
-
 - (IBAction) menuPreferences:(id)sender;
 - (IBAction) menuDebugLog:(id)sender;
 - (IBAction) menuContactList:(id)sender;
@@ -99,6 +100,11 @@
 
 - (IBAction) loginCancel:(id)sender;
 - (IBAction) loginOK:(id)sender;
+
+- (IBAction) openConversationCancel:(id)sender;
+- (IBAction) openConversationOK:(id)sender;
+
+- (IBAction)newDocument:(id)sender;
 
 @end
 

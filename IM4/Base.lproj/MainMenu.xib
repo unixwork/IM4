@@ -21,6 +21,8 @@
                 <outlet property="loginDialogXidLabel" destination="3Gf-uh-O53" id="S3H-nf-VKs"/>
                 <outlet property="offlineItem" destination="mo3-qS-ikp" id="34Q-uV-ITI"/>
                 <outlet property="onlineItem" destination="G3Q-MF-jI9" id="xaw-Yi-FgS"/>
+                <outlet property="openConversationDialog" destination="NrB-hi-ISY" id="hh3-18-nNH"/>
+                <outlet property="openConversationXidTextField" destination="l4N-Lj-ZEM" id="5SO-0h-kkg"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
                 <outlet property="passwordDialog" destination="S4C-6S-cqP" id="jMy-3A-X4h"/>
                 <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
@@ -881,6 +883,78 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="212.5" y="794.5"/>
+        </window>
+        <window title="Open New Conversation" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="NrB-hi-ISY">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="283" y="305" width="343" height="173"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="oqL-X4-VpU">
+                <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
+                        <rect key="frame" x="22" y="133" width="172" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Open conversation with XID" id="J9B-Du-7Mv">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
+                        <rect key="frame" x="24" y="92" width="295" height="21"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ijZ-AJ-Vf9">
+                        <rect key="frame" x="256" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TUa-Pj-Rjy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="Nec-2Q-nmu"/>
+                        </constraints>
+                        <connections>
+                            <action selector="openConversationOK:" target="Voe-Tx-rLC" id="RGW-hG-rpH"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7Y-Jh-gJI">
+                        <rect key="frame" x="176" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AGy-J3-sVF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="jLz-Mt-t01"/>
+                        </constraints>
+                        <connections>
+                            <action selector="openConversationCancel:" target="Voe-Tx-rLC" id="yry-jT-4ov"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hTa-6Q-oDD" firstAttribute="leading" secondItem="oqL-X4-VpU" secondAttribute="leading" constant="24" id="4Ek-Vr-Fb9"/>
+                    <constraint firstItem="l4N-Lj-ZEM" firstAttribute="leading" secondItem="oqL-X4-VpU" secondAttribute="leading" constant="24" id="E7c-IQ-gik"/>
+                    <constraint firstAttribute="trailing" secondItem="l4N-Lj-ZEM" secondAttribute="trailing" constant="24" id="UoN-o8-Ypt"/>
+                    <constraint firstItem="ijZ-AJ-Vf9" firstAttribute="leading" secondItem="f7Y-Jh-gJI" secondAttribute="trailing" constant="10" id="WI0-OT-YKu"/>
+                    <constraint firstItem="hTa-6Q-oDD" firstAttribute="top" secondItem="oqL-X4-VpU" secondAttribute="top" constant="24" id="erU-gB-pQ6"/>
+                    <constraint firstAttribute="trailing" secondItem="ijZ-AJ-Vf9" secondAttribute="trailing" constant="10" id="tdF-gA-IFt"/>
+                    <constraint firstAttribute="bottom" secondItem="ijZ-AJ-Vf9" secondAttribute="bottom" constant="10" id="uT6-Bd-SGB"/>
+                    <constraint firstItem="l4N-Lj-ZEM" firstAttribute="top" secondItem="hTa-6Q-oDD" secondAttribute="bottom" constant="20" id="uXO-75-Of3"/>
+                    <constraint firstAttribute="bottom" secondItem="f7Y-Jh-gJI" secondAttribute="bottom" constant="10" id="wat-e4-vbt"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="213.5" y="1050.5"/>
         </window>
     </objects>
 </document>

@@ -40,6 +40,7 @@
 @property (strong) IBOutlet NSWindow *window;
 @property (strong) IBOutlet NSMenu *contactsContextMenu;
 @property (strong) IBOutlet NSWindow *passwordDialog;
+@property (strong) IBOutlet NSWindow *openConversationDialog;
 @end
 
 @implementation AppDelegate
@@ -403,6 +404,28 @@
         _xmpp->settings.password = strdup([password UTF8String]);
         [self startXmpp];
         _passwordDialog.isVisible = NO;
+    }
+}
+
+- (IBAction) openConversationCancel:(id)sender {
+    _openConversationDialog.isVisible = NO;
+}
+
+- (IBAction) openConversationOK:(id)sender {
+    // TODO: validate xid
+    const char *recipient = [_openConversationXidTextField.stringValue UTF8String];
+    XmppSession *session = XmppGetSession(_xmpp, recipient);
+    if(session) {
+        [self conversationController:session];
+    }
+    
+    _openConversationDialog.isVisible = NO;
+}
+
+- (IBAction)newDocument:(id)sender {
+    if(!_openConversationDialog.isVisible) {
+        _openConversationXidTextField.stringValue = @"";
+        [_openConversationDialog makeKeyAndOrderFront:nil];
     }
 }
 
