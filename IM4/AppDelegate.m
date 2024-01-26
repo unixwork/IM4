@@ -63,11 +63,21 @@
     [self startXmpp];
     
     //[[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSRect savedFrame = [[userDefaults objectForKey:@"ContactsWindowFrame"] rectValue];
+    if(savedFrame.size.width > 80 && savedFrame.size.height > 80) {
+        [_window setFrame:savedFrame display:YES];
+    }
 }
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     [_settingsController storeSettings];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSValue valueWithRect:_window.frame] forKey:@"ContactsWindowFrame"];
+    [userDefaults synchronize];
 }
 
 
