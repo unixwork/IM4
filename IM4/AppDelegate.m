@@ -62,13 +62,21 @@
     
     [self startXmpp];
     
-    //[[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSRect savedFrame = [[userDefaults objectForKey:@"ContactsWindowFrame"] rectValue];
-    if(savedFrame.size.width > 80 && savedFrame.size.height > 80) {
-        [_window setFrame:savedFrame display:YES];
+    NSArray *frameArray = [userDefaults objectForKey:@"ContactsWindowFrame"];
+    if(frameArray && frameArray.count == 4) {
+        NSNumber *width = [frameArray objectAtIndex:0];
+        NSNumber *height = [frameArray objectAtIndex:1];
+        NSNumber *x = [frameArray objectAtIndex:2];
+        NSNumber *y = [frameArray objectAtIndex:3];
+        NSRect frame;
+        frame.size.width = width.doubleValue;
+        frame.size.height = height.doubleValue;
+        frame.origin.x = x.doubleValue;
+        frame.origin.y = x.doubleValue;
+        [_window setFrame:frame display:YES];
     }
+    
 }
 
 
@@ -76,7 +84,14 @@
     [_settingsController storeSettings];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[NSValue valueWithRect:_window.frame] forKey:@"ContactsWindowFrame"];
+    NSRect frame = _window.frame;
+    NSArray *array = @[
+        [NSNumber numberWithDouble:frame.size.width],
+        [NSNumber numberWithDouble:frame.size.height],
+        [NSNumber numberWithDouble:frame.origin.x],
+        [NSNumber numberWithDouble:frame.origin.y]
+    ];
+    [userDefaults setObject:array forKey:@"ContactsWindowFrame"];
     [userDefaults synchronize];
 }
 
