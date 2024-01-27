@@ -262,14 +262,7 @@
             sn->enabled = TRUE; // enable the current session
         } else {
             sn->enabled = FALSE;
-            // remove session
-            if(snindex >= 0) {
-                if(snindex+1 < conv->nsessions) {
-                    memmove(conv->sessions+snindex, conv->sessions+snindex+1, conv->nsessions - snindex + 1);
-                }
-                //TODO: free session
-                conv->nsessions--;
-            }
+            XmppSessionRemoveAndDestroy(sn);
         }
     }
     

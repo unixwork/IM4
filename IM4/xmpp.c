@@ -718,3 +718,28 @@ XmppSession* XmppGetSession(Xmpp *xmpp, const char *recipient) {
     return session;
 }
 
+void XmppSessionRemoveAndDestroy(XmppSession *sn) {
+    if(sn->conversation) {
+        // find sn in the session array
+        XmppConversation *conv = sn->conversation;
+        int snindex = -1;
+        for(int i=0;i<conv->nsessions;i++) {
+            if(conv->sessions[i] == sn) {
+                snindex = i;
+                break;
+            }
+        }
+        // remove the session from the array
+        if(snindex >= 0) {
+            if(snindex+1 < conv->nsessions) {
+                memmove(conv->sessions+snindex, conv->sessions+snindex+1, conv->nsessions - snindex + 1);
+            }
+            conv->nsessions--;
+        }
+    }
+    
+    if(sn->resource) {
+        free(sn->resource);
+    }
+    free(sn);
+}

@@ -228,5 +228,6 @@ void XmppStopOtr(Xmpp *xmpp, const char *recipient);
 
 XmppSession* XmppGetSession(Xmpp *xmpp, const char *recipient);
 
+void XmppSessionRemoveAndDestroy(XmppSession *sn);
 
 #endif /* xmpp_h */
