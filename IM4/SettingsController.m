@@ -54,6 +54,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSTextField *host;
 @property (strong) IBOutlet NSTextField *port;
 @property (strong) IBOutlet NSTextField *otrFingerprint;
+@property (strong) IBOutlet NSComboBox  *logLevel;
 
 @end
 
@@ -141,11 +142,21 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         _port.stringValue = port;
     }
     
+    NSNumber *logLevelNum = [_config valueForKey:@"loglevel"];
+    if(logLevelNum) {
+        int lvl = logLevelNum.intValue;
+        if(lvl >= 0 && lvl <= 4) {
+            XmppSetLovLevel(lvl);
+        }
+    }
+    
     _password.stringValue = @"";
     
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
     }
+    
+    [_logLevel selectItemAtIndex:XmppGetLogLevel()];
 }
 
 - (BOOL)storeSettings {
@@ -312,6 +323,13 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
     }
+}
+
+- (IBAction)logLevelSelected:(id)sender {
+    int lvl = (int)_logLevel.indexOfSelectedItem;
+    XmppSetLovLevel(lvl);
+    NSNumber *num = [[NSNumber alloc]initWithInt:lvl];
+    [_config setValue:num forKey:@"loglevel"];
 }
 
 @end

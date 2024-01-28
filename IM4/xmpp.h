@@ -194,6 +194,9 @@ struct XmppEvent {
     void *userdata;
 };
 
+xmpp_log_level_t XmppGetLogLevel(void);
+void XmppSetLovLevel(xmpp_log_level_t level);
+
 /*
  * internal logging function
  * XmppLog does not automatically append a newline character to str

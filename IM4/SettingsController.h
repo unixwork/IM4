@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)otrGenKey:(id)sender;
 
+- (IBAction)logLevelSelected:(id)sender;
+
 
 @end
 

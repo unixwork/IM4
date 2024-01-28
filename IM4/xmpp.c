@@ -45,6 +45,16 @@
 // TODO: list of all accounts
 static Xmpp *im_account;
 
+static xmpp_log_level_t xmpp_log_level = XMPP_LEVEL_INFO;
+
+xmpp_log_level_t XmppGetLogLevel(void) {
+    return xmpp_log_level;
+}
+
+void XmppSetLovLevel(xmpp_log_level_t level) {
+    xmpp_log_level = level;
+}
+
 void XmppLog(const char *str) {
     app_add_log(str, strlen(str));
     fprintf(stderr, "%s", str);
@@ -55,6 +65,10 @@ static void log_handler(void *userdata,
                         const char *area,
                         const char *msg)
 {
+    if(level < xmpp_log_level) {
+        return;
+    }
+    
     char *str = NULL;
     char *lvlStr = "-";
     switch(level) {

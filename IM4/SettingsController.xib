@@ -11,6 +11,7 @@
                 <outlet property="alias" destination="1lt-Uk-Qz3" id="uZk-4p-8D5"/>
                 <outlet property="host" destination="HVI-i9-lKi" id="QSE-lG-ala"/>
                 <outlet property="jid" destination="MBc-Ab-z6z" id="4eq-Bt-BPZ"/>
+                <outlet property="logLevel" destination="zC2-rO-gyg" id="82Q-gZ-t9R"/>
                 <outlet property="otrFingerprint" destination="kCa-2n-uLh" id="dfc-gr-zGW"/>
                 <outlet property="password" destination="A4W-J6-G5V" id="vT3-8x-fwP"/>
                 <outlet property="port" destination="SJc-h7-mzy" id="xcE-H4-fjr"/>
@@ -195,7 +196,7 @@
                                     <subviews>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kCa-2n-uLh">
                                             <rect key="frame" x="6" y="257" width="78" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Fingerprint: " id="CKv-DA-7Td">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Fingerprint: " id="CKv-DA-7Td">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -217,6 +218,51 @@
                                         <constraint firstItem="kCa-2n-uLh" firstAttribute="top" secondItem="5iW-c4-4Td" secondAttribute="top" constant="8" id="Q66-3h-Rhk"/>
                                         <constraint firstItem="kCa-2n-uLh" firstAttribute="leading" secondItem="5iW-c4-4Td" secondAttribute="leading" constant="8" id="hgO-ZA-xmn"/>
                                         <constraint firstItem="TSC-F2-hum" firstAttribute="top" secondItem="kCa-2n-uLh" secondAttribute="bottom" constant="20" id="jav-Jg-Huw"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="General" identifier="" id="GbN-Ww-xDj">
+                                <view key="view" id="ZPL-4h-9fY">
+                                    <rect key="frame" x="10" y="33" width="449" height="281"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-Xe-LWQ">
+                                            <rect key="frame" x="6" y="257" width="124" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="120" id="yJf-Zz-9Q0"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Log Level" id="M8Q-rI-yfk">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zC2-rO-gyg">
+                                            <rect key="frame" x="135" y="251" width="84" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="pDc-ue-HJn"/>
+                                            </constraints>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="17T-fG-MTK">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>Debug</string>
+                                                    <string>Info</string>
+                                                    <string>Warn</string>
+                                                    <string>Error</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                            <connections>
+                                                <action selector="logLevelSelected:" target="-2" id="cHY-ej-Eia"/>
+                                            </connections>
+                                        </comboBox>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zC2-rO-gyg" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="4bk-l8-7em"/>
+                                        <constraint firstItem="lqt-Xe-LWQ" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="aw4-N7-u9s"/>
+                                        <constraint firstItem="zC2-rO-gyg" firstAttribute="leading" secondItem="lqt-Xe-LWQ" secondAttribute="trailing" constant="8" id="itj-M2-R4T"/>
+                                        <constraint firstItem="lqt-Xe-LWQ" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="vHN-MK-seW"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
