@@ -379,8 +379,11 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     xmpp_conn_set_jid(connection, xmpp->xid);
     xmpp_conn_set_pass(connection, xmpp->settings.password);
 
-    char *host = NULL;
-    unsigned short port = 0;
+    char *host = xmpp->settings.host;
+    unsigned short port = xmpp->settings.port;
+    if(host && strlen(host) == 0) {
+        host = NULL;
+    }
     
     if(xmpp_connect_client(connection, host, port, connect_cb, xmpp) != XMPP_EOK) {
         // TODO: free
