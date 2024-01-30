@@ -233,7 +233,6 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     NSUInteger textLen = [textStorage length];
     NSRange range0 = { textLen - _chatstateMsg.length, _chatstateMsg.length };
-    NSRange range = { textLen-3, 3 };
     [textStorage deleteCharactersInRange:range0];
 }
 
@@ -569,12 +568,12 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (IBAction)saveDocument:(id)sender {
-    [self clearChatStateMsg];
-    
     if(!_historyFile) {
         [self saveDocumentAs:sender];
         return;
     }
+    
+    [self clearChatStateMsg];
     
     NSAttributedString *attributedString = _conversationTextView.textStorage;
     
@@ -592,6 +591,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     if (![htmlData writeToURL:_historyFile atomically:YES]) {
         // TODO: error
     }
+    
+    [self addStringToLog:@"\n"]; // fixes missing newline after clearChatStateMsg
 }
 
 - (IBAction)saveDocumentAs:(id)sender {
