@@ -16,7 +16,6 @@ Not implemented yet:
  - File transfer
 
 Some features that will probably never be implemented:
- - Group chat
  - Audio/Video call
 
 
