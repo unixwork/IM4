@@ -568,5 +568,46 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [self.window makeFirstResponder:_messageInput];
 }
 
+- (IBAction)saveDocument:(id)sender {
+    [self clearChatStateMsg];
+    
+    if(!_historyFile) {
+        NSSavePanel *savePanel = [NSSavePanel savePanel];
+        
+        // the default filename is <date>_<xid>.html
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateStr = [dateFormatter stringFromDate:currentDate];
+        
+        NSString *fileName = [[NSString alloc] initWithFormat:@"%@_%@.html", dateStr, _xid];
+        [savePanel setNameFieldStringValue:fileName];
+        
+        // show file dialog
+        if ([savePanel runModal] == NSModalResponseOK) {
+            _historyFile = [savePanel URL];
+        } else {
+            return;
+        }
+    }
+    
+    NSAttributedString *attributedString = _conversationTextView.textStorage;
+    
+    NSDictionary *documentAttributes = @{
+        NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+        NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+    };
+    
+    NSError *error;
+    NSData *htmlData = [attributedString dataFromRange:NSMakeRange(0, attributedString.length)
+                                  documentAttributes:documentAttributes
+                                               error:&error];
+    // TODO: check error
+    
+    if (![htmlData writeToURL:_historyFile atomically:YES]) {
+        // TODO: error
+    }
+}
+
 @end
 

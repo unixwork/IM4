@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property bool selectSingleSession;
 @property (readonly) NSMenuItem *singleSessionMenuItem;
 @property (readonly) NSMenuItem *multiSessionMenuItem;
+@property (copy) NSURL *historyFile;
 
 - (id)initConversation:(NSString*)xid alias:(NSString*)alias xmpp:(Xmpp*)xmpp;
 
@@ -85,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction) secureAction:(id)sender;
 
-
+- (IBAction)saveDocument:(id)sender;
 
 @end
 
