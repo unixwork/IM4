@@ -87,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) secureAction:(id)sender;
 
 - (IBAction)saveDocument:(id)sender;
+- (IBAction)saveDocumentAs:(id)sender;
 
 @end
 
