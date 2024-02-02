@@ -16,16 +16,329 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="527" height="411"/>
+            <rect key="contentRect" x="196" y="240" width="741" height="585"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
-            <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="527" height="411"/>
+            <view key="contentView" misplaced="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="735" height="585"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-rU-4kw">
+                        <rect key="frame" x="14" y="553" width="72" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="TODO: Info" id="Pgs-3y-bik">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <gridView xPlacement="leading" yPlacement="bottom" rowAlignment="none" translatesAutoresizingMaskIntoConstraints="NO" id="K1e-3B-hTe">
+                        <rect key="frame" x="8" y="178" width="725" height="367"/>
+                        <rows>
+                            <gridRow id="VfM-nt-GkA"/>
+                            <gridRow id="Igs-tN-F65"/>
+                            <gridRow id="8IR-fl-LzG"/>
+                            <gridRow id="gqM-gG-c7p"/>
+                            <gridRow id="imi-6Q-OMq"/>
+                            <gridRow id="ELb-JM-SNj"/>
+                            <gridRow id="3X2-ui-672"/>
+                            <gridRow id="dK4-Hg-ppp"/>
+                            <gridRow id="AbJ-NF-zlu"/>
+                            <gridRow id="uxD-M4-Txb"/>
+                            <gridRow id="HRE-jq-ZhC"/>
+                            <gridRow id="zqh-mf-ZSg"/>
+                            <gridRow id="Eaf-If-nmf"/>
+                            <gridRow id="Qd7-mg-Rvu"/>
+                        </rows>
+                        <columns>
+                            <gridColumn width="300" id="cqS-je-8m9"/>
+                            <gridColumn xPlacement="fill" id="NOK-hY-viN"/>
+                        </columns>
+                        <gridCells>
+                            <gridCell row="VfM-nt-GkA" column="cqS-je-8m9" id="zZc-uG-unO">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z6a-fe-K84">
+                                    <rect key="frame" x="-2" y="346" width="211" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="OTR status message: gone secure" id="u9f-H2-oOF">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="VfM-nt-GkA" column="NOK-hY-viN" id="hlt-is-rtX">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nWs-Rm-Tia">
+                                    <rect key="frame" x="306" y="346" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="HeJ-dv-OIH">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Igs-tN-F65" column="cqS-je-8m9" id="PAC-HM-ZTS">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hcT-n7-ZaC">
+                                    <rect key="frame" x="-2" y="319" width="222" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="OTR status message: gone insecure" id="CaJ-SZ-9cX">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Igs-tN-F65" column="NOK-hY-viN" id="8GK-Ju-pla">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-jL-caJ">
+                                    <rect key="frame" x="306" y="319" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="kPr-EE-rhs">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="8IR-fl-LzG" column="cqS-je-8m9" id="O11-UI-MWb">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1bx-Gy-RIc">
+                                    <rect key="frame" x="-2" y="292" width="209" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="OTR status message: otr disabled" id="8RY-Cv-QVn">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="8IR-fl-LzG" column="NOK-hY-viN" id="dSn-x0-hcw">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yot-Gl-X1f">
+                                    <rect key="frame" x="306" y="292" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="vAb-pU-2Cg">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="gqM-gG-c7p" column="cqS-je-8m9" id="TWE-LF-ufM">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MAP-I1-z8T">
+                                    <rect key="frame" x="-2" y="265" width="94" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Secure symbol" id="6dK-Vz-fEl">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="gqM-gG-c7p" column="NOK-hY-viN" id="TIe-qm-0nw">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="COF-FP-Kdh">
+                                    <rect key="frame" x="306" y="265" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="PHq-7J-Uqd">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="imi-6Q-OMq" column="cqS-je-8m9" id="jo5-oB-v99">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kXN-WN-OGI">
+                                    <rect key="frame" x="-2" y="238" width="109" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Unsecure symbol" id="uOF-by-fCF">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="imi-6Q-OMq" column="NOK-hY-viN" id="mvs-Ch-hYa">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uq9-RW-QGk">
+                                    <rect key="frame" x="306" y="238" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Kt2-5Z-Iea">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="ELb-JM-SNj" column="cqS-je-8m9" id="2Vd-6e-acN">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h0X-aF-FNW">
+                                    <rect key="frame" x="-2" y="211" width="143" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Chat State: composing" id="veW-xr-xZG">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="ELb-JM-SNj" column="NOK-hY-viN" id="tUf-S8-aga">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jiy-l9-1jS">
+                                    <rect key="frame" x="306" y="211" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="4hf-FR-ZQM">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="3X2-ui-672" column="cqS-je-8m9" id="QJd-oC-cUl">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kHg-2C-YFi">
+                                    <rect key="frame" x="-2" y="184" width="120" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Chat State: paused" id="F0K-1z-4EE">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="3X2-ui-672" column="NOK-hY-viN" id="cBe-2F-JzN">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jpf-Y5-clJ">
+                                    <rect key="frame" x="306" y="184" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="fGQ-ic-9Tf">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="dK4-Hg-ppp" column="cqS-je-8m9" id="cqg-52-GQP">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MMN-3c-X8H">
+                                    <rect key="frame" x="-2" y="157" width="123" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Chat State: inactive" id="dyQ-Kc-yJl">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="dK4-Hg-ppp" column="NOK-hY-viN" id="MTr-Mi-ipK">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DX6-3d-wKT">
+                                    <rect key="frame" x="306" y="157" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="bKe-I1-Beu">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="AbJ-NF-zlu" column="cqS-je-8m9" id="wTR-92-fSA">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5iV-Yj-c9v">
+                                    <rect key="frame" x="-2" y="130" width="102" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Chat Sate: gone" id="Z9J-pm-lBY">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="AbJ-NF-zlu" column="NOK-hY-viN" id="weC-jk-hsl">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="02Q-zC-wf1">
+                                    <rect key="frame" x="306" y="130" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="kZI-dm-Odt">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="uxD-M4-Txb" column="cqS-je-8m9" id="yMo-YF-YQP">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TN1-jX-bQV">
+                                    <rect key="frame" x="-2" y="108" width="223" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="TODO: Message Format Description" id="KE8-mr-2gi">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="uxD-M4-Txb" column="NOK-hY-viN" id="yyc-0v-p1i"/>
+                            <gridCell row="HRE-jq-ZhC" column="cqS-je-8m9" id="MBD-dK-geM">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JS3-rQ-CzU">
+                                    <rect key="frame" x="-2" y="81" width="164" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Incoming Message Format" id="lPe-97-eVn">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="HRE-jq-ZhC" column="NOK-hY-viN" id="ZRX-PX-kiB">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OHn-Xn-zxU">
+                                    <rect key="frame" x="306" y="81" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="lqh-8d-k0j">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="zqh-mf-ZSg" column="cqS-je-8m9" id="NWN-ch-XrF">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C8x-mg-h9T">
+                                    <rect key="frame" x="-2" y="54" width="165" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Outgoing Message Format" id="NJl-Md-hIh">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="zqh-mf-ZSg" column="NOK-hY-viN" id="8x8-Od-zuh">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jGR-OZ-8fZ">
+                                    <rect key="frame" x="306" y="54" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="PA4-7X-E2E">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Eaf-If-nmf" column="cqS-je-8m9" id="Tzt-l8-EHR">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vt1-nw-Xdy">
+                                    <rect key="frame" x="-2" y="27" width="204" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Incoming Message Format HTML" id="oVp-ui-49v">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Eaf-If-nmf" column="NOK-hY-viN" id="nME-nT-ajf">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EMY-4f-bcr">
+                                    <rect key="frame" x="306" y="27" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="dQf-qO-gzU">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Qd7-mg-Rvu" column="cqS-je-8m9" id="lO7-lQ-Pfr">
+                                <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-BB-Pun">
+                                    <rect key="frame" x="-2" y="0.0" width="205" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Outgoing Message Format HTML" id="6n4-w6-Mc5">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                            <gridCell row="Qd7-mg-Rvu" column="NOK-hY-viN" id="AN0-bo-eNN">
+                                <textField key="contentView" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1hl-39-2r8">
+                                    <rect key="frame" x="306" y="0.0" width="419" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="foL-OE-tO0">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </gridCell>
+                        </gridCells>
+                    </gridView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ojj-rU-4kw" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="16" id="DPH-KQ-6yn"/>
+                    <constraint firstItem="K1e-3B-hTe" firstAttribute="top" secondItem="Ojj-rU-4kw" secondAttribute="bottom" constant="8" id="Dqb-O2-BJt"/>
+                    <constraint firstItem="Ojj-rU-4kw" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="16" id="ESU-gE-C3v"/>
+                    <constraint firstAttribute="trailing" secondItem="K1e-3B-hTe" secondAttribute="trailing" constant="8" id="LKV-bd-eLM"/>
+                    <constraint firstItem="K1e-3B-hTe" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="bdX-6z-mpE"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="91.5" y="214.5"/>
+            <point key="canvasLocation" x="202.5" y="311.5"/>
         </window>
     </objects>
 </document>
