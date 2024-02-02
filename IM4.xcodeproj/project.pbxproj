@@ -21,6 +21,8 @@
 		ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED7EEE012A8D34C6007EECC7 /* otr.c */; };
 		ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */; };
 		ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */; };
+		EDB15D662B6D71F20088C96A /* TemplateSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */; };
+		EDB15D672B6D71F20088C96A /* TemplateSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
 		EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */; };
 		EDC98B772B531DE700928CF4 /* libssl.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B712B531DE700928CF4 /* libssl.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -89,6 +91,8 @@
 		ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogWindowController.h; sourceTree = "<group>"; };
 		ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogWindowController.m; sourceTree = "<group>"; };
 		ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWindowController.xib; sourceTree = "<group>"; };
+		EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSettingsController.swift; sourceTree = "<group>"; };
+		EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemplateSettingsController.xib; sourceTree = "<group>"; };
 		EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationWindowController.h; sourceTree = "<group>"; };
 		EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationWindowController.m; sourceTree = "<group>"; };
 		EDC4B80D2A89067A0076A0F2 /* ConversationWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationWindowController.xib; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 				ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */,
 				ED6957382B5BD61A00D65664 /* UITemplate.swift */,
 				ED6957372B5BD61900D65664 /* IM4-Bridging-Header.h */,
+				EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */,
+				EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -231,6 +237,7 @@
 				EDC4B80E2A89067A0076A0F2 /* ConversationWindowController.xib in Resources */,
 				ED3156E42A861FB200D9ADB3 /* Assets.xcassets in Resources */,
 				ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */,
+				EDB15D672B6D71F20088C96A /* TemplateSettingsController.xib in Resources */,
 				ED3156E72A861FB200D9ADB3 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDB15D662B6D71F20088C96A /* TemplateSettingsController.swift in Sources */,
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,

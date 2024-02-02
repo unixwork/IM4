@@ -26,63 +26,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Cocoa/Cocoa.h>
-#import "xmpp.h"
+import Cocoa
 
-#import "IM4-Bridging-Header.h"
-#import "IM4-Swift.h"
+@objc class TemplateSettingsController: NSWindowController {
 
-// Xcode debug builds have IM4_TEST=1 defined
-#ifdef IM4_TEST
-#define IM4_APPNAME "IM4TEST"
-#else
-#define IM4_APPNAME "IM4"
-#endif
+    override func windowDidLoad() {
+        super.windowDidLoad()
 
-#define IM4_APPNAME_NS @ IM4_APPNAME
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface SettingsController : NSWindowController<NSWindowDelegate>
-
-@property (readonly) Xmpp *xmpp;
-
-@property (readonly) NSDictionary *config;
-@property (readonly) NSDictionary *aliases;
-
-@property (copy) NSString *fingerprint;
-@property (readonly) UITemplate *templateSettings;
-
-
-- (id)initSettings;
-
-- (void) createXmpp;
-
-- (void) recreateXmpp;
-
-- (NSString*) configFilePath: (NSString*)fileName;
-
-- (void) setAlias: (NSString*)alias forXid:(NSString*)xid;
-
-- (NSString*) getAlias: (NSString*)xid;
-
-- (BOOL) storeSettings;
-
-- (void) createFingerprintFromPubkey;
-
-- (IBAction)testAction:(id)sender;
-
-- (IBAction)okAction:(id)sender;
-
-- (IBAction)cancelAction:(id)sender;
-
-- (IBAction)otrGenKey:(id)sender;
-
-- (IBAction)logLevelSelected:(id)sender;
-
-- (IBAction)openTemplateSettings:(id)sender;
-
-
-@end
-
-NS_ASSUME_NONNULL_END
+        
+    }
+    
+}

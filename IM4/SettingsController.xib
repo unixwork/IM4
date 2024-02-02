@@ -227,10 +227,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-Xe-LWQ">
-                                            <rect key="frame" x="6" y="257" width="124" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="yJf-Zz-9Q0"/>
-                                            </constraints>
+                                            <rect key="frame" x="6" y="257" width="202" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Log Level" id="M8Q-rI-yfk">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -238,7 +235,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zC2-rO-gyg">
-                                            <rect key="frame" x="135" y="251" width="84" height="23"/>
+                                            <rect key="frame" x="221" y="251" width="84" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="pDc-ue-HJn"/>
                                             </constraints>
@@ -257,11 +254,34 @@
                                                 <action selector="logLevelSelected:" target="-2" id="cHY-ej-Eia"/>
                                             </connections>
                                         </comboBox>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nma-c8-Xft">
+                                            <rect key="frame" x="6" y="221" width="202" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Conversation Window Templates" id="wlw-GR-OpI">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAZ-qi-o1f">
+                                            <rect key="frame" x="215" y="210" width="121" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Open Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tW1-XF-ZIW">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="openTemplateSettings:" target="-2" id="ghM-76-S3h"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="nma-c8-Xft" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="1Wl-KW-Z7b"/>
                                         <constraint firstItem="zC2-rO-gyg" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="4bk-l8-7em"/>
+                                        <constraint firstItem="nma-c8-Xft" firstAttribute="top" secondItem="lqt-Xe-LWQ" secondAttribute="bottom" constant="20" id="DfN-aR-of6"/>
+                                        <constraint firstItem="bAZ-qi-o1f" firstAttribute="top" secondItem="zC2-rO-gyg" secondAttribute="bottom" constant="16" id="YiJ-Mk-DBT"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="aw4-N7-u9s"/>
-                                        <constraint firstItem="zC2-rO-gyg" firstAttribute="leading" secondItem="lqt-Xe-LWQ" secondAttribute="trailing" constant="8" id="itj-M2-R4T"/>
+                                        <constraint firstItem="zC2-rO-gyg" firstAttribute="leading" secondItem="lqt-Xe-LWQ" secondAttribute="trailing" constant="16" id="itj-M2-R4T"/>
+                                        <constraint firstItem="nma-c8-Xft" firstAttribute="width" secondItem="lqt-Xe-LWQ" secondAttribute="width" id="lSj-vV-978"/>
+                                        <constraint firstItem="bAZ-qi-o1f" firstAttribute="leading" secondItem="nma-c8-Xft" secondAttribute="trailing" constant="16" id="rD8-jB-iP6"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="vHN-MK-seW"/>
                                     </constraints>
                                 </view>

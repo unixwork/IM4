@@ -332,4 +332,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_config setValue:num forKey:@"loglevel"];
 }
 
+- (IBAction)openTemplateSettings:(id)sender {
+    TemplateSettingsController *tplController = [[TemplateSettingsController alloc] initWithWindowNibName:@"TemplateSettingsController"];
+    [tplController showWindow:nil];
+}
+
 @end
