@@ -29,11 +29,58 @@
 import Cocoa
 
 @objc class TemplateSettingsController: NSWindowController {
+    
+    @IBOutlet var otrGoneSecure : NSTextField!
+    @IBOutlet var otrGoneInsecure : NSTextField!
+    @IBOutlet var otrDisabled : NSTextField!
+    @IBOutlet var secureSymbol : NSTextField!
+    @IBOutlet var unsecureSymbol : NSTextField!
+    @IBOutlet var chatStateComposing : NSTextField!
+    @IBOutlet var chatStatePaused : NSTextField!
+    @IBOutlet var chatStateInactive : NSTextField!
+    @IBOutlet var chatStateGone : NSTextField!
+    @IBOutlet var incomingMessageFormat : NSTextField!
+    @IBOutlet var outgoingMessageFormat : NSTextField!
+    @IBOutlet var incomingMsgHtml : NSTextField!
+    @IBOutlet var outgoingMsgHtml: NSTextField!
 
+    var templateStrings : UITemplate!
+    
+    @objc init(template : UITemplate) {
+        super.init(window: nil)
+        templateStrings = template
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func windowDidLoad() {
         super.windowDidLoad()
-
         
+        otrGoneSecure.stringValue = templateStrings.otrGoneSecure()
+        otrGoneInsecure.stringValue = templateStrings.otrGoneInsecure()
+        otrDisabled.stringValue = templateStrings.otrDisabled()
+        secureSymbol.stringValue = templateStrings.otrSecure()
+        unsecureSymbol.stringValue = templateStrings.otrInsecure()
+        chatStateComposing.stringValue = templateStrings.chatStateComposing()
+        chatStatePaused.stringValue = templateStrings.chatStatePaused()
+        chatStateInactive.stringValue = templateStrings.chatStateInactive()
+        chatStateGone.stringValue = templateStrings.chatStateGone()
+        incomingMessageFormat.stringValue = templateStrings.msgInPrefixFormat()
+        outgoingMessageFormat.stringValue = templateStrings.msgOutPrefixFormat()
+        
+        if let htmlInFormat = templateStrings.htmlMsgInFormat() {
+            incomingMsgHtml.stringValue = htmlInFormat
+        }
+        if let htmlOutFormat = templateStrings.htmlMsgOutFormat() {
+            outgoingMsgHtml.stringValue = htmlOutFormat
+        }
     }
+    
+    override var windowNibName: String! {
+        return "TemplateSettingsController"
+    }
+    
     
 }

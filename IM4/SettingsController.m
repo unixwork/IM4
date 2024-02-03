@@ -333,7 +333,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (IBAction)openTemplateSettings:(id)sender {
-    TemplateSettingsController *tplController = [[TemplateSettingsController alloc] initWithWindowNibName:@"TemplateSettingsController"];
+    TemplateSettingsController *tplController = [[TemplateSettingsController alloc] initWithTemplate:_templateSettings];
     [tplController showWindow:nil];
 }
 

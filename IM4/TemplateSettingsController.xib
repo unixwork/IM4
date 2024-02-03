@@ -8,6 +8,19 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TemplateSettingsController" customModule="IM4" customModuleProvider="target">
             <connections>
+                <outlet property="chatStateComposing" destination="jiy-l9-1jS" id="F29-Nz-J4E"/>
+                <outlet property="chatStateGone" destination="02Q-zC-wf1" id="oAN-m7-McO"/>
+                <outlet property="chatStateInactive" destination="DX6-3d-wKT" id="XjS-9c-Zjg"/>
+                <outlet property="chatStatePaused" destination="jpf-Y5-clJ" id="0ab-Db-r0L"/>
+                <outlet property="incomingMessageFormat" destination="OHn-Xn-zxU" id="4QT-iz-RfM"/>
+                <outlet property="incomingMsgHtml" destination="EMY-4f-bcr" id="4hx-nc-I5a"/>
+                <outlet property="otrDisabled" destination="Yot-Gl-X1f" id="9Ea-MO-SFO"/>
+                <outlet property="otrGoneInsecure" destination="Chg-jL-caJ" id="bkT-KY-l2v"/>
+                <outlet property="otrGoneSecure" destination="nWs-Rm-Tia" id="nGN-j4-0lC"/>
+                <outlet property="outgoingMessageFormat" destination="jGR-OZ-8fZ" id="mVR-Bf-s2N"/>
+                <outlet property="outgoingMsgHtml" destination="1hl-39-2r8" id="sBk-rT-9pD"/>
+                <outlet property="secureSymbol" destination="COF-FP-Kdh" id="eFe-Sk-uVa"/>
+                <outlet property="unsecureSymbol" destination="Uq9-RW-QGk" id="VAt-vH-TFX"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -18,8 +31,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="741" height="585"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
-            <view key="contentView" misplaced="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="735" height="585"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="741" height="585"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-rU-4kw">
@@ -326,13 +339,38 @@
                             </gridCell>
                         </gridCells>
                     </gridView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Ff-CX-gaf">
+                        <rect key="frame" x="1" y="1" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GOk-mO-7yU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XE1-Aw-uLT">
+                        <rect key="frame" x="664" y="1" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qwd-e9-DFi">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="XE1-Aw-uLT" secondAttribute="trailing" constant="8" id="95x-xi-HFg"/>
                     <constraint firstItem="Ojj-rU-4kw" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="16" id="DPH-KQ-6yn"/>
                     <constraint firstItem="K1e-3B-hTe" firstAttribute="top" secondItem="Ojj-rU-4kw" secondAttribute="bottom" constant="8" id="Dqb-O2-BJt"/>
                     <constraint firstItem="Ojj-rU-4kw" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="16" id="ESU-gE-C3v"/>
                     <constraint firstAttribute="trailing" secondItem="K1e-3B-hTe" secondAttribute="trailing" constant="8" id="LKV-bd-eLM"/>
+                    <constraint firstItem="XE1-Aw-uLT" firstAttribute="width" secondItem="2Ff-CX-gaf" secondAttribute="width" id="UyM-q0-I2I"/>
                     <constraint firstItem="K1e-3B-hTe" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="bdX-6z-mpE"/>
+                    <constraint firstItem="2Ff-CX-gaf" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="siP-t2-ssu"/>
+                    <constraint firstAttribute="bottom" secondItem="XE1-Aw-uLT" secondAttribute="bottom" constant="8" id="w5v-PJ-dDi"/>
+                    <constraint firstAttribute="bottom" secondItem="2Ff-CX-gaf" secondAttribute="bottom" constant="8" id="xAP-Mz-bFt"/>
                 </constraints>
             </view>
             <connections>
