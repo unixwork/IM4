@@ -348,6 +348,9 @@
 Gw
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="cancel:" target="-2" id="AIM-pN-7MU"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XE1-Aw-uLT">
                         <rect key="frame" x="664" y="1" width="76" height="32"/>
@@ -358,6 +361,9 @@ Gw
 DQ
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="ok:" target="-2" id="BuA-dj-86e"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

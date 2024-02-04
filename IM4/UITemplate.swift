@@ -45,52 +45,104 @@ import Cocoa
         return dict["otr.gonesecure"] as? String ?? "otr: gone secure"
     }
 
+    @objc func setOtrGoneSecure(_ value: String) {
+        dict["otr.gonesecure"] = value
+    }
+
     @objc func otrGoneInsecure() -> String {
         return dict["otr.goneinsecure"] as? String ?? "otr: gone insecure"
+    }
+
+    @objc func setOtrGoneInsecure(_ value: String) {
+        dict["otr.goneinsecure"] = value
     }
 
     @objc func otrDisabled() -> String {
         return dict["otr.disabled"] as? String ?? "otr disabled"
     }
 
+    @objc func setOtrDisabled(_ value: String) {
+        dict["otr.disabled"] = value
+    }
+
     @objc func otrSecure() -> String {
         return dict["otr.secure"] as? String ?? "🔒"
+    }
+
+    @objc func setOtrSecure(_ value: String) {
+        dict["otr.secure"] = value
     }
 
     @objc func otrInsecure() -> String {
         return dict["otr.unsecure"] as? String ?? ""
     }
 
+    @objc func setOtrInsecure(_ value: String) {
+        dict["otr.unsecure"] = value
+    }
+
     @objc func chatStateComposing() -> String {
         return dict["chatstate.composing"] as? String ?? "composing"
+    }
+
+    @objc func setChatStateComposing(_ value: String) {
+        dict["chatstate.composing"] = value
     }
 
     @objc func chatStatePaused() -> String {
         return dict["chatstate.paused"] as? String ?? "paused"
     }
 
+    @objc func setChatStatePaused(_ value: String) {
+        dict["chatstate.paused"] = value
+    }
+
     @objc func chatStateInactive() -> String {
         return dict["chatstate.inactive"] as? String ?? "inactive"
+    }
+
+    @objc func setChatStateInactive(_ value: String) {
+        dict["chatstate.inactive"] = value
     }
 
     @objc func chatStateGone() -> String {
         return dict["chatstate.gone"] as? String ?? "gone"
     }
 
+    @objc func setChatStateGone(_ value: String) {
+        dict["chatstate.gone"] = value
+    }
+
     @objc func msgInPrefixFormat() -> String {
         return dict["msg.in.format"] as? String ?? "< (%t) %a: "
+    }
+
+    @objc func setMsgInPrefixFormat(_ value: String) {
+        dict["msg.in.format"] = value
     }
 
     @objc func msgOutPrefixFormat() -> String {
         return dict["msg.out.format"] as? String ?? "> (%t) %a: "
     }
-    
-    @objc func htmlMsgInFormat() -> String? {
-        return dict["msg.htmlin.format"] as? String;
+
+    @objc func setMsgOutPrefixFormat(_ value: String) {
+        dict["msg.out.format"] = value
     }
-    
+
+    @objc func htmlMsgInFormat() -> String? {
+        return dict["msg.htmlin.format"] as? String
+    }
+
+    @objc func setHtmlMsgInFormat(_ value: String?) {
+        dict["msg.htmlin.format"] = value
+    }
+
     @objc func htmlMsgOutFormat() -> String? {
-        return dict["msg.htmlout.format"] as? String;
+        return dict["msg.htmlout.format"] as? String
+    }
+
+    @objc func setHtmlMsgOutFormat(_ value: String?) {
+        dict["msg.htmlout.format"] = value
     }
     
     @objc func msgPrefixFormat(format: String, xid: String, alias: String, secure: Bool) -> String {

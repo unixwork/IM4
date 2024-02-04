@@ -58,6 +58,10 @@ import Cocoa
     override func windowDidLoad() {
         super.windowDidLoad()
         
+        loadTemplateSettings()
+    }
+    
+    func loadTemplateSettings() {
         otrGoneSecure.stringValue = templateStrings.otrGoneSecure()
         otrGoneInsecure.stringValue = templateStrings.otrGoneInsecure()
         otrDisabled.stringValue = templateStrings.otrDisabled()
@@ -82,5 +86,27 @@ import Cocoa
         return "TemplateSettingsController"
     }
     
+    @IBAction func ok(_ sender: NSButton) {
+        templateStrings.setOtrGoneSecure(otrGoneSecure.stringValue)
+        templateStrings.setOtrGoneInsecure(otrGoneInsecure.stringValue)
+        templateStrings.setOtrDisabled(otrDisabled.stringValue)
+        templateStrings.setOtrSecure(secureSymbol.stringValue)
+        templateStrings.setOtrInsecure(unsecureSymbol.stringValue)
+        templateStrings.setChatStateComposing(chatStateComposing.stringValue)
+        templateStrings.setChatStatePaused(chatStatePaused.stringValue)
+        templateStrings.setChatStateInactive(chatStateInactive.stringValue)
+        templateStrings.setChatStateGone(chatStateGone.stringValue)
+        templateStrings.setMsgInPrefixFormat(incomingMessageFormat.stringValue)
+        templateStrings.setMsgOutPrefixFormat(outgoingMessageFormat.stringValue)
+        templateStrings.setHtmlMsgInFormat(outgoingMsgHtml.stringValue)
+        templateStrings.setHtmlMsgOutFormat(outgoingMsgHtml.stringValue)
+        
+        window?.close()
+    }
+    
+    @IBAction func cancel(_ sender: NSButton) {
+        loadTemplateSettings()
+        window?.close()
+    }
     
 }
