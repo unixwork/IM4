@@ -288,24 +288,8 @@
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yV4-kI-eyZ">
-                        <rect key="frame" x="1" y="1" width="94" height="32"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oOK-c0-yE5">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="MW5-Ou-GVW"/>
-                        </constraints>
-                        <connections>
-                            <action selector="okAction:" target="-2" id="LSU-nc-dv0"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6aw-9l-Uxi">
-                        <rect key="frame" x="376" y="1" width="94" height="32"/>
+                        <rect key="frame" x="1" y="1" width="94" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Shf-nH-eEK">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -314,22 +298,38 @@ Gw
 </string>
                         </buttonCell>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="uGZ-nR-L2Y"/>
+                            <constraint firstAttribute="width" constant="80" id="p2w-NV-SSN"/>
                         </constraints>
                         <connections>
                             <action selector="cancelAction:" target="-2" id="N8q-ZV-s78"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yV4-kI-eyZ">
+                        <rect key="frame" x="376" y="1" width="94" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oOK-c0-yE5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="PGI-Nx-eCu"/>
+                        </constraints>
+                        <connections>
+                            <action selector="okAction:" target="-2" id="LSU-nc-dv0"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="tok-dJ-zb4" secondAttribute="bottom" constant="40" id="0Qc-km-7VI"/>
-                    <constraint firstAttribute="bottom" secondItem="yV4-kI-eyZ" secondAttribute="bottom" constant="8" id="90K-px-RKV"/>
-                    <constraint firstAttribute="trailing" secondItem="6aw-9l-Uxi" secondAttribute="trailing" constant="8" id="Lj1-UK-NKN"/>
+                    <constraint firstAttribute="bottom" secondItem="6aw-9l-Uxi" secondAttribute="bottom" constant="8" id="FPN-ke-XgP"/>
+                    <constraint firstAttribute="trailing" secondItem="yV4-kI-eyZ" secondAttribute="trailing" constant="8" id="HEe-0a-Mck"/>
                     <constraint firstAttribute="trailing" secondItem="tok-dJ-zb4" secondAttribute="trailing" constant="8" id="Onz-JF-Uz2"/>
-                    <constraint firstAttribute="bottom" secondItem="6aw-9l-Uxi" secondAttribute="bottom" constant="8" id="UA1-5e-vMn"/>
                     <constraint firstItem="tok-dJ-zb4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="VBP-77-aT9"/>
+                    <constraint firstItem="6aw-9l-Uxi" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="a3Z-mA-UPN"/>
+                    <constraint firstAttribute="bottom" secondItem="yV4-kI-eyZ" secondAttribute="bottom" constant="8" id="fiy-yS-T0b"/>
                     <constraint firstItem="tok-dJ-zb4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="8" id="o3u-Fv-sKi"/>
-                    <constraint firstItem="yV4-kI-eyZ" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="rC4-Fz-9Rn"/>
                 </constraints>
             </view>
             <connections>
