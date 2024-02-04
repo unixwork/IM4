@@ -13,6 +13,7 @@ Already implemented:
 Not implemented yet:
  - Subscription management
  - Custom status
+ - Group chat
  - File transfer
 
 Some features that will probably never be implemented:
