@@ -98,8 +98,14 @@ import Cocoa
         templateStrings.setChatStateGone(chatStateGone.stringValue)
         templateStrings.setMsgInPrefixFormat(incomingMessageFormat.stringValue)
         templateStrings.setMsgOutPrefixFormat(outgoingMessageFormat.stringValue)
-        templateStrings.setHtmlMsgInFormat(outgoingMsgHtml.stringValue)
-        templateStrings.setHtmlMsgOutFormat(outgoingMsgHtml.stringValue)
+        
+        if(!incomingMsgHtml.stringValue.isEmpty) {
+            templateStrings.setHtmlMsgInFormat(incomingMsgHtml.stringValue)
+        }
+        if(!incomingMsgHtml.stringValue.isEmpty) {
+            templateStrings.setHtmlMsgOutFormat(outgoingMsgHtml.stringValue)
+        }
+  
         
         window?.close()
     }

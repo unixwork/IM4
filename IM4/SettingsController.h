@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSString *fingerprint;
 @property (readonly) UITemplate *templateSettings;
+@property (readonly) NSMutableDictionary *templateSettingsDict;
 
 @property (readonly) TemplateSettingsController *tplController;
 

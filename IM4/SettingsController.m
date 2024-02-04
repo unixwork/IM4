@@ -93,12 +93,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
     
     NSString *templateFilePath = [self configFilePath:@"uitemplates.plist"];
-    NSMutableDictionary *tplDict = [NSMutableDictionary dictionaryWithContentsOfFile:templateFilePath];
-    if (tplDict) {
-        _templateSettings = [[UITemplate alloc]initWithConfigDict:tplDict];
-    } else {
-        _templateSettings = [[UITemplate alloc]init];
+    _templateSettingsDict = [NSMutableDictionary dictionaryWithContentsOfFile:templateFilePath];
+    if (!_templateSettingsDict) {
+        _templateSettingsDict = [[NSMutableDictionary alloc] init];
     }
+    _templateSettings = [[UITemplate alloc]initWithConfigDict:_templateSettingsDict];
     
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
@@ -162,9 +161,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 - (BOOL)storeSettings {
     NSString *configFilePath = [self configFilePath:@"config.plist"];
     NSString *aliasFilePath = [self configFilePath:@"aliases.plist"];
+    NSString *templateFilePath = [self configFilePath:@"uitemplates.plist"];
     
     [_config writeToFile:configFilePath atomically:YES];
     [_aliases writeToFile:aliasFilePath atomically:YES];
+    [_templateSettingsDict writeToFile:templateFilePath atomically:YES];
     
     return true;
 }
