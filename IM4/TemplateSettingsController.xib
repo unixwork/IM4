@@ -26,7 +26,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="641" height="519"/>
@@ -345,7 +345,7 @@
                         </gridCells>
                     </gridView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Ff-CX-gaf">
-                        <rect key="frame" x="1" y="1" width="76" height="32"/>
+                        <rect key="frame" x="1" y="1" width="94" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GOk-mO-7yU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -353,12 +353,15 @@
 Gw
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="f7r-ej-AKT"/>
+                        </constraints>
                         <connections>
                             <action selector="cancel:" target="-2" id="AIM-pN-7MU"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XE1-Aw-uLT">
-                        <rect key="frame" x="564" y="1" width="76" height="32"/>
+                        <rect key="frame" x="546" y="1" width="94" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qwd-e9-DFi">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -366,6 +369,9 @@ Gw
 DQ
 </string>
                         </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="2kS-G5-e6M"/>
+                        </constraints>
                         <connections>
                             <action selector="ok:" target="-2" id="BuA-dj-86e"/>
                         </connections>
@@ -377,7 +383,6 @@ DQ
                     <constraint firstItem="K1e-3B-hTe" firstAttribute="top" secondItem="Ojj-rU-4kw" secondAttribute="bottom" constant="8" id="Dqb-O2-BJt"/>
                     <constraint firstItem="Ojj-rU-4kw" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="16" id="ESU-gE-C3v"/>
                     <constraint firstAttribute="trailing" secondItem="K1e-3B-hTe" secondAttribute="trailing" constant="8" id="LKV-bd-eLM"/>
-                    <constraint firstItem="XE1-Aw-uLT" firstAttribute="width" secondItem="2Ff-CX-gaf" secondAttribute="width" id="UyM-q0-I2I"/>
                     <constraint firstItem="K1e-3B-hTe" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="bdX-6z-mpE"/>
                     <constraint firstItem="2Ff-CX-gaf" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="siP-t2-ssu"/>
                     <constraint firstAttribute="bottom" secondItem="XE1-Aw-uLT" secondAttribute="bottom" constant="8" id="w5v-PJ-dDi"/>
