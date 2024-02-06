@@ -218,10 +218,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _secure = secure;
     NSString *msg =  [[NSString alloc]initWithFormat:@"%@\n", secure ? _tpl.otrGoneSecure : _tpl.otrGoneInsecure ];
     
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
-    NSTextStorage *textStorage = _conversationTextView.textStorage;
-    [textStorage appendAttributedString:attributedText];
-    [_conversationTextView scrollToEndOfDocument:nil];
+    [self addStringToLog:msg];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
 }
@@ -354,11 +351,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
-    
-    NSTextStorage *textStorage = _conversationTextView.textStorage;
-    [textStorage appendAttributedString:attributedText];
-    [_conversationTextView scrollToEndOfDocument:nil];
+    [self addStringToLog:msg];
 }
 
 - (void)addStringToLog:(NSString*)str {
@@ -373,14 +366,26 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     if(str == nil) {
         return;
     }
+    
+    NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
+    CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
+    double scrollPos = scrollview.verticalScroller.doubleValue;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:str];
-    [_conversationTextView scrollToEndOfDocument:nil];
+    
+    if(scrollToEnd) {
+        [_conversationTextView scrollToEndOfDocument:nil];
+    }
 }
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming secure:(Boolean)secure {
-    //NSString *name = incoming ? @"<" : @">";
-    //NSString *entry = [NSString stringWithFormat:@"%@ %@\n", name, message];
+    NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
+    CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
+    double scrollPos = scrollview.verticalScroller.doubleValue;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    
     
     NSString *name;
     if(incoming) {
@@ -420,7 +425,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSUInteger chatStateLen = _chatstateMsg == nil ? 0 : _chatstateMsg.length;
     [textStorage insertAttributedString:attributedText atIndex:textStorage.length - chatStateLen];
     
-    [_conversationTextView scrollToEndOfDocument:nil];
+    if(scrollToEnd) {
+        [_conversationTextView scrollToEndOfDocument:nil];
+    }
 }
 
 - (void)sendMessage {
@@ -449,10 +456,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         _composing = FALSE;
     } else {
         // inform the user that no message was sent
-        NSTextStorage *textStorage = _conversationTextView.textStorage;
-        NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:@"no active sessions: no meesage sent\n"];
-        [textStorage appendAttributedString:attributedText];
-        [_conversationTextView scrollToEndOfDocument:nil];
+        [self addStringToLog:@"no active sessions: no meesage sent\n"];
     }
     [_messageInput setString:@""];
 }
@@ -498,10 +502,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             _secureButton.title = @"insecure";
             
             NSString *msg = @"otr disabled\n";
-            NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg];
-            NSTextStorage *textStorage = _conversationTextView.textStorage;
-            [textStorage appendAttributedString:attributedText];
-            [_conversationTextView scrollToEndOfDocument:nil];
+            
+            [self addStringToLog:msg];
         }
     } else {
         if(_online) {
