@@ -120,7 +120,7 @@
     return nil;
 }
 
-- (Boolean) updateContact:(NSString*)xid status:(nullable NSString*)status unread:(int)unread {
+- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status unread:(int)unread {
     NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
     [stack addObject:_contacts];
     
@@ -134,7 +134,7 @@
                 [stack addObject:sub];
             }
             if([c.xid isEqualTo:xid]) {
-                if(status != nil) {
+                if(updateStatus) {
                     c.presence = status;
                 }
                 if(unread >= 0) {

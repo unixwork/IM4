@@ -239,7 +239,7 @@
         [xid_status setObject:s forKey:resource];
     }
     
-    if([_outlineViewController updateContact:xid status:s unread:-1]) {
+    if([_outlineViewController updateContact:xid updateStatus:true status:s unread:-1]) {
         [_contactList reloadData];
     }
     
