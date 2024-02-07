@@ -246,13 +246,18 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     size_t nconv = old->nconversations;
     size_t convalloc = old->conversationsalloc;
     
+    // save otr
+    OtrlUserState otr = old->userstate;
+    
     // reuse old addr but use new content
     *old = *new;
     
-    // restore conversations
+    // restore conversations and otr state
     old->conversations = conv;
     old->nconversations = nconv;
     old->conversationsalloc = convalloc;
+    old->userstate = otr;
+    
     
     _xmpp = old;
     // TODO: free
