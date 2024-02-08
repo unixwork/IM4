@@ -195,7 +195,7 @@ struct XmppEvent {
 };
 
 xmpp_log_level_t XmppGetLogLevel(void);
-void XmppSetLovLevel(xmpp_log_level_t level);
+void XmppSetLogLevel(xmpp_log_level_t level);
 
 /*
  * internal logging function

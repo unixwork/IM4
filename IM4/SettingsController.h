@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initSettings;
 
+- (void)initInputFields;
+
 - (void) createXmpp;
 
 - (void) recreateXmpp;

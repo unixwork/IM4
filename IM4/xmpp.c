@@ -51,7 +51,7 @@ xmpp_log_level_t XmppGetLogLevel(void) {
     return xmpp_log_level;
 }
 
-void XmppSetLovLevel(xmpp_log_level_t level) {
+void XmppSetLogLevel(xmpp_log_level_t level) {
     xmpp_log_level = level;
 }
 

@@ -115,47 +115,41 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     return self;
 }
 
-- (void)windowDidLoad {
-    [super windowDidLoad];
-    self.window.title = @"Settings";
-    
+- (void)initInputFields {
     NSString *jid = [_config valueForKey:@"jid"];
     NSString *alias = [_config valueForKey:@"alias"];
     NSString *resource = [_config valueForKey:@"resource"];
     NSString *host = [_config valueForKey:@"host"];
     NSString *port = [_config valueForKey:@"port"];
     
-    if(jid) {
-        _jid.stringValue = jid;
-    }
-    if(alias) {
-        _alias.stringValue = alias;
-    }
-    if(resource) {
-        _resource.stringValue = resource;
-    }
-    if(host) {
-        _host.stringValue = host;
-    }
-    if(port) {
-        _port.stringValue = port;
-    }
+    _jid.stringValue = jid ? jid : @"";
+    _alias.stringValue = alias ? alias : @"";
+    _resource.stringValue = resource ? resource : @"";
+    _host.stringValue = host ? host : @"";
+    _port.stringValue = port ? port : @"";
+    
+    _password.stringValue = @"";
+    
+    [_logLevel selectItemAtIndex:XmppGetLogLevel()];
+}
+
+- (void)windowDidLoad {
+    [super windowDidLoad];
+    self.window.title = @"Settings";
+    
+    [self initInputFields];
     
     NSNumber *logLevelNum = [_config valueForKey:@"loglevel"];
     if(logLevelNum) {
         int lvl = logLevelNum.intValue;
         if(lvl >= 0 && lvl <= 4) {
-            XmppSetLovLevel(lvl);
+            XmppSetLogLevel(lvl);
         }
     }
-    
-    _password.stringValue = @"";
     
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
     }
-    
-    [_logLevel selectItemAtIndex:XmppGetLogLevel()];
 }
 
 - (BOOL)storeSettings {
@@ -311,6 +305,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (IBAction)cancelAction:(id)sender {
+    [self initInputFields];
     [[self window] close];
 }
 
@@ -333,7 +328,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 
 - (IBAction)logLevelSelected:(id)sender {
     int lvl = (int)_logLevel.indexOfSelectedItem;
-    XmppSetLovLevel(lvl);
+    XmppSetLogLevel(lvl);
     NSNumber *num = [[NSNumber alloc]initWithInt:lvl];
     [_config setValue:num forKey:@"loglevel"];
 }
