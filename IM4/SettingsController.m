@@ -265,10 +265,6 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     return [_aliases valueForKey:xid];
 }
 
-- (IBAction)testAction:(id)sender {
-    printf("test action\n");
-}
-
 - (IBAction)okAction:(id)sender {
     NSString *jid = _jid.stringValue;
     NSString *password = _password.stringValue;

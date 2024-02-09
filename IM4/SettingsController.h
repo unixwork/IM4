@@ -75,8 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) createFingerprintFromPubkey;
 
-- (IBAction)testAction:(id)sender;
-
 - (IBAction)okAction:(id)sender;
 
 - (IBAction)cancelAction:(id)sender;
