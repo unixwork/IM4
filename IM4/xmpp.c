@@ -754,6 +754,8 @@ void XmppSessionRemoveAndDestroy(XmppSession *sn) {
                 memmove(conv->sessions+snindex, conv->sessions+snindex+1, conv->nsessions - snindex + 1);
             }
             conv->nsessions--;
+        } else if(conv->nores == sn) {
+            conv->nores = NULL;
         }
     }
     
