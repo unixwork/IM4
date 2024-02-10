@@ -228,33 +228,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         return;
     }
     
-    // not so nice way to re-create the Xmpp object
-    // maybe rewrite it (or find a way to reconnect without recreating the object
-    
-    Xmpp *old = _xmpp;
-    [self createXmpp];
-    Xmpp *new = _xmpp;
-    
-    // save conversations from old Xmpp object
-    XmppConversation **conv = old->conversations;
-    size_t nconv = old->nconversations;
-    size_t convalloc = old->conversationsalloc;
-    
-    // save otr
-    OtrlUserState otr = old->userstate;
-    
-    // reuse old addr but use new content
-    *old = *new;
-    
-    // restore conversations and otr state
-    old->conversations = conv;
-    old->nconversations = nconv;
-    old->conversationsalloc = convalloc;
-    old->userstate = otr;
-    
-    
-    _xmpp = old;
-    // TODO: free
+    XmppSettings settings = {0}; // currently unused by XmppRecreate
+    XmppRecreate(_xmpp, settings);
 }
 
 - (void) setAlias: (NSString*)alias forXid:(NSString*)xid {

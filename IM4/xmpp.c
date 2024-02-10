@@ -122,15 +122,17 @@ Xmpp* XmppCreate(XmppSettings settings) {
     return xmpp;
 }
 
-Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
+void XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
     xmpp_ctx_t *ctx = xmpp_ctx_new(NULL, &logf);
     
     xmpp->ctx = ctx;
+    xmpp->log = &logf;
     xmpp->running = 0;
     xmpp->connection = NULL;
+    xmpp->fd = 0;
+    xmpp->kqueue = 0;
+    xmpp->enablepoll = 0;
     
-    
-    return xmpp;
 }
 
 static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {

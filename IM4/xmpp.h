@@ -205,7 +205,7 @@ void XmppLog(const char *str);
 
 Xmpp* XmppCreate(XmppSettings settings);
 
-Xmpp* XmppRecreate(Xmpp *xmpp, XmppSettings settings);
+void XmppRecreate(Xmpp *xmpp, XmppSettings settings);
 
 //int XmppConnect(Xmpp *xmpp);
 
