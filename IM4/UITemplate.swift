@@ -114,7 +114,7 @@ import Cocoa
     }
 
     @objc func msgInPrefixFormat() -> String {
-        return dict["msg.in.format"] as? String ?? "< (%t) %a: "
+        return dict["msg.in.format"] as? String ?? "< %s(%t) %a: "
     }
 
     @objc func setMsgInPrefixFormat(_ value: String) {
@@ -122,7 +122,7 @@ import Cocoa
     }
 
     @objc func msgOutPrefixFormat() -> String {
-        return dict["msg.out.format"] as? String ?? "> (%t) %a: "
+        return dict["msg.out.format"] as? String ?? "> %s(%t) %a: "
     }
 
     @objc func setMsgOutPrefixFormat(_ value: String) {
