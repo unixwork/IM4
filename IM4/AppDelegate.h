@@ -56,6 +56,7 @@
 @property (strong) IBOutlet NSTextField *loginDialogPassword;
 
 @property (strong) IBOutlet NSTextField *openConversationXidTextField;
+@property (strong) IBOutlet NSTextField *openConversationErrorField;
 
 @property int unread;
 

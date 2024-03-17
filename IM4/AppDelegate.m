@@ -430,8 +430,22 @@
 }
 
 - (IBAction) openConversationOK:(id)sender {
-    // TODO: validate xid
     const char *recipient = [_openConversationXidTextField.stringValue UTF8String];
+    int s = -1;
+    int c = 0;
+    size_t len = strlen(recipient);
+    for(int i=0;i<len;i++) {
+        if(recipient[i] == '@') {
+            s = i;
+            c++;
+        }
+    }
+    if(s <= 0 || s+1 == len || c != 1) {
+        _openConversationErrorField.stringValue = @"invalid XID";
+        return;
+    }
+    
+    
     XmppSession *session = XmppGetSession(_xmpp, recipient);
     if(session) {
         [self conversationController:session];
@@ -443,6 +457,7 @@
 - (IBAction)newDocument:(id)sender {
     if(!_openConversationDialog.isVisible) {
         _openConversationXidTextField.stringValue = @"";
+        _openConversationErrorField.stringValue = @"";
         [_openConversationDialog makeKeyAndOrderFront:nil];
     }
 }
