@@ -144,6 +144,45 @@ static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     return 1;
 }
 
+typedef struct StrBuf {
+    char *str;
+    size_t alloc;
+    size_t length;
+} StrBuf;
+
+static void strbuf_append(StrBuf *buf, const char *str, size_t len) {
+    if(buf->length + len > buf->alloc) {
+        buf->alloc += len + 256;
+        buf->str = realloc(buf->str, buf->alloc);
+    }
+    
+    memcpy(buf->str + buf->length, str, len);
+    buf->length += len;
+}
+
+static char* html_stanza2text(xmpp_ctx_t *ctx, xmpp_stanza_t *html) {
+    StrBuf buf;
+    buf.alloc = 512;
+    buf.length = 0;
+    buf.str = malloc(buf.alloc);
+    
+    xmpp_stanza_t *children = xmpp_stanza_get_children(html);
+    while(children) {
+        char *text = NULL;
+        size_t textlen = 0;
+        xmpp_stanza_to_text(children, &text, &textlen);
+        if(textlen > 0) {
+            strbuf_append(&buf, text, textlen);
+        }
+        xmpp_free(ctx, text);
+        
+        children = xmpp_stanza_get_next(children);
+    }
+    
+    strbuf_append(&buf, "\0", 1);
+    return buf.str;
+}
+
 /*
  * xmpp message handler
  */
@@ -192,6 +231,15 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
         return 1;
     }
     
+    xmpp_stanza_t *html = xmpp_stanza_get_child_by_name(stanza, "html");
+    char *html_text = NULL;
+    if(html) {
+        xmpp_stanza_t *html_body = xmpp_stanza_get_child_by_name(html, "body");
+        if(html_body) {
+            html_text = html_stanza2text(xmpp->ctx, html_body);
+        }
+    }
+    
     char *body_text = xmpp_stanza_get_text(body);
     //printf("message_cb: msg from %s: %s\n", from, body_text);
     
@@ -221,6 +269,8 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
                     }
                 }
             }
+        } else if(html_text) {
+            user_msg = html_text;
         }
         
         // send the mssage to the app thread
@@ -228,11 +278,13 @@ static int message_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) 
             app_message(xmpp, from, user_msg, secure);
         }
         
-        free(body_text);
         if(decrypt_msg) {
             free(decrypt_msg);
         }
     }
+    
+    free(body_text);
+    free(html_text);
     
     return 1;
 }
