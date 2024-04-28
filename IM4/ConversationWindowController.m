@@ -218,7 +218,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _secure = secure;
     NSString *msg =  [[NSString alloc]initWithFormat:@"%@\n", secure ? _tpl.otrGoneSecure : _tpl.otrGoneInsecure ];
     
+    [self clearChatStateMsg];
     [self addStringToLog:msg];
+    [self addAttributedStringToLog:_chatstateMsg];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
 }
@@ -351,7 +353,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
+    [self clearChatStateMsg];
     [self addStringToLog:msg];
+    [self addAttributedStringToLog:_chatstateMsg];
 }
 
 - (void)addStringToLog:(NSString*)str {
@@ -503,7 +507,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             
             NSString *msg = @"otr disabled\n";
             
+            [self clearChatStateMsg];
             [self addStringToLog:msg];
+            [self addAttributedStringToLog:_chatstateMsg];
         }
     } else {
         if(_online) {
