@@ -218,9 +218,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _secure = secure;
     NSString *msg =  [[NSString alloc]initWithFormat:@"%@\n", secure ? _tpl.otrGoneSecure : _tpl.otrGoneInsecure ];
     
-    [self clearChatStateMsg];
     [self addStringToLog:msg];
-    [self addAttributedStringToLog:_chatstateMsg];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
 }
@@ -278,7 +276,17 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [mutableAttributedString addAttribute:NSFontAttributeName value:newFont range:range];
     _chatstateMsg = mutableAttributedString;
     
-    [self addAttributedStringToLog:_chatstateMsg];
+    NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
+    CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
+    double scrollPos = scrollview.verticalScroller.doubleValue;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    
+    NSTextStorage *textStorage = _conversationTextView.textStorage;
+    [textStorage appendAttributedString:mutableAttributedString];
+    
+    if(scrollToEnd) {
+        [_conversationTextView scrollToEndOfDocument:nil];
+    }
 }
 
 - (void)otrError:(uint64_t)error from:(NSString*)from {
@@ -346,16 +354,12 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     NSString *otrmsg = [NSString stringWithFormat:@"otr message: from: %@: %@\n", from, msg];
     
-    [self clearChatStateMsg];
     [self addStringToLog:otrmsg];
-    [self addAttributedStringToLog:_chatstateMsg];
 }
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from {
     NSString *msg = [NSString stringWithFormat:@"otr: new fingerprint: %@ from %@\n", fingerprint, from];
-    [self clearChatStateMsg];
     [self addStringToLog:msg];
-    [self addAttributedStringToLog:_chatstateMsg];
 }
 
 - (void)addStringToLog:(NSString*)str {
@@ -377,12 +381,14 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
-    [textStorage appendAttributedString:str];
+    NSUInteger chatStateLen = _chatstateMsg == nil ? 0 : _chatstateMsg.length;
+    [textStorage insertAttributedString:str atIndex:textStorage.length - chatStateLen];
     
     if(scrollToEnd) {
         [_conversationTextView scrollToEndOfDocument:nil];
     }
 }
+
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming secure:(Boolean)secure {
     NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
@@ -507,9 +513,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             
             NSString *msg = @"otr disabled\n";
             
-            [self clearChatStateMsg];
             [self addStringToLog:msg];
-            [self addAttributedStringToLog:_chatstateMsg];
         }
     } else {
         if(_online) {
