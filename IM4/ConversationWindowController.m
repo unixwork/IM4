@@ -496,7 +496,6 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (IBAction) secureAction:(id)sender {
-    printf("secure\n");
     if(_secure) {
         if(_online) {
             for(int i=0;i<_conversation->nsessions;i++) {
@@ -529,7 +528,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (IBAction) testAction:(id)sender {
-    printf("testAction\n");
+    
 }
 
 #pragma mark - NSTextViewDelegate Methods
@@ -553,7 +552,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 #pragma mark - NSWindowDelegate Methods
 
 - (void)windowWillClose:(NSNotification *)notification {
-    printf("window close\n");
+    
 }
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {

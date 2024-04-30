@@ -283,7 +283,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 
 
 - (void)windowWillClose:(NSNotification *)notification {
-    printf("window close\n");
+    
 }
 
 - (IBAction)otrGenKey:(id)sender {
