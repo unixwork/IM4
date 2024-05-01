@@ -202,7 +202,7 @@
     [conversation addReceivedMessage:message_text resource:resource secure:secure];
 }
 
-- (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp {
+- (void) handlePresence:(const char*)from type:(const char*)type show:(const char*)show status:(const char*)status xmpp:(Xmpp*)xmpp {
     char *res = strchr(from, '/');
     size_t from_len;
     NSString *resource = @"";
@@ -214,16 +214,16 @@
     }
     
     NSString *xid = [[NSString alloc]initWithBytes:from length:from_len encoding:NSUTF8StringEncoding];
-    if(!status) {
-        status = "";
+    if(!type) {
+        type = "";
     }
-    NSString *s = [[NSString alloc]initWithUTF8String:status];
+    NSString *s = [[NSString alloc]initWithUTF8String:type];
     
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key
     // and contains a dictionary with the resource part as key and the status string as value.
     NSMutableDictionary *xid_status = [_presence valueForKey:xid];
-    if(!strcmp(status, "unavailable")) {
+    if(!strcmp(type, "unavailable")) {
         if(xid_status) {
             [xid_status removeObjectForKey:resource];
         }

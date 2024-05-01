@@ -351,11 +351,24 @@ static int query_roster_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userd
 static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     Xmpp *xmpp = userdata;
     
+    const char *ns = xmpp_stanza_get_ns(stanza);
+    
     const char *type = xmpp_stanza_get_attribute(stanza, "type");
     const char *from = xmpp_stanza_get_attribute(stanza, "from");
     
-    printf("presence: %s\n", from);
-    app_handle_presence(xmpp, from, type);
+    const char *show = NULL;
+    const char *status = NULL;
+    xmpp_stanza_t *show_elm = xmpp_stanza_get_child_by_name(stanza, "show");
+    xmpp_stanza_t *status_elm = xmpp_stanza_get_child_by_name(stanza, "status");
+    
+    if(show_elm) {
+        show = xmpp_stanza_get_text_ptr(show_elm);
+    }
+    if(status_elm) {
+        status = xmpp_stanza_get_text_ptr(status_elm);
+    }
+    
+    app_handle_presence(xmpp, from, type, show, status);
     
     return 1;
 }

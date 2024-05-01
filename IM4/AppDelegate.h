@@ -75,7 +75,7 @@
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session secure:(BOOL)secure xmpp:(Xmpp*)xmpp;
 
-- (void) handlePresence:(const char*)from status:(const char*)status xmpp:(Xmpp*)xmpp;
+- (void) handlePresence:(const char*)from type:(const char*)type show:(const char*)show status:(const char*)status xmpp:(Xmpp*)xmpp;
 
 - (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state session:(XmppSession*)session;
 

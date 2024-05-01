@@ -44,7 +44,7 @@ void app_refresh_contactlist(void *xmpp);
 
 void app_set_status(Xmpp *xmpp, int status);
 
-void app_handle_presence(Xmpp *xmpp, const char *from, const char *status);
+void app_handle_presence(Xmpp *xmpp, const char *from, const char *type, const char *show, const char *status);
 
 void app_handle_new_fingerprint(Xmpp *xmpp, const char *from, const unsigned char *fingerprint, size_t fplen);
 
