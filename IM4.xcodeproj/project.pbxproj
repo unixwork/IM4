@@ -21,6 +21,7 @@
 		ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED7EEE012A8D34C6007EECC7 /* otr.c */; };
 		ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */; };
 		ED99C5AE2B45E85B00EB0045 /* LogWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */; };
+		EDA6E3622BE4278300A7ADF0 /* PresenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA6E3612BE4278300A7ADF0 /* PresenceStatus.swift */; };
 		EDB15D662B6D71F20088C96A /* TemplateSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */; };
 		EDB15D672B6D71F20088C96A /* TemplateSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */; };
 		EDC4B80B2A88D8260076A0F2 /* ConversationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC4B8092A88D8260076A0F2 /* ConversationWindowController.m */; };
@@ -91,6 +92,7 @@
 		ED99C5AA2B45E85B00EB0045 /* LogWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogWindowController.h; sourceTree = "<group>"; };
 		ED99C5AB2B45E85B00EB0045 /* LogWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogWindowController.m; sourceTree = "<group>"; };
 		ED99C5AC2B45E85B00EB0045 /* LogWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWindowController.xib; sourceTree = "<group>"; };
+		EDA6E3612BE4278300A7ADF0 /* PresenceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenceStatus.swift; sourceTree = "<group>"; };
 		EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSettingsController.swift; sourceTree = "<group>"; };
 		EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemplateSettingsController.xib; sourceTree = "<group>"; };
 		EDC4B8082A88D8260076A0F2 /* ConversationWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationWindowController.h; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				ED6957372B5BD61900D65664 /* IM4-Bridging-Header.h */,
 				EDB15D642B6D71F20088C96A /* TemplateSettingsController.swift */,
 				EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */,
+				EDA6E3612BE4278300A7ADF0 /* PresenceStatus.swift */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				ED2117262A9B64250059C02C /* SettingsController.m in Sources */,
 				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED403C7D2A8812B700E8CDDB /* app.m in Sources */,
+				EDA6E3622BE4278300A7ADF0 /* PresenceStatus.swift in Sources */,
 				ED99C5AD2B45E85B00EB0045 /* LogWindowController.m in Sources */,
 				ED6D36B32A86207E0016D4FA /* Contact.m in Sources */,
 				ED6957392B5BD61A00D65664 /* UITemplate.swift in Sources */,

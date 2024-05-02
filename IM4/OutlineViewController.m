@@ -30,6 +30,9 @@
 
 #import "AppDelegate.h"
 
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
+
 @implementation OutlineViewController
 
 - (id)init {

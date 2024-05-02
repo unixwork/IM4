@@ -35,6 +35,9 @@
 #import "SettingsController.h"
 #import "LogWindowController.h"
 
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
+
 @interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
@@ -217,7 +220,9 @@
     if(!type) {
         type = "";
     }
+    NSString *t = [[NSString alloc]initWithUTF8String:type];
     NSString *s = [[NSString alloc]initWithUTF8String:type];
+    PresenceStatus *ps = [[PresenceStatus alloc]initWithType:t status:s];
     
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key
@@ -227,7 +232,7 @@
         if(xid_status) {
             [xid_status removeObjectForKey:resource];
         }
-        s = nil;
+        ps = nil;
     } else {
         // if _presence doesn't contain an object for the xid, create a
         // mutable dictionary and add it
@@ -236,7 +241,7 @@
             [_presence setObject:xid_status forKey:xid];
         }
         // set the status for the resource
-        [xid_status setObject:s forKey:resource];
+        [xid_status setObject:ps forKey:resource];
     }
     
     if([_outlineViewController updateContact:xid updateStatus:true status:s unread:-1]) {
