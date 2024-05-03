@@ -329,15 +329,11 @@
 }
 
 - (void) refreshContactList {
-    printf("refresh contact list\n");
-    
     [_outlineViewController refreshContacts:_xmpp presence:_presence];
     [_contactList reloadData];
 }
 
 - (void) openConversation:(Contact*)contact {
-    printf("Open Conversation: %s\n", [contact.xid UTF8String]);
-    
     XmppSession *session = XmppGetSession(_xmpp, [contact.xid UTF8String]);
     
     ConversationWindowController *conversation = [self conversationController:session];
@@ -400,6 +396,8 @@
             [_outlineViewController clearContacts];
             [_contactList reloadData];
             
+            [_window setTitle:@"🔴 IM4"];
+            
             break;
         }
         case IM4_ONLINE: {
@@ -407,7 +405,11 @@
             _xmpp = _settingsController.xmpp;
             if(_xmpp) {
                 XmppRun(_xmpp);
-            } // TODO: select offline
+                [_window setTitle:@"🟢 IM4"];
+            } else {
+                [_statusButton selectItemAtIndex:0];
+                [_window setTitle:@"🔴 IM4"];
+            }
             break;
         }
     }
