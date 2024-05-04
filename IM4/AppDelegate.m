@@ -384,20 +384,10 @@
     NSInteger status = [_statusButton selectedTag];
     switch(status) {
         case IM4_OFFLINE: {
-            [_presence removeAllObjects];
-            for(id key in _conversations) {
-                ConversationWindowController *conv = [_conversations objectForKey:key];
-                [conv updateStatus];
-            }
-            
+            [self setStatus:0 xmpp:_xmpp];
             if(_xmpp) {
                 XmppStop(_xmpp);
             }
-            [_outlineViewController clearContacts];
-            [_contactList reloadData];
-            
-            [_window setTitle:@"🔴 IM4"];
-            
             break;
         }
         case IM4_ONLINE: {
@@ -407,8 +397,7 @@
                 XmppRun(_xmpp);
                 [_window setTitle:@"🟢 IM4"];
             } else {
-                [_statusButton selectItemAtIndex:0];
-                [_window setTitle:@"🔴 IM4"];
+                [self setStatus:0 xmpp:_xmpp];
             }
             break;
         }
