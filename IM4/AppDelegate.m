@@ -297,8 +297,8 @@
 
 - (void) handleSecureStatus:(Boolean)status from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {
     ConversationWindowController *conversation = [self conversationController:session];
-    NSString *resource = [[NSString alloc] initWithUTF8String:session->resource];
-    [conversation setSecure:status];
+    NSString *resource = session->resource ? [[NSString alloc] initWithUTF8String:session->resource] : nil;
+    [conversation setSecure:status resource:resource];
 }
 
 - (void) handleNewFingerprint:(unsigned char*)fingerprint length:(size_t)len from:(const char*)from session:(XmppSession*)session xmpp:(Xmpp*)xmpp {

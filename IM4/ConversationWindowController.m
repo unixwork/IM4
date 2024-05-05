@@ -214,13 +214,34 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     return YES;
 }
 
-- (void)setSecure:(Boolean)secure {
+- (void)setSecure:(Boolean)secure resource:(nullable NSString*)resource {
     _secure = secure;
     NSString *msg =  [[NSString alloc]initWithFormat:@"%@\n", secure ? _tpl.otrGoneSecure : _tpl.otrGoneInsecure ];
     
     [self addStringToLog:msg];
     
     _secureButton.title = secure ? @"secure" : @"insecure";
+    
+    size_t nsessions = _conversation->nsessions;
+    if(secure && resource != nil && nsessions > 1) {
+        const char *res = resource.UTF8String;
+        bool updateSessions = false;
+        for(size_t i=0;i<nsessions;i++) {
+            char *snres = _conversation->sessions[i]->resource;
+            if(snres) {
+                if(_conversation->sessions[i]->enabled && strcmp(res, snres) != 0) {
+                    _conversation->sessions[i]->enabled = false;
+                    NSString *msg = [NSString stringWithFormat:@"unsecure session disabled: %s", snres];
+                    [self addStringToLog:msg];
+                    updateSessions = true;
+                }
+            }
+        }
+        
+        if(updateSessions) {
+            [self updateStatus];
+        }
+    }
 }
 
 - (void)clearChatStateMsg {
@@ -503,7 +524,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
                 if(sn->otr) {
                     NSString *to = [NSString stringWithFormat:@"%@%s", _xid, sn->resource];
                     XmppStopOtr(_xmpp, [to UTF8String]);
-                    [self setSecure:false];
+                    [self setSecure:false resource:nil];
                 }
             }
         } else {

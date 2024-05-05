@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)otrError:(uint64_t)error from:(NSString*)from;
 
-- (void)setSecure:(Boolean)secure;
+- (void)setSecure:(Boolean)secure resource:(nullable NSString*)res;
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;
 
