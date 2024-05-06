@@ -76,7 +76,7 @@
         frame.size.width = width.doubleValue;
         frame.size.height = height.doubleValue;
         frame.origin.x = x.doubleValue;
-        frame.origin.y = x.doubleValue;
+        frame.origin.y = y.doubleValue;
         [_window setFrame:frame display:YES];
     }
     
