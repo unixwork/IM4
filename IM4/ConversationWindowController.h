@@ -82,8 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;
 
-- (IBAction) testAction:(id)sender;
-
 - (IBAction) secureAction:(id)sender;
 
 - (IBAction)saveDocument:(id)sender;

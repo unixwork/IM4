@@ -548,9 +548,6 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
 }
 
-- (IBAction) testAction:(id)sender {
-    
-}
 
 #pragma mark - NSTextViewDelegate Methods
 
