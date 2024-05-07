@@ -316,6 +316,7 @@
         fpstr_pos += w;
     }
     NSString *ns_fingerprint = [[NSString alloc]initWithUTF8String: fpstr];
+    free(fpstr);
     
     
     [conversation newFingerprint:ns_fingerprint from:ns_from];

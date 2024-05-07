@@ -670,7 +670,6 @@ void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
 
 static void send_xmpp_msg(Xmpp *xmpp, void *userdata) {
     xmpp_msg *msg = userdata;
-    printf("send_xmpp_msg\n");
     
     char *text = NULL;
     if(msg->encrypt) {
