@@ -453,7 +453,7 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     }
     
     if(xmpp_connect_client(connection, host, port, connect_cb, xmpp) != XMPP_EOK) {
-        // TODO: free
+        xmpp_conn_release(connection);
         return 1;
     }
     
