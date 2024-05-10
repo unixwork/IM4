@@ -90,7 +90,6 @@ char* app_configfile(const char *name) {
 void app_call_mainthread(app_func func, void *userdata) {
     AppCallback *cb = [[AppCallback alloc]initWithCallback:func userdata:userdata];
     [cb callMainThread];
-    // TODO: memory management
 }
 
 

@@ -569,8 +569,6 @@ static  void xmpp_stop_cb(Xmpp *xmpp, void *unused) {
     xmpp->fd = -1;
     
     close(xmpp->kqueue);
-    
-    // TODO: free stuff
 }
 
 
