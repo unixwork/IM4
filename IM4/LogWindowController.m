@@ -28,6 +28,9 @@
 
 #import "LogWindowController.h"
 
+#define IM4_MAX_LOG_LENGTH 0x2000000
+#define IM4_LOG_CLEANUP_LENGTH 0x2000
+
 @interface LogWindowController ()
 
 @property NSMutableString *buffer;
@@ -63,6 +66,10 @@
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:logStr];
     
     [_log.textStorage appendAttributedString:attributedText];
+    
+    if(_log.textStorage.length > IM4_MAX_LOG_LENGTH) {
+        [_log.textStorage deleteCharactersInRange:NSMakeRange(0, IM4_LOG_CLEANUP_LENGTH)];
+    }
     [_log scrollToEndOfDocument:nil];
 }
 
