@@ -396,7 +396,7 @@
             _xmpp = _settingsController.xmpp;
             if(_xmpp) {
                 XmppRun(_xmpp);
-                [_window setTitle:@"🟢 IM4"];
+                [self setStatus:1 xmpp:_xmpp];
             } else {
                 [self setStatus:0 xmpp:_xmpp];
             }
