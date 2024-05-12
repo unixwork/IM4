@@ -531,7 +531,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             _secure = false;
             _secureButton.title = @"insecure";
             
-            NSString *msg = @"otr disabled\n";
+            NSString *msg = _tpl.otrDisabled;
             
             [self addStringToLog:msg];
         }
