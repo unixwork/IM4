@@ -38,3 +38,18 @@ import Cocoa
         super.init()
     }
 }
+
+@objc class Presence: NSObject {
+    @objc var statusMap: NSMutableDictionary
+    @objc var lastStatus: PresenceStatus?
+    
+    @objc override init() {
+        self.statusMap = NSMutableDictionary()
+        super.init()
+    }
+    
+    @objc func updateStatus(from: String, status: PresenceStatus) {
+        self.lastStatus = status
+        self.statusMap[from] = status
+    }
+}

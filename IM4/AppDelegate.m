@@ -124,8 +124,8 @@
         session->conversation->userdata1 = (__bridge void*)conversation;
         
         // add all online sessions
-        NSDictionary *status = [self xidStatus:xid];
-        for(NSString *res in status) {
+        Presence *presence = [self xidStatus:xid];
+        for(NSString *res in presence.statusMap) {
             NSString *contact = [NSString stringWithFormat:@"%@%@", xid, res];
             (void)XmppGetSession(_xmpp, [contact UTF8String]); // adds a session, if it doesn't exist
         }
@@ -177,12 +177,12 @@
 }
 
 - (NSString*) xidStatusIcon:(NSString*)xid {
-    NSDictionary *statusMap = [self xidStatus:xid];
+    Presence *presence = [self xidStatus:xid];
     
-    return statusMap == nil || [statusMap count] == 0 ? @"🔴" : @"🟢";
+    return presence == nil || [presence.statusMap count] == 0 ? @"🔴" : @"🟢";
 }
 
-- (NSDictionary*) xidStatus:(NSString*)xid {
+- (Presence*) xidStatus:(NSString*)xid {
     return [_presence valueForKey:xid];
 }
 
@@ -227,21 +227,21 @@
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key
     // and contains a dictionary with the resource part as key and the status string as value.
-    NSMutableDictionary *xid_status = [_presence valueForKey:xid];
+    Presence *xid_status = [_presence valueForKey:xid];
     if(!strcmp(type, "unavailable")) {
         if(xid_status) {
-            [xid_status removeObjectForKey:resource];
+            [xid_status.statusMap removeObjectForKey:resource];
         }
         ps = nil;
     } else {
         // if _presence doesn't contain an object for the xid, create a
         // mutable dictionary and add it
         if(xid_status == nil) {
-            xid_status = [[NSMutableDictionary alloc]init];
+            xid_status = [[Presence alloc]init];
             [_presence setObject:xid_status forKey:xid];
         }
         // set the status for the resource
-        [xid_status setObject:ps forKey:resource];
+        [xid_status updateStatusFrom:resource status:ps];
     }
     
     if([_outlineViewController updateContact:xid updateStatus:true status:s unread:-1]) {

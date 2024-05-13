@@ -65,7 +65,7 @@
 
 - (NSString*) xidStatusIcon:(NSString*)xid;
 
-- (NSDictionary*) xidStatus:(NSString*)xid;
+- (Presence*) xidStatus:(NSString*)xid;
 
 - (NSString*) xidAlias:(NSString*)xid;
 

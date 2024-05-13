@@ -140,8 +140,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (void)updateStatus {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    NSDictionary *status = [app xidStatus:_xid];
-    _online = status == nil || [status count] == 0 ? false : true;
+    Presence *status = [app xidStatus:_xid];
+    _online = status == nil || [status.statusMap count] == 0 ? false : true;
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     
     // create menu items for all available contacts
