@@ -99,6 +99,14 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
     _templateSettings = [[UITemplate alloc]initWithConfigDict:_templateSettingsDict];
     
+    NSNumber *logLevelNum = [_config valueForKey:@"loglevel"];
+    if(logLevelNum) {
+        int lvl = logLevelNum.intValue;
+        if(lvl >= 0 && lvl <= 4) {
+            XmppSetLogLevel(lvl);
+        }
+    }
+    
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
     isDir = false;
@@ -139,13 +147,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     [self initInputFields];
     
-    NSNumber *logLevelNum = [_config valueForKey:@"loglevel"];
-    if(logLevelNum) {
-        int lvl = logLevelNum.intValue;
-        if(lvl >= 0 && lvl <= 4) {
-            XmppSetLogLevel(lvl);
-        }
-    }
+    int logLevel = XmppGetLogLevel();
+    [_logLevel selectItemAtIndex:logLevel];
     
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
@@ -191,8 +194,6 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (void) createXmpp {
-    XmppSettings settings = {0};
-    
     NSString *jid = [_config valueForKey:@"jid"];
     NSString *password = [_config valueForKey:@"password"];
     NSString *alias = [_config valueForKey:@"alias"];
