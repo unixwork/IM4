@@ -221,8 +221,9 @@
         type = "";
     }
     NSString *t = [[NSString alloc]initWithUTF8String:type];
-    NSString *s = [[NSString alloc]initWithUTF8String:type];
-    PresenceStatus *ps = [[PresenceStatus alloc]initWithType:t status:s];
+    NSString *s = [[NSString alloc]initWithUTF8String:status];
+    NSString *sh = show ? [[NSString alloc]initWithUTF8String:show] : nil;
+    PresenceStatus *ps = [[PresenceStatus alloc]initWithType:t status:s show:sh];
     
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key

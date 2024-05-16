@@ -29,12 +29,14 @@
 import Cocoa
 
 @objc class PresenceStatus: NSObject {
-    @objc var type: String
-    @objc var status: String
+    @objc var type: String?
+    @objc var status: String?
+    @objc var show: String?
 
-    @objc init(type: String, status: String) {
+    @objc init(type: String?, status: String?, show: String?) {
         self.type = type
         self.status = status
+        self.show = show
         super.init()
     }
 }
