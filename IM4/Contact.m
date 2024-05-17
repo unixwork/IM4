@@ -57,8 +57,12 @@
     
     NSString *name = _name == nil ? _xid : _name;
     NSString *status = _presence == nil ? @"🔴" : @"🟢";
-    NSString *displayName = [[NSString alloc]initWithFormat:@"%@ %@%@", status, name, _unread != 0 ? @"*" : @""];
-    return displayName;
+    
+    if(_status != nil) {
+        return [[NSString alloc]initWithFormat:@"%@ %@%@ (%@)", status, name, _unread != 0 ? @"*" : @"", _status];
+    } else {
+        return [[NSString alloc]initWithFormat:@"%@ %@%@", status, name, _unread != 0 ? @"*" : @""];
+    }
 }
 
 @end

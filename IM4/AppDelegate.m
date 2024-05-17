@@ -221,7 +221,7 @@
         type = "";
     }
     NSString *t = [[NSString alloc]initWithUTF8String:type];
-    NSString *s = [[NSString alloc]initWithUTF8String:status];
+    NSString *s = status ? [[NSString alloc]initWithUTF8String:status] : nil;
     NSString *sh = show ? [[NSString alloc]initWithUTF8String:show] : nil;
     PresenceStatus *ps = [[PresenceStatus alloc]initWithType:t status:s show:sh];
     

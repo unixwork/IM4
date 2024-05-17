@@ -54,4 +54,19 @@ import Cocoa
         self.lastStatus = status
         self.statusMap[from] = status
     }
+    
+    @objc func onlineStatusMessage() -> String? {
+        if lastStatus?.status != nil {
+            return lastStatus?.status
+        }
+        
+        for(_, value) in statusMap {
+            let presence:PresenceStatus = value as! PresenceStatus
+            if presence.status != nil {
+                return presence.status
+            }
+        }
+        
+        return nil
+    }
 }

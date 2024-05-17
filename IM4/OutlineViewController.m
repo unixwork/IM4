@@ -79,11 +79,9 @@
         
         Contact *contact = [[Contact alloc] initContact:name xid:xid];
         Presence *ps = [presence objectForKey:xid];
-        PresenceStatus *status = ps.lastStatus;
-        NSString *stp = status.type;
-        NSString *sst = status.status;
         if(ps != nil) {
             contact.presence = @"online";
+            contact.status = [ps onlineStatusMessage];
         }
         
         [c addContact:contact];
