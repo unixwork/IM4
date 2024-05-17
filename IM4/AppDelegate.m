@@ -245,7 +245,7 @@
         [xid_status updateStatusFrom:resource status:ps];
     }
     
-    if([_outlineViewController updateContact:xid updateStatus:true status:s unread:-1]) {
+    if([_outlineViewController updateContact:xid updateStatus:true status:s presence:ps unread:-1]) {
         [_contactList reloadData];
     }
     

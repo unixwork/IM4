@@ -30,8 +30,7 @@
 
 #import "AppDelegate.h"
 
-#import "IM4-Bridging-Header.h"
-#import "IM4-Swift.h"
+
 
 @implementation OutlineViewController
 
@@ -125,7 +124,7 @@
     return nil;
 }
 
-- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status unread:(int)unread {
+- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status presence:(nullable PresenceStatus*)presence unread:(int)unread {
     NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
     [stack addObject:_contacts];
     
@@ -144,6 +143,9 @@
                 }
                 if(unread >= 0) {
                     c.unread = unread;
+                }
+                if(presence) {
+                    c.status = presence.status;
                 }
                 update = true;
             }

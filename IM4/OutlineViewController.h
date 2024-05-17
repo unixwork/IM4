@@ -31,6 +31,9 @@
 
 #import "Contact.h"
 
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
+
 #include "xmpp.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -51,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*) contactName:(NSString*)xid;
 
-- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status unread:(int)unread;
+- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status presence:(nullable PresenceStatus*)presence unread:(int)unread;
 
 - (IBAction) doubleAction:(NSOutlineView*)sender;
 
