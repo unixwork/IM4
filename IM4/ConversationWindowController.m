@@ -133,8 +133,6 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     [_messageInput setDelegate:self];
     
-    [self.window setTitle:_alias];
-    
     [self updateStatus];
 }
 
@@ -142,7 +140,13 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     Presence *status = [app xidStatus:_xid];
     _online = status == nil || [status.statusMap count] == 0 ? false : true;
+    NSString *statusMsg = [status onlineStatusMessage];
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
+    NSString *title = _alias;
+    if(statusMsg) {
+        title = [[NSString alloc] initWithFormat:@"%@ (%@)", _alias, statusMsg];
+    }
+    [self.window setTitle:title];
     
     // create menu items for all available contacts
     NSMenu *comboMenu = [[NSMenu alloc] initWithTitle:@"Conversations"];
