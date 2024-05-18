@@ -28,6 +28,10 @@
 
 import Cocoa
 
+@objc enum PresenceShow: Int {
+    case Online, Away, Chat, Dnd, Xa
+}
+
 @objc class PresenceStatus: NSObject {
     @objc var type: String?
     @objc var status: String?
@@ -68,5 +72,43 @@ import Cocoa
         }
         
         return nil
+    }
+    
+    // get the xmpp show value
+    // priority on case of multiple connections:
+    // chat
+    // online (no show element available)
+    // away, dnd or xa
+    @objc func presenceShow() -> PresenceShow {
+        var show = PresenceShow.Online
+        var online = false
+        for(_, value) in statusMap {
+            let presence:PresenceStatus = value as! PresenceStatus
+            if presence.show != nil {
+                show = self.presenceShowValue(show: presence.show!)
+                if show == PresenceShow.Chat {
+                    return show
+                }
+            } else {
+                // at least one connection is online without away msg
+                online = true
+            }
+        }
+        // prefer value from lastStatus
+        if let lastStatus = lastStatus, let showValue = lastStatus.show {
+            show = presenceShowValue(show: showValue)
+        }
+        
+        return online ? PresenceShow.Online : show
+    }
+    
+    func presenceShowValue(show: String) -> PresenceShow {
+        switch show {
+        case "away": return PresenceShow.Away
+        case "chat": return PresenceShow.Chat
+        case "dnd":  return PresenceShow.Dnd
+        case "xa":   return PresenceShow.Xa
+        default: return PresenceShow.Online
+        }
     }
 }
