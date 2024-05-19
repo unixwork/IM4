@@ -80,6 +80,10 @@ import Cocoa
         self.statusMap[from] = status
     }
     
+    @objc func presenceStatus(resource: String) -> PresenceStatus? {
+        return statusMap[resource] as! PresenceStatus?
+    }
+    
     // get the most relevant presence status
     // priority on case of multiple connections:
     // chat

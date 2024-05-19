@@ -152,7 +152,27 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     // create menu items for all available contacts
     NSMenu *comboMenu = [[NSMenu alloc] initWithTitle:@"Conversations"];
     for(int i=0;i<_conversation->nsessions;i++) {
-        NSString *itemText = [NSString stringWithFormat:@"%@%s", _xid, _conversation->sessions[i]->resource];
+        char *resource = _conversation->sessions[i]->resource;
+        NSString *resStr = resource ? [[NSString alloc] initWithUTF8String:resource] : @"";
+        
+        // get the presence status message for the resource
+        NSString *resShow = @"";
+        NSString *resStatus = nil;
+        if(status != nil) {
+            PresenceStatus *resPresence = [status presenceStatusWithResource:resStr];
+            if(resPresence != nil) {
+                resStatus = resPresence.status;
+                resShow = [resPresence presenceShowUIStringWithTemplate:_tpl];
+            }
+        }
+        
+        NSString *itemText;
+        if(resStatus == nil) {
+            itemText =[NSString stringWithFormat:@"%@%@%@", resShow, _xid, resStr];
+        } else {
+            itemText =[NSString stringWithFormat:@"%@%@%@ (%@)", resShow, _xid, resStr, resStatus];
+        }
+        
         NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:itemText action:@selector(selectConversation:) keyEquivalent:@""];
         item.target = self;
         if(_conversation->sessions[i]->enabled) {
