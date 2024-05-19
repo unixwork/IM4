@@ -144,7 +144,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     NSString *title = _alias;
     if(presenceStatus != nil && presenceStatus.status != nil) {
-        title = [[NSString alloc] initWithFormat:@"%@ (%@)", _alias, presenceStatus.status];
+        NSString *showMsg = [presenceStatus presenceShowUIStringWithTemplate:_tpl];
+        title = [[NSString alloc] initWithFormat:@"%@%@ (%@)", showMsg, _alias, presenceStatus.status];
     }
     [self.window setTitle:title];
     

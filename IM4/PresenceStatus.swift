@@ -45,13 +45,23 @@ import Cocoa
     }
     
     // convert the show string to PresenceShow
-    func presenceShowValue() -> PresenceShow {
+    @objc func presenceShowValue() -> PresenceShow {
         switch self.show {
         case "away": return PresenceShow.Away
         case "chat": return PresenceShow.Chat
         case "dnd":  return PresenceShow.Dnd
         case "xa":   return PresenceShow.Xa
         default: return PresenceShow.Online
+        }
+    }
+    
+    @objc func presenceShowUIString(template: UITemplate) -> String {
+        switch self.show {
+        case "away": return template.xmppPresenceAway()
+        case "chat": return template.xmppPresenceChat()
+        case "dnd":  return template.xmppPresenceDnd()
+        case "xa":   return template.xmppPresenceXA()
+        default: return ""
         }
     }
 }
