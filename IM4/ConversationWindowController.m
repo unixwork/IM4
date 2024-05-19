@@ -140,11 +140,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     Presence *status = [app xidStatus:_xid];
     _online = status == nil || [status.statusMap count] == 0 ? false : true;
-    NSString *statusMsg = [status onlineStatusMessage];
+    PresenceStatus *presenceStatus = [status getRelevantPresenceStatus];
     _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
     NSString *title = _alias;
-    if(statusMsg) {
-        title = [[NSString alloc] initWithFormat:@"%@ (%@)", _alias, statusMsg];
+    if(presenceStatus != nil && presenceStatus.status != nil) {
+        title = [[NSString alloc] initWithFormat:@"%@ (%@)", _alias, presenceStatus.status];
     }
     [self.window setTitle:title];
     

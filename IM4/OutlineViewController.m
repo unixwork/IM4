@@ -80,7 +80,10 @@
         Presence *ps = [presence objectForKey:xid];
         if(ps != nil) {
             contact.presence = @"online";
-            contact.status = [ps onlineStatusMessage];
+            PresenceStatus *status = [ps getRelevantPresenceStatus];
+            if(status != nil) {
+                contact.status = status.status;
+            }
         }
         
         [c addContact:contact];

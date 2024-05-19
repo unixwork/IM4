@@ -43,6 +43,17 @@ import Cocoa
         self.show = show
         super.init()
     }
+    
+    // convert the show string to PresenceShow
+    func presenceShowValue() -> PresenceShow {
+        switch self.show {
+        case "away": return PresenceShow.Away
+        case "chat": return PresenceShow.Chat
+        case "dnd":  return PresenceShow.Dnd
+        case "xa":   return PresenceShow.Xa
+        default: return PresenceShow.Online
+        }
+    }
 }
 
 @objc class Presence: NSObject {
@@ -59,56 +70,31 @@ import Cocoa
         self.statusMap[from] = status
     }
     
-    @objc func onlineStatusMessage() -> String? {
-        if lastStatus?.status != nil {
-            return lastStatus?.status
-        }
-        
-        for(_, value) in statusMap {
-            let presence:PresenceStatus = value as! PresenceStatus
-            if presence.status != nil {
-                return presence.status
-            }
-        }
-        
-        return nil
-    }
-    
-    // get the xmpp show value
+    // get the most relevant presence status
     // priority on case of multiple connections:
     // chat
     // online (no show element available)
     // away, dnd or xa
-    @objc func presenceShow() -> PresenceShow {
-        var show = PresenceShow.Online
-        var online = false
+    @objc func getRelevantPresenceStatus() -> PresenceStatus? {
+        var lastPresenceStatus = lastStatus
         for(_, value) in statusMap {
-            let presence:PresenceStatus = value as! PresenceStatus
+            let presence = value as! PresenceStatus
             if presence.show != nil {
-                show = self.presenceShowValue(show: presence.show!)
-                if show == PresenceShow.Chat {
-                    return show
+                if presence.presenceShowValue() == PresenceShow.Chat {
+                    return presence
                 }
             } else {
                 // at least one connection is online without away msg
-                online = true
+                if let ps = lastPresenceStatus {
+                    if ps.presenceShowValue() != PresenceShow.Online {
+                        lastPresenceStatus = presence
+                    }
+                } else {
+                    lastPresenceStatus = presence
+                }
             }
         }
-        // prefer value from lastStatus
-        if let lastStatus = lastStatus, let showValue = lastStatus.show {
-            show = presenceShowValue(show: showValue)
-        }
         
-        return online ? PresenceShow.Online : show
-    }
-    
-    func presenceShowValue(show: String) -> PresenceShow {
-        switch show {
-        case "away": return PresenceShow.Away
-        case "chat": return PresenceShow.Chat
-        case "dnd":  return PresenceShow.Dnd
-        case "xa":   return PresenceShow.Xa
-        default: return PresenceShow.Online
-        }
+        return lastPresenceStatus
     }
 }
