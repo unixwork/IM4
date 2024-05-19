@@ -41,6 +41,38 @@ import Cocoa
         self.dict = configDict
     }
     
+    @objc func xmppPresenceAway() -> String {
+        return dict["xmpp.presence.away"] as? String ?? "[away] ";
+    }
+
+    @objc func setXmppPresenceAway(_ value: String) {
+        dict["xmpp.presence.away"] = value
+    }
+    
+    @objc func xmppPresenceChat() -> String {
+        return dict["xmpp.presence.chat"] as? String ?? "[chat] ";
+    }
+
+    @objc func setXmppPresenceChat(_ value: String) {
+        dict["xmpp.presence.chat"] = value
+    }
+    
+    @objc func xmppPresenceDnd() -> String {
+        return dict["xmpp.presence.dnd"] as? String ?? "[dnd] ";
+    }
+
+    @objc func setXmppPresenceDnd(_ value: String) {
+        dict["xmpp.presence.dnd"] = value
+    }
+    
+    @objc func xmppPresenceXA() -> String {
+        return dict["xmpp.presence.xa"] as? String ?? "[xa] ";
+    }
+
+    @objc func setXmppPresenceXA(_ value: String) {
+        dict["xmpp.presence.xa"] = value
+    }
+    
     @objc func otrGoneSecure() -> String {
         return dict["otr.gonesecure"] as? String ?? "otr: gone secure"
     }
