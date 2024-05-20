@@ -65,6 +65,14 @@ import Cocoa
         dict["xmpp.presence.dnd"] = value
     }
     
+    @objc func xmppPresenceXA() -> String {
+        return dict["xmpp.presence.xa"] as? String ?? "[xa] ";
+    }
+
+    @objc func setXmppPresenceXA(_ value: String) {
+        dict["xmpp.presence.xa"] = value
+    }
+    
     @objc func xmppPresenceIconOnline() -> String {
         return dict["xmpp.presenceicon.online"] as? String ?? "🟢";
     }

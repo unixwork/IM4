@@ -56,7 +56,10 @@
     }
     
     NSString *name = _name == nil ? _xid : _name;
-    NSString *status = _presence == nil ? @"🔴" : @"🟢";
+    // TODO: find a way to use the template string
+    //       maybe initialize _presence with the correct string from
+    //       the OutlineViewController
+    NSString *status = _presence == nil ? @"🔴" : _presence;
     
     if(_status != nil) {
         return [[NSString alloc]initWithFormat:@"%@ %@%@ (%@)", status, name, _unread != 0 ? @"*" : @"", _status];

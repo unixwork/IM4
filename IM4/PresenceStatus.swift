@@ -64,6 +64,16 @@ import Cocoa
         default: return ""
         }
     }
+    
+    @objc func presenceShowIconUIString(template: UITemplate) -> String {
+        switch self.show {
+        case "away": return template.xmppPresenceIconAway()
+        case "chat": return template.xmppPresenceIconChat()
+        case "dnd":  return template.xmppPresenceIconDnd()
+        case "xa":   return template.xmppPresenceIconXA()
+        default: return template.xmppPresenceIconOnline()
+        }
+    }
 }
 
 @objc class Presence: NSObject {

@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
     Boolean isEditing;
 }
 
+@property (readonly) UITemplate *tpl;
+
 @property (copy) NSMutableArray *contacts;
 
 @property (strong) IBOutlet NSOutlineView *outlineView;

@@ -36,6 +36,7 @@
 
 - (id)init {
     self = [super init];
+    
     _contacts = [[NSMutableArray alloc]init];
     Contact *c = [[Contact alloc] initGroup:@"Offline"];
     
@@ -46,6 +47,10 @@
 
 - (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence {
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    if(_tpl == nil) {
+        _tpl = app.settingsController.templateSettings;
+    }
+    
     SettingsController *settings = app.settingsController;
     if(!xmpp) {
         return;
@@ -79,7 +84,15 @@
         Contact *contact = [[Contact alloc] initContact:name xid:xid];
         Presence *ps = [presence objectForKey:xid];
         if(ps != nil) {
-            contact.presence = @"online";
+            PresenceStatus *presenceStatus = [ps getRelevantPresenceStatus];
+            if(presenceStatus) {
+                contact.presence = [presenceStatus presenceShowIconUIStringWithTemplate:_tpl];
+            } else {
+                // not sure if this can happen, but Presence is not null
+                // therefore the contact is online
+                contact.presence = _tpl.xmppPresenceIconOnline;
+            }
+            
             PresenceStatus *status = [ps getRelevantPresenceStatus];
             if(status != nil) {
                 contact.status = status.status;

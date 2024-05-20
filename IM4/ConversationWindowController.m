@@ -141,11 +141,16 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     Presence *status = [app xidStatus:_xid];
     _online = status == nil || [status.statusMap count] == 0 ? false : true;
     PresenceStatus *presenceStatus = [status getRelevantPresenceStatus];
-    _statusLabel.stringValue = !_online ? @"🔴" : @"🟢";
+    
     NSString *title = _alias;
-    if(presenceStatus != nil && presenceStatus.status != nil) {
-        NSString *showMsg = [presenceStatus presenceShowUIStringWithTemplate:_tpl];
-        title = [[NSString alloc] initWithFormat:@"%@%@ (%@)", showMsg, _alias, presenceStatus.status];
+    if(status != nil) {
+        _statusLabel.stringValue = [presenceStatus presenceShowIconUIStringWithTemplate:_tpl];
+        if(presenceStatus.status != nil) {
+            NSString *showMsg = [presenceStatus presenceShowUIStringWithTemplate:_tpl];
+            title = [[NSString alloc] initWithFormat:@"%@%@ (%@)", showMsg, _alias, presenceStatus.status];
+        }
+    } else {
+        _statusLabel.stringValue = _tpl.xmppPresenceIconOffline;
     }
     [self.window setTitle:title];
     
