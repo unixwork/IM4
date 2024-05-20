@@ -65,12 +65,52 @@ import Cocoa
         dict["xmpp.presence.dnd"] = value
     }
     
-    @objc func xmppPresenceXA() -> String {
-        return dict["xmpp.presence.xa"] as? String ?? "[xa] ";
+    @objc func xmppPresenceIconOnline() -> String {
+        return dict["xmpp.presenceicon.online"] as? String ?? "🟢";
     }
 
-    @objc func setXmppPresenceXA(_ value: String) {
-        dict["xmpp.presence.xa"] = value
+    @objc func setXmppPresenceIconOnline(_ value: String) {
+        dict["xmpp.presenceicon.online"] = value
+    }
+    
+    @objc func xmppPresenceIconOffline() -> String {
+        return dict["xmpp.presenceicon.offline"] as? String ?? "🔴";
+    }
+
+    @objc func setXmppPresenceIconOffline(_ value: String) {
+        dict["xmpp.presenceicon.offline"] = value
+    }
+    
+    @objc func xmppPresenceIconAway() -> String {
+        return dict["xmpp.presenceicon.away"] as? String ?? "🟡​";
+    }
+
+    @objc func setXmppPresenceIconAway(_ value: String) {
+        dict["xmpp.presenceicon.away"] = value
+    }
+    
+    @objc func xmppPresenceIconChat() -> String {
+        return dict["xmpp.presenceicon.chat"] as? String ?? "💬";
+    }
+
+    @objc func setXmppPresenceIconChat(_ value: String) {
+        dict["xmpp.presenceicon.chat"] = value
+    }
+    
+    @objc func xmppPresenceIconDnd() -> String {
+        return dict["xmpp.presenceicon.dnd"] as? String ?? "🟠​";
+    }
+
+    @objc func setXmppPresenceIconDnd(_ value: String) {
+        dict["xmpp.presenceicon.dnd"] = value
+    }
+    
+    @objc func xmppPresenceIconXA() -> String {
+        return dict["xmpp.presenceicon.xa"] as? String ?? "🟣";
+    }
+
+    @objc func setXmppPresenceIconXA(_ value: String) {
+        dict["xmpp.presenceicon.xa"] = value
     }
     
     @objc func otrGoneSecure() -> String {
