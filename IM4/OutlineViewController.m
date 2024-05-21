@@ -251,7 +251,7 @@
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     Contact *contact = (Contact*)item;
     if([[tableColumn identifier] isEqualToString:@"colName"]) {
-        return [contact displayName];
+        return [contact displayName: _tpl];
     }
     return @"-";
 }

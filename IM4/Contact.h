@@ -28,6 +28,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "IM4-Bridging-Header.h"
+#import "IM4-Swift.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Contact : NSObject
@@ -42,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initContact:(NSString *) name xid:(NSString *)xid;
 - (id)initGroup:(NSString *) name;
 - (void)addContact:(Contact *)contact;
-- (NSString*)displayName;
+- (NSString*)displayName:(nullable UITemplate*)tpl;
 
 @end
 

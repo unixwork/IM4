@@ -50,7 +50,7 @@
     }
 }
 
-- (NSString*)displayName {
+- (NSString*)displayName:(UITemplate*)tpl {
     if(_contacts != nil) {
         return _name;
     }
@@ -59,7 +59,12 @@
     // TODO: find a way to use the template string
     //       maybe initialize _presence with the correct string from
     //       the OutlineViewController
-    NSString *status = _presence == nil ? @"🔴" : _presence;
+    NSString *status;
+    if(_presence == nil) {
+        status = tpl != nil ? tpl.xmppPresenceIconOffline : @"";
+    } else {
+        status = _presence;
+    }
     
     if(_status != nil) {
         return [[NSString alloc]initWithFormat:@"%@ %@%@ (%@)", status, name, _unread != 0 ? @"*" : @"", _status];
