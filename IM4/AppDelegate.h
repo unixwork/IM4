@@ -63,8 +63,6 @@
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp;
 
-- (NSString*) xidStatusIcon:(NSString*)xid;
-
 - (Presence*) xidStatus:(NSString*)xid;
 
 - (NSString*) xidAlias:(NSString*)xid;

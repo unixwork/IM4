@@ -176,12 +176,6 @@
     }
 }
 
-- (NSString*) xidStatusIcon:(NSString*)xid {
-    Presence *presence = [self xidStatus:xid];
-    
-    return presence == nil || [presence.statusMap count] == 0 ? @"🔴" : @"🟢";
-}
-
 - (Presence*) xidStatus:(NSString*)xid {
     return [_presence valueForKey:xid];
 }
