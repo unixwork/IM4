@@ -148,9 +148,10 @@
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
     // xmpp currently unused, because only one xmpp conn is supported
     
+    NSString *titleIcon = @"";
     switch(status) {
-        case 0: {
-            [_window setTitle:@"🔴 IM4"];
+        case XMPP_STATUS_OFFLINE: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconOffline;
             
             [_presence removeAllObjects];
             [self refreshContactList];
@@ -164,16 +165,19 @@
             
             break;
         }
-        case 1: {
-            [_window setTitle:@"🟢 IM4"];
+        case XMPP_STATUS_ONLINE: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconOnline;
             [_statusButton selectItemAtIndex:IM4_ONLINE];
             break;
         }
-        case 2: {
-            [_window setTitle:@"🟡 IM4"];
+        case XMPP_STATUS_AWAY: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconAway;
             break;
         }
     }
+    
+    NSString *title = [[NSString alloc] initWithFormat:@"%@ IM4", titleIcon];
+    [_window setTitle:title];
 }
 
 - (Presence*) xidStatus:(NSString*)xid {
