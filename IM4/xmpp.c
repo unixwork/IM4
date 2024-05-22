@@ -415,9 +415,9 @@ static void connect_cb(
         XmppQueryContacts(xmpp);
         
         // set app status
-        app_set_status(xmpp, 1);
+        app_set_status(xmpp, XMPP_STATUS_ONLINE);
     } else {
-        app_set_status(xmpp, 0);
+        app_set_status(xmpp, XMPP_STATUS_OFFLINE);
         
     }
     

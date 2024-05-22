@@ -48,6 +48,13 @@
 #include <libotr/message.h>
 #include <libotr/privkey.h>
 
+#define XMPP_STATUS_OFFLINE 0
+#define XMPP_STATUS_ONLINE  1
+#define XMPP_STATUS_AWAY    2
+#define XMPP_STATUS_CHAT    3
+#define XMPP_STATUS_DND     4
+#define XMPP_STATUS_XA      5
+
 typedef struct XmppEvent        XmppEvent;
 typedef struct XmppSession      XmppSession;
 typedef struct XmppConversation XmppConversation;

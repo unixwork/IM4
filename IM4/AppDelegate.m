@@ -361,7 +361,7 @@
         }
         XmppRun(_xmpp);
     }
-    [self setStatus:0 xmpp:_xmpp];
+    [self setStatus:XMPP_STATUS_ONLINE xmpp:_xmpp];
 }
 
 - (IBAction) menuPreferences:(id)sender {
@@ -380,7 +380,7 @@
     NSInteger status = [_statusButton selectedTag];
     switch(status) {
         case IM4_OFFLINE: {
-            [self setStatus:0 xmpp:_xmpp];
+            [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
             if(_xmpp) {
                 XmppStop(_xmpp);
             }
@@ -391,9 +391,9 @@
             _xmpp = _settingsController.xmpp;
             if(_xmpp) {
                 XmppRun(_xmpp);
-                [self setStatus:1 xmpp:_xmpp];
+                [self setStatus:XMPP_STATUS_ONLINE xmpp:_xmpp];
             } else {
-                [self setStatus:0 xmpp:_xmpp];
+                [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
             }
             break;
         }
