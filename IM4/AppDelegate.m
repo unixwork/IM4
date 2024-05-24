@@ -174,6 +174,18 @@
             titleIcon = _settingsController.templateSettings.xmppPresenceIconAway;
             break;
         }
+        case XMPP_STATUS_CHAT: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconChat;
+            break;
+        }
+        case XMPP_STATUS_DND: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconDnd;
+            break;
+        }
+        case XMPP_STATUS_XA: {
+            titleIcon = _settingsController.templateSettings.xmppPresenceIconXA;
+            break;
+        }
     }
     
     NSString *title = [[NSString alloc] initWithFormat:@"%@ IM4", titleIcon];
@@ -383,14 +395,14 @@
 - (IBAction) statusSelected:(id)sender {
     NSInteger status = [_statusButton selectedTag];
     switch(status) {
-        case IM4_OFFLINE: {
+        case XMPP_STATUS_OFFLINE: {
             [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
             if(_xmpp) {
                 XmppStop(_xmpp);
             }
             break;
         }
-        case IM4_ONLINE: {
+        case XMPP_STATUS_ONLINE: {
             [_settingsController recreateXmpp];
             _xmpp = _settingsController.xmpp;
             if(_xmpp) {
@@ -400,6 +412,9 @@
                 [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
             }
             break;
+        }
+        default: {
+            [self setStatus:(int)status xmpp:_xmpp];
         }
     }
     
