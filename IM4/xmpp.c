@@ -702,6 +702,29 @@ void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt) 
     XmppCall(xmpp, send_xmpp_msg, msg);
 }
 
+typedef struct {
+    char *show;
+    char *status;
+    int priority;
+} xmpp_presence_msg;
+
+void Xmpp_Send_Presence(Xmpp *xmpp, void *userdata) {
+    xmpp_presence_msg *presence = userdata;
+    
+    xmpp_stanza_t *im_status = xmpp_presence_new(xmpp->ctx);
+    xmpp_send(xmpp->connection, im_status);
+    xmpp_stanza_release(im_status);
+}
+
+void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority) {
+    xmpp_presence_msg *presence = malloc(sizeof(xmpp_presence_msg));
+    presence->show = show ? strdup(show) : NULL;
+    presence->status = status ? strdup(status) : NULL;
+    presence->priority = priority;
+    XmppCall(xmpp, Xmpp_Send_Presence, presence);
+}
+
+
 static void init_xmpp_otr(Xmpp *xmpp, void *userdata) {
     start_otr(xmpp, userdata);
     free(userdata);

@@ -228,6 +228,8 @@ void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
 
 void Xmpp_Send_State(Xmpp *xmpp, const char *to, enum XmppChatstate s);
 
+void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority);
+
 void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt);
 
 void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state);
