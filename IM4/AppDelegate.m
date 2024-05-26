@@ -168,22 +168,27 @@
         case XMPP_STATUS_ONLINE: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconOnline;
             [_statusButton selectItemAtIndex:IM4_ONLINE];
+            XmppPresence(_xmpp, NULL, NULL, -1);
             break;
         }
         case XMPP_STATUS_AWAY: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconAway;
+            XmppPresence(_xmpp, "away", NULL, -1);
             break;
         }
         case XMPP_STATUS_CHAT: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconChat;
+            XmppPresence(_xmpp, "chat", NULL, -1);
             break;
         }
         case XMPP_STATUS_DND: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconDnd;
+            XmppPresence(_xmpp, "dnd", NULL, -1);
             break;
         }
         case XMPP_STATUS_XA: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconXA;
+            XmppPresence(_xmpp, "xa", NULL, -1);
             break;
         }
     }

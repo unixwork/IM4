@@ -709,11 +709,32 @@ typedef struct {
 } xmpp_presence_msg;
 
 void Xmpp_Send_Presence(Xmpp *xmpp, void *userdata) {
-    xmpp_presence_msg *presence = userdata;
+    xmpp_presence_msg *msg = userdata;
     
-    xmpp_stanza_t *im_status = xmpp_presence_new(xmpp->ctx);
-    xmpp_send(xmpp->connection, im_status);
-    xmpp_stanza_release(im_status);
+    xmpp_stanza_t *presence = xmpp_presence_new(xmpp->ctx);
+    if(msg->show) {
+        xmpp_stanza_t *show = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(show, "show");
+        xmpp_stanza_t *show_text = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_text(show_text, msg->show);
+        xmpp_stanza_add_child(show, show_text);
+        xmpp_stanza_add_child(presence, show);
+    }
+    if(msg->status) {
+        xmpp_stanza_t *status = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(status, "status");
+        xmpp_stanza_t *status_text = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_text(status, msg->status);
+        xmpp_stanza_add_child(status, status_text);
+        xmpp_stanza_add_child(presence, status);
+    }
+    
+    xmpp_send(xmpp->connection, presence);
+    xmpp_stanza_release(presence);
+    
+    free(msg->status);
+    free(msg->show);
+    free(msg);
 }
 
 void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority) {
