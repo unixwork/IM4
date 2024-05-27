@@ -58,6 +58,8 @@
 @property (strong) IBOutlet NSTextField *openConversationXidTextField;
 @property (strong) IBOutlet NSTextField *openConversationErrorField;
 
+@property Boolean isOnline;
+
 @property int unread;
 
 
