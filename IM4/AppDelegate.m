@@ -387,7 +387,6 @@
         XmppRun(_xmpp);
         self.isOnline = YES;
     }
-    [self setStatus:XMPP_STATUS_ONLINE xmpp:_xmpp];
 }
 
 - (IBAction) menuPreferences:(id)sender {
