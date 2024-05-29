@@ -402,37 +402,28 @@
 }
 
 - (IBAction) statusSelected:(id)sender {
-    NSInteger status = [_statusButton selectedTag];
-    switch(status) {
-        case XMPP_STATUS_OFFLINE: {
-            [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
+    int status = (int)[_statusButton selectedTag];
+    if(status == XMPP_STATUS_OFFLINE) {
+        if(_xmpp) {
+            XmppStop(_xmpp);
+        }
+        self.isOnline = NO;
+    } else {
+        if(self.isOnline) {
+            [self setStatus:status xmpp:_xmpp];
+        } else {
+            [_settingsController recreateXmpp];
+            _xmpp = _settingsController.xmpp;
             if(_xmpp) {
-                XmppStop(_xmpp);
-            }
-            break;
-        }
-        case XMPP_STATUS_ONLINE: {
-            if(self.isOnline) {
-                [self setStatus:XMPP_STATUS_ONLINE xmpp:_xmpp];
+                XmppRun(_xmpp);
+                self.isOnline = YES;
             } else {
-                [_settingsController recreateXmpp];
-                _xmpp = _settingsController.xmpp;
-                if(_xmpp) {
-                    XmppRun(_xmpp);
-                    [self setStatus:XMPP_STATUS_ONLINE xmpp:_xmpp];
-                    self.isOnline = YES;
-                } else {
-                    [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
-                }
+                [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
+                return;
             }
-            break;
-        }
-        default: {
-            [self setStatus:(int)status xmpp:_xmpp];
         }
     }
-    
-    //[_statusButton selectItemAtIndex:status];
+    [self setStatus:status xmpp:_xmpp];
 }
 
 
