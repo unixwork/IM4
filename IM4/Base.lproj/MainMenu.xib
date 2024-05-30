@@ -27,6 +27,8 @@
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
                 <outlet property="passwordDialog" destination="S4C-6S-cqP" id="jMy-3A-X4h"/>
                 <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
+                <outlet property="statusMessageDialog" destination="MAJ-XI-vcQ" id="yfw-np-X07"/>
+                <outlet property="statusMessageTextField" destination="VNz-aF-CBf" id="z6s-TS-9AX"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -739,13 +741,13 @@
                         </scroller>
                     </scrollView>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oW-MG-he7">
-                        <rect key="frame" x="190" y="329" width="80" height="25"/>
-                        <popUpButtonCell key="cell" type="push" title="Offline" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mo3-qS-ikp" id="ngc-98-N1r">
+                        <rect key="frame" x="183" y="329" width="87" height="25"/>
+                        <popUpButtonCell key="cell" type="push" title="Offline" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="mo3-qS-ikp" id="ngc-98-N1r">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="gyq-QF-MZ5">
+                            <menu key="menu" autoenablesItems="NO" id="gyq-QF-MZ5">
                                 <items>
-                                    <menuItem title="Offline" state="on" id="mo3-qS-ikp"/>
+                                    <menuItem title="Offline" id="mo3-qS-ikp"/>
                                     <menuItem title="Online" tag="1" id="G3Q-MF-jI9"/>
                                     <menuItem title="Away" tag="2" id="bP5-VI-eKz">
                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -759,9 +761,16 @@
                                     <menuItem title="XA" tag="5" id="pQm-3m-F8j">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="nqH-TA-Whp"/>
+                                    <menuItem title="Set Status Message" tag="-1" id="5Cn-1W-D6g">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="7DW-kY-WaT"/>
+                        </constraints>
                         <connections>
                             <action selector="statusSelected:" target="Voe-Tx-rLC" id="qOU-Id-Brd"/>
                         </connections>
@@ -833,7 +842,7 @@ Gw
                             <action selector="loginCancel:" target="Voe-Tx-rLC" id="pTb-WW-dko"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
                         <rect key="frame" x="22" y="105" width="301" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Login" id="BhT-jm-J9p">
                             <font key="font" metaFont="system"/>
@@ -841,7 +850,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
+                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
                         <rect key="frame" x="24" y="64" width="297" height="21"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
                             <font key="font" metaFont="system"/>
@@ -877,7 +886,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
                         <rect key="frame" x="22" y="133" width="172" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Open conversation with XID" id="J9B-Du-7Mv">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -885,7 +894,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
                         <rect key="frame" x="24" y="92" width="295" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
                             <font key="font" metaFont="system"/>
@@ -925,7 +934,7 @@ Gw
                             <action selector="openConversationCancel:" target="Voe-Tx-rLC" id="yry-jT-4ov"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
                         <rect key="frame" x="22" y="58" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
                             <font key="font" metaFont="system"/>
@@ -949,6 +958,61 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="213.5" y="1050.5"/>
+        </window>
+        <window title="Presence Status Message" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="MAJ-XI-vcQ">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="283" y="305" width="335" height="97"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
+            <view key="contentView" id="f5X-iI-p83">
+                <rect key="frame" x="0.0" y="0.0" width="335" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7on-vy-dii">
+                        <rect key="frame" x="248" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XZc-gD-6ES">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="VDQ-qt-15s"/>
+                        </constraints>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NfF-nE-hmA">
+                        <rect key="frame" x="168" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JuT-lJ-K9j">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="zZR-i5-qd3"/>
+                        </constraints>
+                    </button>
+                    <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
+                        <rect key="frame" x="20" y="56" width="295" height="21"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VNz-aF-CBf" firstAttribute="leading" secondItem="f5X-iI-p83" secondAttribute="leading" constant="24" id="0o0-zf-sf9"/>
+                    <constraint firstAttribute="bottom" secondItem="7on-vy-dii" secondAttribute="bottom" constant="10" id="CmN-4H-gyX"/>
+                    <constraint firstAttribute="bottom" secondItem="NfF-nE-hmA" secondAttribute="bottom" constant="10" id="SrJ-Hc-18j"/>
+                    <constraint firstAttribute="trailing" secondItem="7on-vy-dii" secondAttribute="trailing" constant="10" id="VrZ-cl-Hdm"/>
+                    <constraint firstAttribute="trailing" secondItem="VNz-aF-CBf" secondAttribute="trailing" constant="24" id="lxf-CM-zwr"/>
+                    <constraint firstItem="7on-vy-dii" firstAttribute="leading" secondItem="NfF-nE-hmA" secondAttribute="trailing" constant="10" id="wdx-9y-cFn"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="-205" y="1013"/>
         </window>
     </objects>
 </document>

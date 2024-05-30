@@ -44,6 +44,7 @@
 @property (strong) IBOutlet NSMenu *contactsContextMenu;
 @property (strong) IBOutlet NSWindow *passwordDialog;
 @property (strong) IBOutlet NSWindow *openConversationDialog;
+@property (strong) IBOutlet NSWindow *statusMessageDialog;
 @end
 
 @implementation AppDelegate
@@ -148,6 +149,8 @@
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
     // xmpp currently unused, because only one xmpp conn is supported
+    
+    self.selectedStatus = status;
     
     NSString *titleIcon = @"";
     self.isOnline = YES;
@@ -403,27 +406,33 @@
 
 - (IBAction) statusSelected:(id)sender {
     int status = (int)[_statusButton selectedTag];
-    if(status == XMPP_STATUS_OFFLINE) {
-        if(_xmpp) {
-            XmppStop(_xmpp);
-        }
-        self.isOnline = NO;
-    } else {
-        if(self.isOnline) {
-            [self setStatus:status xmpp:_xmpp];
-        } else {
-            [_settingsController recreateXmpp];
-            _xmpp = _settingsController.xmpp;
+    
+    if(status >= 0) {
+        if(status == XMPP_STATUS_OFFLINE) {
             if(_xmpp) {
-                XmppRun(_xmpp);
-                self.isOnline = YES;
+                XmppStop(_xmpp);
+            }
+            self.isOnline = NO;
+        } else {
+            if(self.isOnline) {
+                [self setStatus:status xmpp:_xmpp];
             } else {
-                [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
-                return;
+                [_settingsController recreateXmpp];
+                _xmpp = _settingsController.xmpp;
+                if(_xmpp) {
+                    XmppRun(_xmpp);
+                    self.isOnline = YES;
+                } else {
+                    [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
+                    return;
+                }
             }
         }
+        [self setStatus:status xmpp:_xmpp];
+    } else {
+        [_statusButton selectItemAtIndex:self.selectedStatus];
+        
     }
-    [self setStatus:status xmpp:_xmpp];
 }
 
 

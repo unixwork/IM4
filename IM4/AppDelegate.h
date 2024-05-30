@@ -42,6 +42,8 @@
 
 @property (readonly) NSMutableDictionary *presence;
 
+@property int selectedStatus;
+
 @property (strong) IBOutlet NSOutlineView *contactList;
 @property (strong) IBOutlet OutlineViewController *outlineViewController;
 
@@ -57,6 +59,9 @@
 
 @property (strong) IBOutlet NSTextField *openConversationXidTextField;
 @property (strong) IBOutlet NSTextField *openConversationErrorField;
+
+@property (strong) IBOutlet NSTextField *statusMessageTextField;
+
 
 @property Boolean isOnline;
 
