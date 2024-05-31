@@ -980,6 +980,9 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="VDQ-qt-15s"/>
                         </constraints>
+                        <connections>
+                            <action selector="statusDialogOK:" target="Voe-Tx-rLC" id="pUY-gI-ouW"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NfF-nE-hmA">
                         <rect key="frame" x="168" y="3" width="84" height="32"/>
@@ -993,6 +996,9 @@ Gw
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="zZR-i5-qd3"/>
                         </constraints>
+                        <connections>
+                            <action selector="statusDialogCancel:" target="Voe-Tx-rLC" id="DJl-C5-ntr"/>
+                        </connections>
                     </button>
                     <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
                         <rect key="frame" x="20" y="56" width="295" height="21"/>
@@ -1001,6 +1007,9 @@ Gw
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <action selector="statusDialogOK:" target="Voe-Tx-rLC" id="dEE-M1-PP2"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>

@@ -43,6 +43,7 @@
 @property (readonly) NSMutableDictionary *presence;
 
 @property int selectedStatus;
+@property const char *selectedStatusShowValue;
 
 @property (strong) IBOutlet NSOutlineView *contactList;
 @property (strong) IBOutlet OutlineViewController *outlineViewController;
@@ -109,6 +110,9 @@
 
 - (IBAction) openConversationCancel:(id)sender;
 - (IBAction) openConversationOK:(id)sender;
+
+- (IBAction) statusDialogCancel:(id)sender;
+- (IBAction) statusDialogOK:(id)sender;
 
 - (IBAction)newDocument:(id)sender;
 

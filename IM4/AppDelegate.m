@@ -150,7 +150,8 @@
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
     // xmpp currently unused, because only one xmpp conn is supported
     
-    self.selectedStatus = status;
+    _selectedStatus = status;
+    _selectedStatusShowValue = NULL;
     
     NSString *titleIcon = @"";
     self.isOnline = YES;
@@ -181,21 +182,25 @@
         case XMPP_STATUS_AWAY: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconAway;
             XmppPresence(_xmpp, "away", NULL, -1);
+            _selectedStatusShowValue = "away";
             break;
         }
         case XMPP_STATUS_CHAT: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconChat;
             XmppPresence(_xmpp, "chat", NULL, -1);
+            _selectedStatusShowValue = "chat";
             break;
         }
         case XMPP_STATUS_DND: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconDnd;
             XmppPresence(_xmpp, "dnd", NULL, -1);
+            _selectedStatusShowValue = "dnd";
             break;
         }
         case XMPP_STATUS_XA: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconXA;
             XmppPresence(_xmpp, "xa", NULL, -1);
+            _selectedStatusShowValue = "xa";
             break;
         }
     }
@@ -431,7 +436,7 @@
         [self setStatus:status xmpp:_xmpp];
     } else {
         [_statusButton selectItemAtIndex:self.selectedStatus];
-        
+        [_statusMessageDialog makeKeyAndOrderFront:nil];
     }
 }
 
@@ -477,6 +482,21 @@
     }
     
     _openConversationDialog.isVisible = NO;
+}
+
+- (IBAction) statusDialogCancel:(id)sender {
+    _statusMessageDialog.isVisible = NO;
+}
+
+- (IBAction) statusDialogOK:(id)sender {
+    _statusMessageDialog.isVisible = NO;
+    
+    NSString *statusMsg = _statusMessageTextField.stringValue;
+    const char *statusMsgStr = NULL;
+    if(statusMsg.length > 0) {
+        statusMsgStr = statusMsg.UTF8String;
+    }
+    XmppPresence(_xmpp, _selectedStatusShowValue, statusMsgStr, 0);
 }
 
 - (IBAction)newDocument:(id)sender {
