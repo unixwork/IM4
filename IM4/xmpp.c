@@ -724,8 +724,8 @@ void Xmpp_Send_Presence(Xmpp *xmpp, void *userdata) {
         xmpp_stanza_t *status = xmpp_stanza_new(xmpp->ctx);
         xmpp_stanza_set_name(status, "status");
         xmpp_stanza_t *status_text = xmpp_stanza_new(xmpp->ctx);
-        xmpp_stanza_set_text(status, msg->status);
-        xmpp_stanza_add_child(status_text, status_text);
+        xmpp_stanza_set_text(status_text, msg->status);
+        xmpp_stanza_add_child(status, status_text);
         xmpp_stanza_add_child(presence, status);
     }
     
