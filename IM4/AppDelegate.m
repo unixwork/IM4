@@ -147,12 +147,12 @@
     [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badge];
 }
 
-- (void) setStatus:(int)status xmpp:(Xmpp*)xmpp {
+- (void) setStatus:(int)status xmpp:(Xmpp*)xmpp updatePresence:(bool)updatePresence {
     // xmpp currently unused, because only one xmpp conn is supported
     
     _selectedStatus = status;
     _selectedStatusShowValue = NULL;
-    
+       
     NSString *titleIcon = @"";
     self.isOnline = YES;
     switch(status) {
@@ -170,13 +170,14 @@
             [_statusButton selectItemAtIndex:IM4_OFFLINE];
             
             self.isOnline = NO;
-            
             break;
         }
         case XMPP_STATUS_ONLINE: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconOnline;
             [_statusButton selectItemAtIndex:IM4_ONLINE];
-            XmppPresence(_xmpp, NULL, NULL, -1);
+            if(updatePresence) {
+                XmppPresence(_xmpp, NULL, NULL, -1);
+            }
             break;
         }
         case XMPP_STATUS_AWAY: {
@@ -420,7 +421,7 @@
             self.isOnline = NO;
         } else {
             if(self.isOnline) {
-                [self setStatus:status xmpp:_xmpp];
+                [self setStatus:status xmpp:_xmpp updatePresence:true];
             } else {
                 [_settingsController recreateXmpp];
                 _xmpp = _settingsController.xmpp;
@@ -428,12 +429,12 @@
                     XmppRun(_xmpp);
                     self.isOnline = YES;
                 } else {
-                    [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp];
+                    [self setStatus:XMPP_STATUS_OFFLINE xmpp:_xmpp updatePresence:true];
                     return;
                 }
             }
         }
-        [self setStatus:status xmpp:_xmpp];
+        [self setStatus:status xmpp:_xmpp updatePresence:true];
     } else {
         [_statusButton selectItemAtIndex:self.selectedStatus];
         [_statusMessageDialog makeKeyAndOrderFront:nil];

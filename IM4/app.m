@@ -115,7 +115,7 @@ static void mt_app_set_status(void *userdata) {
     free(st);
     
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app setStatus:status xmpp:xmpp];
+    [app setStatus:status xmpp:xmpp updatePresence:false];
 }
 
 void app_set_status(Xmpp *xmpp, int status) {

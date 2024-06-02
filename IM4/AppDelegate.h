@@ -69,7 +69,7 @@
 @property int unread;
 
 
-- (void) setStatus:(int)status xmpp:(Xmpp*)xmpp;
+- (void) setStatus:(int)status xmpp:(Xmpp*)xmpp updatePresence:(bool)updatePresence;
 
 - (Presence*) xidStatus:(NSString*)xid;
 
