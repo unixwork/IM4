@@ -152,9 +152,20 @@
     
     _selectedStatus = status;
     _selectedStatusShowValue = NULL;
-       
+    
+    // default presence values
+    const char *presenceShow = NULL;
+    const char *presenceStatus = NULL;
+    int presencePriority = -1;
+    
+    // get values from the presence status dialog
+    NSString *statusMsg = _statusMessageTextField.stringValue;
+    if(statusMsg.length > 0) {
+        presenceStatus = statusMsg.UTF8String;
+    }
+    
     NSString *titleIcon = @"";
-    self.isOnline = YES;
+    _isOnline = YES; // default value, only the offline status will change this
     switch(status) {
         case XMPP_STATUS_OFFLINE: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconOffline;
@@ -167,44 +178,43 @@
                 [conv updateStatus];
             }
             
-            [_statusButton selectItemAtIndex:IM4_OFFLINE];
-            
-            self.isOnline = NO;
+            _isOnline = NO;
             break;
         }
         case XMPP_STATUS_ONLINE: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconOnline;
-            [_statusButton selectItemAtIndex:IM4_ONLINE];
-            if(updatePresence) {
-                XmppPresence(_xmpp, NULL, NULL, -1);
-            }
             break;
         }
         case XMPP_STATUS_AWAY: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconAway;
-            XmppPresence(_xmpp, "away", NULL, -1);
-            _selectedStatusShowValue = "away";
+            presenceShow = "away";
             break;
         }
         case XMPP_STATUS_CHAT: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconChat;
             XmppPresence(_xmpp, "chat", NULL, -1);
-            _selectedStatusShowValue = "chat";
             break;
         }
         case XMPP_STATUS_DND: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconDnd;
-            XmppPresence(_xmpp, "dnd", NULL, -1);
-            _selectedStatusShowValue = "dnd";
+            presenceShow = "dnd";
             break;
         }
         case XMPP_STATUS_XA: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconXA;
-            XmppPresence(_xmpp, "xa", NULL, -1);
-            _selectedStatusShowValue = "xa";
+            presenceShow = "xa";
             break;
         }
     }
+    // update presence dropdown menu
+    [_statusButton selectItemAtIndex:status];
+    
+    // send presence status message
+    if(updatePresence) {
+        XmppPresence(_xmpp, presenceShow, presenceStatus, presencePriority);
+    }
+    _selectedStatusShowValue = presenceShow; // remember presence show value
+    
     
     NSString *title = [[NSString alloc] initWithFormat:@"%@ IM4", titleIcon];
     [_window setTitle:title];
