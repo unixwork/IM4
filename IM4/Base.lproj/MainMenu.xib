@@ -875,7 +875,7 @@ Gw
                     <constraint firstItem="3Gf-uh-O53" firstAttribute="leading" secondItem="w07-mH-A74" secondAttribute="leading" constant="24" id="zHw-RG-gpg"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="212.5" y="794.5"/>
+            <point key="canvasLocation" x="554" y="652"/>
         </window>
         <window title="Open New Conversation" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="NrB-hi-ISY">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
@@ -957,19 +957,19 @@ Gw
                     <constraint firstAttribute="bottom" secondItem="f7Y-Jh-gJI" secondAttribute="bottom" constant="10" id="wat-e4-vbt"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="213.5" y="1050.5"/>
+            <point key="canvasLocation" x="577" y="920"/>
         </window>
         <window title="Presence Status Message" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="MAJ-XI-vcQ">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="283" y="305" width="335" height="97"/>
+            <rect key="contentRect" x="283" y="305" width="342" height="136"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="f5X-iI-p83">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="97"/>
+                <rect key="frame" x="0.0" y="0.0" width="342" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7on-vy-dii">
-                        <rect key="frame" x="248" y="3" width="84" height="32"/>
+                        <rect key="frame" x="255" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XZc-gD-6ES">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -985,7 +985,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NfF-nE-hmA">
-                        <rect key="frame" x="168" y="3" width="84" height="32"/>
+                        <rect key="frame" x="175" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JuT-lJ-K9j">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1000,8 +1000,16 @@ Gw
                             <action selector="statusDialogCancel:" target="Voe-Tx-rLC" id="DJl-C5-ntr"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
-                        <rect key="frame" x="20" y="56" width="295" height="21"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
+                        <rect key="frame" x="20" y="98" width="101" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Status Message" id="193-ZD-FRe">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
+                        <rect key="frame" x="22" y="69" width="298" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1013,15 +1021,18 @@ Gw
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="VNz-aF-CBf" firstAttribute="leading" secondItem="f5X-iI-p83" secondAttribute="leading" constant="24" id="0o0-zf-sf9"/>
                     <constraint firstAttribute="bottom" secondItem="7on-vy-dii" secondAttribute="bottom" constant="10" id="CmN-4H-gyX"/>
                     <constraint firstAttribute="bottom" secondItem="NfF-nE-hmA" secondAttribute="bottom" constant="10" id="SrJ-Hc-18j"/>
+                    <constraint firstItem="xoT-sK-Zg2" firstAttribute="top" secondItem="f5X-iI-p83" secondAttribute="top" constant="22" id="UKr-08-42e"/>
                     <constraint firstAttribute="trailing" secondItem="7on-vy-dii" secondAttribute="trailing" constant="10" id="VrZ-cl-Hdm"/>
-                    <constraint firstAttribute="trailing" secondItem="VNz-aF-CBf" secondAttribute="trailing" constant="24" id="lxf-CM-zwr"/>
+                    <constraint firstItem="VNz-aF-CBf" firstAttribute="leading" secondItem="f5X-iI-p83" secondAttribute="leading" constant="22" id="cdP-hb-gof"/>
+                    <constraint firstAttribute="trailing" secondItem="VNz-aF-CBf" secondAttribute="trailing" constant="22" id="clL-SQ-eQF"/>
                     <constraint firstItem="7on-vy-dii" firstAttribute="leading" secondItem="NfF-nE-hmA" secondAttribute="trailing" constant="10" id="wdx-9y-cFn"/>
+                    <constraint firstItem="VNz-aF-CBf" firstAttribute="top" secondItem="xoT-sK-Zg2" secondAttribute="bottom" constant="8" id="yUq-tV-2ey"/>
+                    <constraint firstItem="xoT-sK-Zg2" firstAttribute="leading" secondItem="f5X-iI-p83" secondAttribute="leading" constant="22" id="zEF-c4-dd6"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-205" y="1013"/>
+            <point key="canvasLocation" x="576" y="326"/>
         </window>
     </objects>
 </document>
