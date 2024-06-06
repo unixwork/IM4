@@ -192,7 +192,7 @@
         }
         case XMPP_STATUS_CHAT: {
             titleIcon = _settingsController.templateSettings.xmppPresenceIconChat;
-            XmppPresence(_xmpp, "chat", NULL, -1);
+            presenceShow = "chat";
             break;
         }
         case XMPP_STATUS_DND: {
