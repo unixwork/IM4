@@ -135,6 +135,13 @@ void XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
     
 }
 
+void XmppSetStartupPresence(Xmpp *xmpp, const char *show, const char *status) {
+    free(xmpp->startup_presence_show);
+    free(xmpp->startup_presence_status);
+    xmpp->startup_presence_show = show ? strdup(show) : NULL;
+    xmpp->startup_presence_status = status ? strdup(status) : NULL;
+}
+
 static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     xmpp_stanza_t *disco = xmpp_stanza_get_child_by_name_and_ns(stanza, "query", "http://jabber.org/protocol/disco#info");
     //if(disco) {
@@ -406,12 +413,10 @@ static void connect_cb(
         xmpp_handler_add(conn, message_cb, NULL, "message", NULL, xmpp);
         xmpp_handler_add(conn, presence_cb, NULL, "presence", NULL, xmpp);
         
-        // move to other func
-        xmpp_stanza_t *im_status = xmpp_presence_new(xmpp->ctx);
-        xmpp_send(conn, im_status);
-        xmpp_stanza_release(im_status);
+        // send startup presence message
+        Xmpp_Send_Presence(xmpp, xmpp->startup_presence_show, xmpp->startup_presence_status, -1);
         
-        // test
+        // get contacts
         XmppQueryContacts(xmpp);
         
         // set app status
@@ -708,29 +713,35 @@ typedef struct {
     int priority;
 } xmpp_presence_msg;
 
-void Xmpp_Send_Presence(Xmpp *xmpp, void *userdata) {
-    xmpp_presence_msg *msg = userdata;
-    
+
+
+void Xmpp_Send_Presence(Xmpp *xmpp, const char *show, const char *status, int priority) {
     xmpp_stanza_t *presence = xmpp_presence_new(xmpp->ctx);
-    if(msg->show) {
-        xmpp_stanza_t *show = xmpp_stanza_new(xmpp->ctx);
-        xmpp_stanza_set_name(show, "show");
+    if(show) {
+        xmpp_stanza_t *show_elm = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(show_elm, "show");
         xmpp_stanza_t *show_text = xmpp_stanza_new(xmpp->ctx);
-        xmpp_stanza_set_text(show_text, msg->show);
-        xmpp_stanza_add_child(show, show_text);
-        xmpp_stanza_add_child(presence, show);
+        xmpp_stanza_set_text(show_text, show);
+        xmpp_stanza_add_child(show_elm, show_text);
+        xmpp_stanza_add_child(presence, show_elm);
     }
-    if(msg->status) {
-        xmpp_stanza_t *status = xmpp_stanza_new(xmpp->ctx);
-        xmpp_stanza_set_name(status, "status");
+    if(status) {
+        xmpp_stanza_t *status_elm = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(status_elm, "status");
         xmpp_stanza_t *status_text = xmpp_stanza_new(xmpp->ctx);
-        xmpp_stanza_set_text(status_text, msg->status);
-        xmpp_stanza_add_child(status, status_text);
-        xmpp_stanza_add_child(presence, status);
+        xmpp_stanza_set_text(status_text, status);
+        xmpp_stanza_add_child(status_elm, status_text);
+        xmpp_stanza_add_child(presence, status_elm);
     }
     
     xmpp_send(xmpp->connection, presence);
     xmpp_stanza_release(presence);
+}
+
+static void xmpp_send_presence(Xmpp *xmpp, void *userdata) {
+    xmpp_presence_msg *msg = userdata;
+    
+    Xmpp_Send_Presence(xmpp, msg->show, msg->status, msg->priority);
     
     free(msg->status);
     free(msg->show);
@@ -742,7 +753,7 @@ void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority
     presence->show = show ? strdup(show) : NULL;
     presence->status = status ? strdup(status) : NULL;
     presence->priority = priority;
-    XmppCall(xmpp, Xmpp_Send_Presence, presence);
+    XmppCall(xmpp, xmpp_send_presence, presence);
 }
 
 

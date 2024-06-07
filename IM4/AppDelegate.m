@@ -38,6 +38,30 @@
 #import "IM4-Bridging-Header.h"
 #import "IM4-Swift.h"
 
+static const char * presencenum2str(int num) {
+    switch(num) {
+        case XMPP_STATUS_OFFLINE: {
+            return NULL;
+        }
+        case XMPP_STATUS_ONLINE: {
+            return NULL;
+        }
+        case XMPP_STATUS_AWAY: {
+            return "away";
+        }
+        case XMPP_STATUS_CHAT: {
+            return "chat";
+        }
+        case XMPP_STATUS_DND: {
+            return "dnd";
+        }
+        case XMPP_STATUS_XA: {
+            return "xa";
+        }
+    }
+    return NULL;
+}
+
 @interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
@@ -403,8 +427,12 @@
             }
             return;
         }
-        XmppRun(_xmpp);
-        self.isOnline = YES;
+        
+        if(_settingsController.StartupPresence > 0) {
+            XmppSetStartupPresence(_xmpp, presencenum2str(_settingsController.StartupPresence), NULL);
+            XmppRun(_xmpp);
+            self.isOnline = YES;
+        }
     }
 }
 
@@ -421,6 +449,15 @@
 }
 
 - (IBAction) statusSelected:(id)sender {
+    const char *presenceStatus = NULL;
+    int presencePriority = -1;
+    
+    // get values from the presence status dialog
+    NSString *statusMsg = _statusMessageTextField.stringValue;
+    if(statusMsg.length > 0) {
+        presenceStatus = statusMsg.UTF8String;
+    }
+    
     int status = (int)[_statusButton selectedTag];
     
     if(status >= 0) {
@@ -436,6 +473,7 @@
                 [_settingsController recreateXmpp];
                 _xmpp = _settingsController.xmpp;
                 if(_xmpp) {
+                    XmppSetStartupPresence(_xmpp, presencenum2str(status), presenceStatus);
                     XmppRun(_xmpp);
                     self.isOnline = YES;
                 } else {

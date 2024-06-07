@@ -152,6 +152,9 @@ struct Xmpp {
     int           iq_id;
     int           running;
     
+    char          *startup_presence_show;
+    char          *startup_presence_status;
+    
     /*
      * xmpp roster
      */
@@ -212,6 +215,8 @@ void XmppLog(const char *str);
 
 Xmpp* XmppCreate(XmppSettings settings);
 
+void XmppSetStartupPresence(Xmpp *xmpp, const char *show, const char *status);
+
 void XmppRecreate(Xmpp *xmpp, XmppSettings settings);
 
 //int XmppConnect(Xmpp *xmpp);
@@ -227,6 +232,8 @@ void XmppCall(Xmpp *xmpp, xmpp_callback_func cb, void *userdata);
 void Xmpp_Send(Xmpp *xmp, const char *to, const char *message);
 
 void Xmpp_Send_State(Xmpp *xmpp, const char *to, enum XmppChatstate s);
+
+void Xmpp_Send_Presence(Xmpp *xmpp, const char *show, const char *status, int priority);
 
 void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority);
 
