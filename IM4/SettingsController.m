@@ -55,6 +55,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSTextField *port;
 @property (strong) IBOutlet NSTextField *otrFingerprint;
 @property (strong) IBOutlet NSComboBox  *logLevel;
+@property (strong) IBOutlet NSComboBox  *presenceStatus;
 
 @end
 
@@ -107,6 +108,15 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
     }
     
+    NSNumber *presence = [_config valueForKey:@"presence"];
+    _StartupPresence = 1; // default status: online
+    if(presence) {
+        int ps = presence.intValue;
+        if(ps >= 0 && ps <= 5) {
+            _StartupPresence = ps;
+        }
+    }
+    
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
     isDir = false;
@@ -139,6 +149,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _password.stringValue = @"";
     
     [_logLevel selectItemAtIndex:XmppGetLogLevel()];
+    [_presenceStatus selectItemAtIndex:_StartupPresence];
 }
 
 - (void)windowDidLoad {
@@ -149,6 +160,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     int logLevel = XmppGetLogLevel();
     [_logLevel selectItemAtIndex:logLevel];
+    [_presenceStatus selectItemAtIndex:_StartupPresence];
     
     if(_fingerprint) {
         _otrFingerprint.stringValue = [NSString stringWithFormat:@"Fingerprint: %@", _fingerprint];
@@ -260,6 +272,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_config setValue:resource forKey:@"resource"];
     [_config setValue:host forKey:@"host"];
     [_config setValue:port forKey:@"port"];
+    
+    int presence = (int)_presenceStatus.indexOfSelectedItem;
+    _StartupPresence = presence;
+    NSNumber *num = [[NSNumber alloc]initWithInt:presence];
+    [_config setValue:num forKey:@"presence"];
     
     if(restartConnection) {
         // create new xmpp object
