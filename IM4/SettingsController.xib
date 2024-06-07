@@ -39,7 +39,7 @@
                                     <rect key="frame" x="10" y="33" width="449" height="281"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="REt-NB-7cs">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="REt-NB-7cs">
                                             <rect key="frame" x="6" y="257" width="124" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="Xs3-IU-IAz"/>
@@ -50,7 +50,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gV4-uY-sKh">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gV4-uY-sKh">
                                             <rect key="frame" x="6" y="221" width="63" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Password" id="fQd-QM-iWg">
                                                 <font key="font" metaFont="system"/>
@@ -58,7 +58,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HFD-4U-PNe">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HFD-4U-PNe">
                                             <rect key="frame" x="6" y="185" width="33" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Alias" id="f5T-5E-pdP">
                                                 <font key="font" metaFont="system"/>
@@ -66,7 +66,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hWD-pv-hvX">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hWD-pv-hvX">
                                             <rect key="frame" x="6" y="113" width="152" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Optional Server Settings" id="gUE-b6-Yfk">
                                                 <font key="font" metaFont="system"/>
@@ -74,7 +74,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qtN-V7-8ZC">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qtN-V7-8ZC">
                                             <rect key="frame" x="6" y="77" width="33" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Host" id="ME0-DC-Hs7">
                                                 <font key="font" metaFont="system"/>
@@ -82,7 +82,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaW-xD-3U0">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RaW-xD-3U0">
                                             <rect key="frame" x="6" y="41" width="30" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Port" id="QW4-zy-wXf">
                                                 <font key="font" metaFont="system"/>
@@ -90,7 +90,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField identifier="jidTextField" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-Ab-z6z" userLabel="jidTextField">
+                                        <textField identifier="jidTextField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-Ab-z6z" userLabel="jidTextField">
                                             <rect key="frame" x="136" y="254" width="305" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="oaq-Tp-Tif">
                                                 <font key="font" metaFont="system"/>
@@ -98,7 +98,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <secureTextField identifier="passwordField" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A4W-J6-G5V">
+                                        <secureTextField identifier="passwordField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A4W-J6-G5V">
                                             <rect key="frame" x="136" y="218" width="305" height="21"/>
                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="a8A-WJ-Mvp">
                                                 <font key="font" metaFont="system"/>
@@ -109,7 +109,7 @@
                                                 </allowedInputSourceLocales>
                                             </secureTextFieldCell>
                                         </secureTextField>
-                                        <textField identifier="aliasTextField" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1lt-Uk-Qz3" userLabel="aliasTextField">
+                                        <textField identifier="aliasTextField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1lt-Uk-Qz3" userLabel="aliasTextField">
                                             <rect key="frame" x="136" y="182" width="305" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="eQO-zm-WyD">
                                                 <font key="font" metaFont="system"/>
@@ -117,7 +117,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HVI-i9-lKi" userLabel="hostTextField">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HVI-i9-lKi" userLabel="hostTextField">
                                             <rect key="frame" x="136" y="74" width="305" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="7Q8-rk-llI">
                                                 <font key="font" metaFont="system"/>
@@ -125,7 +125,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SJc-h7-mzy" userLabel="portTextField">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SJc-h7-mzy" userLabel="portTextField">
                                             <rect key="frame" x="136" y="39" width="80" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="egF-0S-d1q"/>
@@ -137,7 +137,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TJi-F2-nbX">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TJi-F2-nbX">
                                             <rect key="frame" x="6" y="149" width="61" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Resource" id="m0N-SQ-MP2">
                                                 <font key="font" metaFont="system"/>
@@ -145,7 +145,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField identifier="resourceTextField" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AfC-cE-KQF" userLabel="resourceTextField">
+                                        <textField identifier="resourceTextField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AfC-cE-KQF" userLabel="resourceTextField">
                                             <rect key="frame" x="136" y="146" width="305" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="9I2-Ha-6Fo">
                                                 <font key="font" metaFont="system"/>
@@ -194,7 +194,7 @@
                                     <rect key="frame" x="10" y="33" width="449" height="281"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kCa-2n-uLh">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kCa-2n-uLh">
                                             <rect key="frame" x="6" y="257" width="78" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Fingerprint: " id="CKv-DA-7Td">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -226,7 +226,7 @@
                                     <rect key="frame" x="10" y="33" width="449" height="281"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-Xe-LWQ">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-Xe-LWQ">
                                             <rect key="frame" x="6" y="257" width="202" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Log Level" id="M8Q-rI-yfk">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -234,7 +234,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zC2-rO-gyg">
+                                        <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zC2-rO-gyg">
                                             <rect key="frame" x="221" y="251" width="84" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="pDc-ue-HJn"/>
@@ -254,7 +254,7 @@
                                                 <action selector="logLevelSelected:" target="-2" id="cHY-ej-Eia"/>
                                             </connections>
                                         </comboBox>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nma-c8-Xft">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nma-c8-Xft">
                                             <rect key="frame" x="6" y="221" width="202" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Conversation Window Templates" id="wlw-GR-OpI">
                                                 <font key="font" metaFont="system"/>
@@ -272,17 +272,46 @@
                                                 <action selector="openTemplateSettings:" target="-2" id="ghM-76-S3h"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bdQ-BQ-7yd">
+                                            <rect key="frame" x="6" y="189" width="202" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Status at Startup" id="7mL-ic-tU3">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <comboBox verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sPS-d8-Uw3">
+                                            <rect key="frame" x="223" y="179" width="99" height="23"/>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="3Dj-3T-Ias">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>Offline</string>
+                                                    <string>Online</string>
+                                                    <string>Item</string>
+                                                    <string>Chat</string>
+                                                    <string>DND</string>
+                                                    <string>XA</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                        </comboBox>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="1Wl-KW-Z7b"/>
                                         <constraint firstItem="zC2-rO-gyg" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="4bk-l8-7em"/>
+                                        <constraint firstItem="bdQ-BQ-7yd" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="7ae-hz-eTH"/>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="top" secondItem="lqt-Xe-LWQ" secondAttribute="bottom" constant="20" id="DfN-aR-of6"/>
+                                        <constraint firstItem="bdQ-BQ-7yd" firstAttribute="top" secondItem="nma-c8-Xft" secondAttribute="bottom" constant="16" id="MCW-ZW-644"/>
                                         <constraint firstItem="bAZ-qi-o1f" firstAttribute="top" secondItem="zC2-rO-gyg" secondAttribute="bottom" constant="16" id="YiJ-Mk-DBT"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="aw4-N7-u9s"/>
                                         <constraint firstItem="zC2-rO-gyg" firstAttribute="leading" secondItem="lqt-Xe-LWQ" secondAttribute="trailing" constant="16" id="itj-M2-R4T"/>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="width" secondItem="lqt-Xe-LWQ" secondAttribute="width" id="lSj-vV-978"/>
+                                        <constraint firstItem="sPS-d8-Uw3" firstAttribute="top" secondItem="bAZ-qi-o1f" secondAttribute="bottom" constant="16" id="qHi-2d-uX5"/>
                                         <constraint firstItem="bAZ-qi-o1f" firstAttribute="leading" secondItem="nma-c8-Xft" secondAttribute="trailing" constant="16" id="rD8-jB-iP6"/>
+                                        <constraint firstItem="sPS-d8-Uw3" firstAttribute="leading" secondItem="bdQ-BQ-7yd" secondAttribute="trailing" constant="16" id="uJw-sx-y3G"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="vHN-MK-seW"/>
+                                        <constraint firstItem="bdQ-BQ-7yd" firstAttribute="width" secondItem="nma-c8-Xft" secondAttribute="width" id="zeM-iQ-5EC"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
