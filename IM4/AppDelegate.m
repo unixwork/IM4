@@ -429,7 +429,7 @@ static const char * presencenum2str(int num) {
         }
         
         if(_settingsController.StartupPresence > 0) {
-            XmppSetStartupPresence(_xmpp, presencenum2str(_settingsController.StartupPresence), NULL);
+            XmppSetStartupPresence(_xmpp, _settingsController.StartupPresence, presencenum2str(_settingsController.StartupPresence), NULL);
             XmppRun(_xmpp);
             self.isOnline = YES;
         }
@@ -473,7 +473,7 @@ static const char * presencenum2str(int num) {
                 [_settingsController recreateXmpp];
                 _xmpp = _settingsController.xmpp;
                 if(_xmpp) {
-                    XmppSetStartupPresence(_xmpp, presencenum2str(status), presenceStatus);
+                    XmppSetStartupPresence(_xmpp, status, presencenum2str(status), presenceStatus);
                     XmppRun(_xmpp);
                     self.isOnline = YES;
                 } else {

@@ -135,11 +135,12 @@ void XmppRecreate(Xmpp *xmpp, XmppSettings settings) {
     
 }
 
-void XmppSetStartupPresence(Xmpp *xmpp, const char *show, const char *status) {
+void XmppSetStartupPresence(Xmpp *xmpp, int num, const char *show, const char *status) {
     free(xmpp->startup_presence_show);
     free(xmpp->startup_presence_status);
     xmpp->startup_presence_show = show ? strdup(show) : NULL;
     xmpp->startup_presence_status = status ? strdup(status) : NULL;
+    xmpp->startup_presence_num = num;
 }
 
 static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
@@ -420,7 +421,7 @@ static void connect_cb(
         XmppQueryContacts(xmpp);
         
         // set app status
-        app_set_status(xmpp, XMPP_STATUS_ONLINE);
+        app_set_status(xmpp, xmpp->startup_presence_num > 0 ? xmpp->startup_presence_num : XMPP_STATUS_ONLINE);
     } else {
         app_set_status(xmpp, XMPP_STATUS_OFFLINE);
         

@@ -152,6 +152,7 @@ struct Xmpp {
     int           iq_id;
     int           running;
     
+    int           startup_presence_num;
     char          *startup_presence_show;
     char          *startup_presence_status;
     
@@ -215,7 +216,7 @@ void XmppLog(const char *str);
 
 Xmpp* XmppCreate(XmppSettings settings);
 
-void XmppSetStartupPresence(Xmpp *xmpp, const char *show, const char *status);
+void XmppSetStartupPresence(Xmpp *xmpp, int num, const char *show, const char *status);
 
 void XmppRecreate(Xmpp *xmpp, XmppSettings settings);
 
