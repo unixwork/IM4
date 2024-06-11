@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) refreshContacts:(Xmpp*)xmpp presence:(NSDictionary*)presence;
 
+- (void) expandContact:(id)c;
+
 - (void) clearContacts;
 
 - (Contact*) contact:(NSString*)xid;

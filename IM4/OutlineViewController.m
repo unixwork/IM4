@@ -101,6 +101,14 @@
         
         [c addContact:contact];
     }
+    
+    [self performSelectorOnMainThread:@selector(expandContact:)
+                                   withObject:c
+                                waitUntilDone:NO];
+}
+
+- (void) expandContact:(id)c {
+    [_outlineView expandItem:c];
 }
 
 - (void) clearContacts {
