@@ -203,6 +203,7 @@ static const char * presencenum2str(int num) {
             }
             
             _isOnline = NO;
+            updatePresence = NO;
             break;
         }
         case XMPP_STATUS_ONLINE: {
