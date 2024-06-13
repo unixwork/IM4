@@ -28,49 +28,4 @@
 
 #import "Contact.h"
 
-@implementation Contact
 
-- (id)initContact:(NSString *) name xid:(NSString *)xid {
-    _name = [name copy];
-    _xid = [xid copy];
-    _contacts = NULL;
-    return self;
-}
-
-- (id)initGroup:(NSString *) name {
-    _name = [name copy];
-    _xid = NULL;
-    _contacts = [[NSMutableArray alloc] init];
-    return self;
-}
-
-- (void)addContact:(Contact *)contact {
-    if(_contacts != NULL) {
-        [_contacts addObject:contact];
-    }
-}
-
-- (NSString*)displayName:(UITemplate*)tpl {
-    if(_contacts != nil) {
-        return _name;
-    }
-    
-    NSString *name = _name == nil ? _xid : _name;
-    // TODO: find a way to use the template string
-    //       maybe initialize _presence with the correct string from
-    //       the OutlineViewController
-    NSString *status;
-    if(_presence == nil) {
-        status = tpl != nil ? tpl.xmppPresenceIconOffline : @"";
-    } else {
-        status = _presence;
-    }
-    
-    if(_status != nil) {
-        return [[NSString alloc]initWithFormat:@"%@ %@%@ (%@)", status, name, _unread != 0 ? @"*" : @"", _status];
-    } else {
-        return [[NSString alloc]initWithFormat:@"%@ %@%@", status, name, _unread != 0 ? @"*" : @""];
-    }
-}
-
-@end
