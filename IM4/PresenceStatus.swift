@@ -37,7 +37,7 @@ import Cocoa
     @objc var status: String?
     @objc var show: String?
 
-    @objc init(type: String?, status: String?, show: String?) {
+    @objc(init:status:show:) init(type: String?, status: String?, show: String?) {
         self.type = type
         self.status = status
         self.show = show
@@ -55,7 +55,7 @@ import Cocoa
         }
     }
     
-    @objc func presenceShowUIString(template: UITemplate) -> String {
+    @objc(presenceShowUIString:) func presenceShowUIString(template: UITemplate) -> String {
         switch self.show {
         case "away": return template.xmppPresenceAway()
         case "chat": return template.xmppPresenceChat()
@@ -65,7 +65,7 @@ import Cocoa
         }
     }
     
-    @objc func presenceShowIconUIString(template: UITemplate) -> String {
+    @objc(presenceShowIconUIString:) func presenceShowIconUIString(template: UITemplate) -> String {
         switch self.show {
         case "away": return template.xmppPresenceIconAway()
         case "chat": return template.xmppPresenceIconChat()

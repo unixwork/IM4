@@ -144,9 +144,9 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     NSString *title = _alias;
     if(status != nil) {
-        _statusLabel.stringValue = [presenceStatus presenceShowIconUIStringWithTemplate:_tpl];
+        _statusLabel.stringValue = [presenceStatus presenceShowIconUIString:_tpl];
         if(presenceStatus.status != nil) {
-            NSString *showMsg = [presenceStatus presenceShowUIStringWithTemplate:_tpl];
+            NSString *showMsg = [presenceStatus presenceShowUIString:_tpl];
             title = [[NSString alloc] initWithFormat:@"%@%@ (%@)", showMsg, _alias, presenceStatus.status];
         }
     } else {
@@ -167,7 +167,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             PresenceStatus *resPresence = [status presenceStatusWithResource:resStr];
             if(resPresence != nil) {
                 resStatus = resPresence.status;
-                resShow = [resPresence presenceShowUIStringWithTemplate:_tpl];
+                resShow = [resPresence presenceShowUIString:_tpl];
             }
         }
         

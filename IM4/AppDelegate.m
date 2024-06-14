@@ -286,7 +286,7 @@ static const char * presencenum2str(int num) {
     NSString *t = [[NSString alloc]initWithUTF8String:type];
     NSString *s = status ? [[NSString alloc]initWithUTF8String:status] : nil;
     NSString *sh = show ? [[NSString alloc]initWithUTF8String:show] : nil;
-    PresenceStatus *ps = [[PresenceStatus alloc]initWithType:t status:s show:sh];
+    PresenceStatus *ps = [[PresenceStatus alloc]init:t status:s show:sh];
     
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key

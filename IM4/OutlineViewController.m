@@ -86,7 +86,7 @@
         if(ps != nil) {
             PresenceStatus *presenceStatus = [ps getRelevantPresenceStatus];
             if(presenceStatus) {
-                contact.presence = [presenceStatus presenceShowIconUIStringWithTemplate:_tpl];
+                contact.presence = [presenceStatus presenceShowIconUIString:_tpl];
             } else {
                 // not sure if this can happen, but Presence is not null
                 // therefore the contact is online
