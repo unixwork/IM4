@@ -10,8 +10,7 @@ import Cocoa
 @objc class Contact: NSObject {
     @objc var name: String
     @objc var xid: String?
-    @objc var presence: String?
-    @objc var status: String?
+    @objc var presence: PresenceStatus?
     @objc var unread: Int
     @objc var contacts: NSMutableArray?
     
@@ -40,12 +39,17 @@ import Cocoa
             return name
         } else {
             var statusIcon = ""
-            if let p = presence {
-                statusIcon = p
-            } else {
-                if let tpl = tpl {
+            if let tpl = tpl {
+                if let ps = presence {
+                    statusIcon = ps.presenceShowIconUIString(template: tpl)
+                } else {
                     statusIcon = tpl.xmppPresenceIconOffline()
                 }
+            }
+            
+            var status: String?
+            if let ps = presence {
+                status = ps.status
             }
             
             var unreadNotification = ""
@@ -53,7 +57,7 @@ import Cocoa
                 unreadNotification = "*"
             }
             
-            if let st = self.status {
+            if let st = status {
                 return String(format: "%@ %@%@ (%@)", statusIcon, name, unreadNotification, st)
             } else {
                 return String(format: "%@ %@%@", statusIcon, name, unreadNotification)

@@ -85,18 +85,7 @@
         Presence *ps = [presence objectForKey:xid];
         if(ps != nil) {
             PresenceStatus *presenceStatus = [ps getRelevantPresenceStatus];
-            if(presenceStatus) {
-                contact.presence = [presenceStatus presenceShowIconUIString:_tpl];
-            } else {
-                // not sure if this can happen, but Presence is not null
-                // therefore the contact is online
-                contact.presence = _tpl.xmppPresenceIconOnline;
-            }
-            
-            PresenceStatus *status = [ps getRelevantPresenceStatus];
-            if(status != nil) {
-                contact.status = status.status;
-            }
+            contact.presence = presenceStatus;
         }
         
         [c addContact:contact];
@@ -148,7 +137,7 @@
     return nil;
 }
 
-- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus status:(nullable NSString*)status presence:(nullable PresenceStatus*)presence unread:(int)unread {
+- (Boolean) updateContact:(NSString*)xid updateStatus:(Boolean)updateStatus presence:(nullable PresenceStatus*)presence unread:(int)unread {
     NSMutableArray *stack = [[NSMutableArray alloc]initWithCapacity:4];
     [stack addObject:_contacts];
     
@@ -162,14 +151,11 @@
                 [stack addObject:sub];
             }
             if([c.xid isEqualTo:xid]) {
-                if(updateStatus) {
-                    c.presence = status;
-                }
                 if(unread >= 0) {
                     c.unread = unread;
                 }
-                if(presence) {
-                    c.status = presence.status;
+                if(updateStatus && presence != nil) {
+                    c.presence = presence;
                 }
                 update = true;
             }
