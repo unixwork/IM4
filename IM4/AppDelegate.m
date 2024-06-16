@@ -326,8 +326,8 @@ static const char * presencenum2str(int num) {
             }
         }
         
-        // s is nil when status is unavailable
-        if(s) {
+        // ps is nil when status is unavailable
+        if(ps) {
             sn->enabled = TRUE; // enable the current session
         } else {
             sn->enabled = FALSE;
