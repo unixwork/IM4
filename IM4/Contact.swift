@@ -34,17 +34,15 @@ import Cocoa
         }
     }
     
-    @objc(displayName:) func displayName(tpl: UITemplate?) -> String {
+    @objc(displayName:) func displayName(tpl: UITemplate) -> String {
         if contacts != nil {
             return name
         } else {
             var statusIcon = ""
-            if let tpl = tpl {
-                if let ps = presence {
-                    statusIcon = ps.presenceShowIconUIString(template: tpl)
-                } else {
-                    statusIcon = tpl.xmppPresenceIconOffline()
-                }
+            if let ps = presence {
+                statusIcon = ps.presenceShowIconUIString(template: tpl)
+            } else {
+                statusIcon = tpl.xmppPresenceIconOffline()
             }
             
             var status: String?
