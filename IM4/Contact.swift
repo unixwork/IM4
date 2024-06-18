@@ -28,13 +28,13 @@ import Cocoa
         super.init()
     }
     
-    @objc(addContact:) func addContact(contact: Contact) {
+    @objc func addContact(_ contact: Contact) {
         if let contacts = self.contacts {
             contacts.add(contact)
         }
     }
     
-    @objc(displayName:) func displayName(tpl: UITemplate) -> String {
+    @objc func displayName(_ tpl: UITemplate) -> String {
         if contacts != nil {
             return name
         } else {

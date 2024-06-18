@@ -90,7 +90,7 @@ import Cocoa
         self.statusMap[from] = status
     }
     
-    @objc func presenceStatus(resource: String) -> PresenceStatus? {
+    @objc func presenceStatus(_ resource: String) -> PresenceStatus? {
         return statusMap[resource] as! PresenceStatus?
     }
     

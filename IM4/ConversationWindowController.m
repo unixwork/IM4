@@ -164,7 +164,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         NSString *resShow = @"";
         NSString *resStatus = nil;
         if(status != nil) {
-            PresenceStatus *resPresence = [status presenceStatusWithResource:resStr];
+            PresenceStatus *resPresence = [status presenceStatus:resStr];
             if(resPresence != nil) {
                 resStatus = resPresence.status;
                 resShow = [resPresence presenceShowUIString:_tpl];
