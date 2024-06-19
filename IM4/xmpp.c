@@ -734,6 +734,16 @@ void Xmpp_Send_Presence(Xmpp *xmpp, const char *show, const char *status, int pr
         xmpp_stanza_add_child(status_elm, status_text);
         xmpp_stanza_add_child(presence, status_elm);
     }
+    if(priority >= 0) {
+        xmpp_stanza_t *priority_elm = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(priority_elm, "priority");
+        char buf[32];
+        snprintf(buf, 32, "%d", priority);
+        xmpp_stanza_t *priority_text = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_text(priority_text, buf);
+        xmpp_stanza_add_child(priority_elm, priority_text);
+        xmpp_stanza_add_child(presence, priority_elm);
+    }
     
     xmpp_send(xmpp->connection, presence);
     xmpp_stanza_release(presence);
