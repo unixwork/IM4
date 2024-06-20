@@ -415,7 +415,7 @@ static void connect_cb(
         xmpp_handler_add(conn, presence_cb, NULL, "presence", NULL, xmpp);
         
         // send startup presence message
-        Xmpp_Send_Presence(xmpp, xmpp->startup_presence_show, xmpp->startup_presence_status, -1);
+        Xmpp_Send_Presence(xmpp, xmpp->startup_presence_show, xmpp->startup_presence_status, xmpp->startup_presence_priority);
         
         // get contacts
         XmppQueryContacts(xmpp);
@@ -734,7 +734,7 @@ void Xmpp_Send_Presence(Xmpp *xmpp, const char *show, const char *status, int pr
         xmpp_stanza_add_child(status_elm, status_text);
         xmpp_stanza_add_child(presence, status_elm);
     }
-    if(priority >= 0) {
+    if(priority > 0) {
         xmpp_stanza_t *priority_elm = xmpp_stanza_new(xmpp->ctx);
         xmpp_stanza_set_name(priority_elm, "priority");
         char buf[32];

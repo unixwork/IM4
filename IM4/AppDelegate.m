@@ -38,6 +38,8 @@
 #import "IM4-Bridging-Header.h"
 #import "IM4-Swift.h"
 
+#define IM4_DEFAULT_PRESENCE -1
+
 static const char * presencenum2str(int num) {
     switch(num) {
         case XMPP_STATUS_OFFLINE: {
@@ -546,7 +548,7 @@ static const char * presencenum2str(int num) {
     if(statusMsg.length > 0) {
         statusMsgStr = statusMsg.UTF8String;
     }
-    XmppPresence(_xmpp, _selectedStatusShowValue, statusMsgStr, 0);
+    XmppPresence(_xmpp, _selectedStatusShowValue, statusMsgStr, IM4_DEFAULT_PRESENCE);
 }
 
 - (IBAction)newDocument:(id)sender {

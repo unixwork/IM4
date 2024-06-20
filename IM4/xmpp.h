@@ -153,6 +153,7 @@ struct Xmpp {
     int           running;
     
     int           startup_presence_num;
+    int           startup_presence_priority;
     char          *startup_presence_show;
     char          *startup_presence_status;
     
