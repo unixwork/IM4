@@ -54,6 +54,7 @@
 @property (strong) IBOutlet NSPopUpButton *statusButton;
 @property (strong) IBOutlet NSMenuItem *onlineItem;
 @property (strong) IBOutlet NSMenuItem *offlineItem;
+@property (strong) IBOutlet NSMenuItem *setStatusItem;
 
 @property (strong) IBOutlet NSTextField *loginDialogXidLabel;
 @property (strong) IBOutlet NSTextField *loginDialogPassword;
@@ -63,6 +64,7 @@
 
 @property (strong) IBOutlet NSTextField *statusMessageTextField;
 
+@property (copy) NSString *originalSetStatusItemLabel;
 
 @property Boolean isOnline;
 

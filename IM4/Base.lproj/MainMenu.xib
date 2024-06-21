@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,6 +26,7 @@
                 <outlet property="openConversationXidTextField" destination="l4N-Lj-ZEM" id="5SO-0h-kkg"/>
                 <outlet property="outlineViewController" destination="eXf-Km-JsS" id="qdx-Mp-Taa"/>
                 <outlet property="passwordDialog" destination="S4C-6S-cqP" id="jMy-3A-X4h"/>
+                <outlet property="setStatusItem" destination="5Cn-1W-D6g" id="JSs-ie-mVw"/>
                 <outlet property="statusButton" destination="4oW-MG-he7" id="6qi-gO-rop"/>
                 <outlet property="statusMessageDialog" destination="MAJ-XI-vcQ" id="yfw-np-X07"/>
                 <outlet property="statusMessageTextField" destination="VNz-aF-CBf" id="z6s-TS-9AX"/>
@@ -842,7 +843,7 @@ Gw
                             <action selector="loginCancel:" target="Voe-Tx-rLC" id="pTb-WW-dko"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
                         <rect key="frame" x="22" y="105" width="301" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Login" id="BhT-jm-J9p">
                             <font key="font" metaFont="system"/>
@@ -850,7 +851,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
+                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
                         <rect key="frame" x="24" y="64" width="297" height="21"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
                             <font key="font" metaFont="system"/>
@@ -886,7 +887,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
                         <rect key="frame" x="22" y="133" width="172" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Open conversation with XID" id="J9B-Du-7Mv">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -894,7 +895,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
                         <rect key="frame" x="24" y="92" width="295" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
                             <font key="font" metaFont="system"/>
@@ -934,7 +935,7 @@ Gw
                             <action selector="openConversationCancel:" target="Voe-Tx-rLC" id="yry-jT-4ov"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
                         <rect key="frame" x="22" y="58" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
                             <font key="font" metaFont="system"/>
@@ -1000,7 +1001,7 @@ Gw
                             <action selector="statusDialogCancel:" target="Voe-Tx-rLC" id="DJl-C5-ntr"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
                         <rect key="frame" x="20" y="98" width="101" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Status Message" id="193-ZD-FRe">
                             <font key="font" metaFont="system"/>
@@ -1008,7 +1009,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
                         <rect key="frame" x="22" y="69" width="298" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
                             <font key="font" metaFont="system"/>

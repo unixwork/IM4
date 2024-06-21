@@ -108,6 +108,8 @@ static const char * presencenum2str(int num) {
     }
     
     self.isOnline = NO;
+    
+    _originalSetStatusItemLabel = _setStatusItem.title;
 }
 
 
@@ -547,6 +549,9 @@ static const char * presencenum2str(int num) {
     const char *statusMsgStr = NULL;
     if(statusMsg.length > 0) {
         statusMsgStr = statusMsg.UTF8String;
+        _setStatusItem.title = statusMsg;
+    } else {
+        _setStatusItem.title = _originalSetStatusItemLabel;
     }
     XmppPresence(_xmpp, _selectedStatusShowValue, statusMsgStr, IM4_DEFAULT_PRESENCE);
 }
