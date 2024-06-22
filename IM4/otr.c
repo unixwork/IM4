@@ -148,12 +148,13 @@ void otr_create_privkey(void *opdata, const char *accountname,
     Xmpp *xmpp = opdata;
     
     char *filename = app_configfile("otr.private_key");
-    printf("create_privkey_cb\n");
-    printf("account = %s\n", accountname);
-    printf("filename = %s\n", filename);
-    otrl_privkey_generate(xmpp->userstate, filename, accountname, protocol);
-    otrl_privkey_read(xmpp->userstate, filename);
-    printf("key generated\n");
+    
+    XmppLog("otr: create private key\n");
+    
+    char *buf = NULL;
+    asprintf(&buf, "account = %s\nfilename = %s\n", accountname, filename);
+    XmppLog(buf);
+    free(buf);
     
     free(filename);
 }

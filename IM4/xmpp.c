@@ -471,12 +471,6 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     return 0;
 }
 
-/*
-int XmppConnect(Xmpp *xmpp) {
-    XmppCall(xmpp, (xmpp_callback_func)mt_xmpp_connect, xmpp);
-    return 0;
-}
-*/
 
 int XmppQueryContacts(Xmpp *xmpp) {
     XmppQuery *query = malloc(sizeof(XmppQuery));
