@@ -191,19 +191,31 @@ void otr_write_fingerprints(void *opdata) {
 }
 
 void otr_gone_secure(void *opdata, ConnContext *context) {
-    printf("gone secure\n");
+    char *buf = NULL;
+    asprintf(&buf, "otr: %s gone secure\n", context->username);
+    XmppLog(buf);
+    free(buf);
+    
     Xmpp *xmpp = opdata;
     app_update_secure_status(xmpp, context->username, true);
 }
 
 void otr_gone_insecure(void *opdata, ConnContext *context) {
-    printf("gone insecure\n");
+    char *buf = NULL;
+    asprintf(&buf, "otr: %s gone insecure\n", context->username);
+    XmppLog(buf);
+    free(buf);
+    
     Xmpp *xmpp = opdata;
     app_update_secure_status(xmpp, context->username, false);
 }
 
 void otr_still_secure(void *opdata, ConnContext *context, int is_reply) {
-    printf("still secure\n");
+    char *buf = NULL;
+    asprintf(&buf, "otr: %s still secure\n", context->username);
+    XmppLog(buf);
+    free(buf);
+    
     Xmpp *xmpp = opdata;
     app_update_secure_status(xmpp, context->username, true);
 }
