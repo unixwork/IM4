@@ -11,7 +11,7 @@ DEPDIR=dep
 # dependencies
 OPENSSL_VERSION=3.3.1
 LIBSTROPHE_VERSION=0.13.1
-LIBGPGERR_VERSION=1.49
+LIBGPGERR_VERSION=1.50
 LIBGCRYPT_VERSION=1.11.0
 LIBOTR_VERSION=4.1.1
 # dependency downloads
@@ -23,7 +23,7 @@ DL_LIBOTR=https://otr.cypherpunks.ca/libotr-$LIBOTR_VERSION.tar.gz
 
 SHA256_OPENSSL="777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e  openssl-3.3.1.tar.gz"
 SHA256_LIBSTROPHE="7768724d3d5f5f7b774fae4390be8d5ec00db71205e72477c3977bd90e1120cf  libstrophe-0.13.1.tar.bz2"
-SHA256_LIBGPGERR="8b79d54639dbf4abc08b5406fb2f37e669a2dec091dd024fb87dd367131c63a9  libgpg-error-1.49.tar.bz2"
+SHA256_LIBGPGERR="69405349e0a633e444a28c5b35ce8f14484684518a508dc48a089992fe93e20a  libgpg-error-1.50.tar.bz2"
 SHA256_LIBGCRYPT="09120c9867ce7f2081d6aaa1775386b98c2f2f246135761aae47d81f58685b9c  libgcrypt-1.11.0.tar.bz2"
 SHA256_LIBOTR="8b3b182424251067a952fb4e6c7b95a21e644fbb27fbd5f8af2b2ed87ca419f5  libotr-4.1.1.tar.gz"
 
@@ -154,6 +154,10 @@ install_name_tool -id @rpath/libstrophe.0.dylib $INSTALL_DIR/lib/libstrophe.0.dy
 
 # build libgpg-error
 cd $DIR_LIBGPGERR
+
+# libgpg-error 1.50 build is broken
+patch < ../../libgpg-error.patch
+
 
 ./configure --prefix=$INSTALL_DIR
 if [ -$? -ne 0 ]; then
