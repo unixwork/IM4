@@ -34,6 +34,11 @@
 
 #import "app.h"
 
+#import <sys/stat.h>
+#import <unistd.h>
+#import <errno.h>
+#import <time.h>
+
 static bool nsstreq(NSString *s1, NSString *s2) {
     if(s1 == s2) {
         return true; // equal objects or both nil
@@ -119,13 +124,30 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
-    isDir = false;
-    if (![fileManager fileExistsAtPath:ssl_file isDirectory:&isDir]) {
+    bool importCerts = false;
+    struct stat s;
+    if(stat([ssl_file UTF8String], &s)) {
+        if(errno == ENOENT) {
+            importCerts = true;
+        }
+    } else {
+        if(S_ISREG(s.st_mode)) {
+            time_t current = time(NULL);
+            time_t mt = s.st_mtime;
+            if(current > mt && current - mt > 604800) {
+                XmppLog("IM4: reimport certs");
+                importCerts = true;
+            }
+        }
+    }
+    
+    if(importCerts) {
         char *cmd = NULL;
         asprintf(&cmd, "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain /Library/Keychains/System.keychain ~/Library/Keychains/login.keychain-db > \"%s\"", [ssl_file UTF8String]);
         system(cmd);
         free(cmd);
     }
+    
     setenv("SSL_CERT_FILE", [ssl_file UTF8String], 0);
     
     
