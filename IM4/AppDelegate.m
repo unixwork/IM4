@@ -455,7 +455,6 @@ static const char * presencenum2str(int num) {
 
 - (IBAction) statusSelected:(id)sender {
     const char *presenceStatus = NULL;
-    int presencePriority = -1;
     
     // get values from the presence status dialog
     NSString *statusMsg = _statusMessageTextField.stringValue;
