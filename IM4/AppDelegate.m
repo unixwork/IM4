@@ -503,6 +503,7 @@ static const char * presencenum2str(int num) {
 - (IBAction) loginOK:(id)sender {
     NSString *password = _loginDialogPassword.stringValue;
     if(password && password.length > 0) {
+        free(_xmpp->settings.password);
         _xmpp->settings.password = strdup([password UTF8String]);
         [self startXmpp];
         _passwordDialog.isVisible = NO;
