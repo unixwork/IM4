@@ -128,6 +128,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     struct stat s;
     if(stat([ssl_file UTF8String], &s)) {
         if(errno == ENOENT) {
+            XmppLog("IM4: import certs");
             importCerts = true;
         }
     } else {
@@ -144,6 +145,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     if(importCerts) {
         char *cmd = NULL;
         asprintf(&cmd, "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain /Library/Keychains/System.keychain ~/Library/Keychains/login.keychain-db > \"%s\"", [ssl_file UTF8String]);
+        XmppLog(cmd);
         system(cmd);
         free(cmd);
     }
