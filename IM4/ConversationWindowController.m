@@ -252,6 +252,12 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     
     _secureButton.title = secure ? @"secure" : @"insecure";
     
+    if(secure) {
+        // enabling otr will make this session permanently enabled
+        // another otr connection should't disable the otr session
+        _conversation->sessionselected = true;
+    }
+    
     size_t nsessions = _conversation->nsessions;
     if(secure && resource != nil && nsessions > 1) {
         const char *res = resource.UTF8String;
