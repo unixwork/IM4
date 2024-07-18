@@ -319,6 +319,7 @@ static const char * presencenum2str(int num) {
     // add new session, if required
     XmppSession *sn = XmppGetSession(_xmpp, from);
     XmppConversation *conv = sn->conversation;
+    NSString *logMsg = nil;
     if(!conv->sessionselected) {
         // active session not manually selected, select this session as active
         // and all other sessions as inactive
@@ -333,6 +334,9 @@ static const char * presencenum2str(int num) {
         // ps is nil when status is unavailable
         if(ps) {
             sn->enabled = TRUE; // enable the current session
+            if(conv->nsessions > 1) {
+                logMsg = [[NSString alloc] initWithFormat:@"Session %s selected\n", sn->resource];
+            }
         } else {
             sn->enabled = FALSE;
             XmppSessionRemoveAndDestroy(sn);
@@ -342,6 +346,9 @@ static const char * presencenum2str(int num) {
     ConversationWindowController *conversation = [_conversations objectForKey:xid];
     if(conversation != nil) {
         [conversation updateStatus];
+        if(logMsg) {
+            [conversation addStringToLog:logMsg];
+        }
     }
 }
 
