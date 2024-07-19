@@ -292,6 +292,11 @@ static const char * presencenum2str(int num) {
     NSString *sh = show ? [[NSString alloc]initWithUTF8String:show] : nil;
     PresenceStatus *ps = [[PresenceStatus alloc]init:t status:s show:sh];
     
+    // status msg
+    bool new_session = NO;
+    bool session_disconnected = NO;
+    bool switch_to_session = NO;
+    
     // _presence contains two nested NSMutableDictionary objects
     // The first dictionary from _presence uses the xid without the resource part as key
     // and contains a dictionary with the resource part as key and the status string as value.
@@ -301,12 +306,18 @@ static const char * presencenum2str(int num) {
             [xid_status.statusMap removeObjectForKey:resource];
         }
         ps = nil;
+        session_disconnected = YES;
     } else {
         // if _presence doesn't contain an object for the xid, create a
         // mutable dictionary and add it
         if(xid_status == nil) {
             xid_status = [[Presence alloc]init];
             [_presence setObject:xid_status forKey:xid];
+            new_session = YES;
+        } else {
+            if([xid_status presenceStatus:resource] == nil) {
+                new_session = YES;
+            }
         }
         // set the status for the resource
         [xid_status updateStatusFrom:resource status:ps];
@@ -319,7 +330,6 @@ static const char * presencenum2str(int num) {
     // add new session, if required
     XmppSession *sn = XmppGetSession(_xmpp, from);
     XmppConversation *conv = sn->conversation;
-    NSString *logMsg = nil;
     if(!conv->sessionselected) {
         // active session not manually selected, select this session as active
         // and all other sessions as inactive
@@ -335,7 +345,7 @@ static const char * presencenum2str(int num) {
         if(ps) {
             sn->enabled = TRUE; // enable the current session
             if(conv->nsessions > 1) {
-                logMsg = [[NSString alloc] initWithFormat:@"Session %s selected\n", sn->resource];
+                switch_to_session = YES;
             }
         } else {
             sn->enabled = FALSE;
@@ -346,6 +356,18 @@ static const char * presencenum2str(int num) {
     ConversationWindowController *conversation = [_conversations objectForKey:xid];
     if(conversation != nil) {
         [conversation updateStatus];
+        
+        // add presence msg to the chat log
+        
+        NSString *logMsg = nil;
+        if(switch_to_session) {
+            logMsg = [[NSString alloc] initWithFormat:@"xmpp: Session %@ selected\n", resource];
+        } else if(new_session) {
+            logMsg = [[NSString alloc] initWithFormat:@"xmpp: %@%@ connected\n", xid, resource];
+        } else if(session_disconnected) {
+            logMsg = [[NSString alloc] initWithFormat:@"xmpp: %@%@ disconnected\n", xid, resource];
+        }
+        
         if(logMsg) {
             [conversation addStringToLog:logMsg];
         }
