@@ -134,6 +134,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [_messageInput setDelegate:self];
     
     [self updateStatus];
+    
+    if(_conversation->nsessions > 1) {
+        [self addStringToLog:@"xmpp: multiple sessions available\n"];
+    }
 }
 
 - (void)updateStatus {
