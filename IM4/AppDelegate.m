@@ -330,7 +330,17 @@ static const char * presencenum2str(int num) {
     // add new session, if required
     XmppSession *sn = XmppGetSession(_xmpp, from);
     XmppConversation *conv = sn->conversation;
-    if(!conv->sessionselected) {
+    
+    bool manually_selected = FALSE;
+    for(int i=0;i<conv->nsessions;i++) {
+        if(conv->sessions[i]->manually_selected) {
+            manually_selected = TRUE;
+            break;
+        }
+    }
+    
+    
+    if(manually_selected) {
         // active session not manually selected, select this session as active
         // and all other sessions as inactive
         int snindex= -1;

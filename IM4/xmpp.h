@@ -93,6 +93,7 @@ struct XmppSession {
     bool online;
     bool otr;
     bool enabled;
+    bool manually_selected;
 };
 
 /*

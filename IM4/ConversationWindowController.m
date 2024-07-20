@@ -211,11 +211,13 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     } else {
         sender.state = NSControlStateValueOn;
     }
+    bool enabled = sender.state;
     
     for(int i=0;i<_conversation->nsessions;i++) {
         NSString *itemText = [NSString stringWithFormat:@"%@%s", _xid, _conversation->sessions[i]->resource];
         if([itemText isEqualTo:sender.title]) {
-            _conversation->sessions[i]->enabled = sender.state;
+            _conversation->sessions[i]->enabled = enabled;
+            _conversation->sessions[i]->manually_selected = enabled;
             if(_secure && _conversation->sessions[i]->enabled && !_conversation->sessions[i]->otr) {
                 // new session selected, that doesn't has an otr session
                 // automatically create a new otr session
@@ -225,8 +227,14 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             NSMenuItem *item = [sender.menu itemAtIndex:i];
             item.state = NSControlStateValueOff;
             _conversation->sessions[i]->enabled = NO;
+            _conversation->sessions[i]->manually_selected = NO;
         }
     }
+    
+    if(enabled) {
+        _conversation->sessionselected = YES;
+    }
+    
     
     return YES;
 }
