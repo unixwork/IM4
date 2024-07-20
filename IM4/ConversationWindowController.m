@@ -535,7 +535,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         _composing = FALSE;
     } else {
         // inform the user that no message was sent
-        [self addStringToLog:@"no active sessions: no message sent\n"];
+        [self addStringToLog:@"xmpp: no active sessions: no message sent\n"];
     }
     [_messageInput setString:@""];
 }
