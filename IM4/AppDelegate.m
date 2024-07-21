@@ -340,7 +340,7 @@ static const char * presencenum2str(int num) {
     }
     
     
-    if(manually_selected) {
+    if(!manually_selected) {
         // active session not manually selected, select this session as active
         // and all other sessions as inactive
         int snindex= -1;
