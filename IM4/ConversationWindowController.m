@@ -268,6 +268,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         // enabling otr will make this session permanently enabled
         // another otr connection should't disable the otr session
         _conversation->sessionselected = true;
+        XmppSession *sn = XmppGetSession(_xmpp, resource.UTF8String);
+        if(sn) {
+            sn->manually_selected = true;
+        }
     }
     
     size_t nsessions = _conversation->nsessions;
