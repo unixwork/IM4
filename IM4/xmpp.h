@@ -126,11 +126,6 @@ struct XmppConversation {
     size_t snalloc;
     
     /*
-     * the active sessions was manually selected
-     */
-    bool sessionselected;
-    
-    /*
      * custom user data 1
      */
     void *userdata1;
