@@ -15,6 +15,7 @@
 		ED3156E92A861FB200D9ADB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3156E82A861FB200D9ADB3 /* main.m */; };
 		ED403C7D2A8812B700E8CDDB /* app.m in Sources */ = {isa = PBXBuildFile; fileRef = ED403C7C2A8812B700E8CDDB /* app.m */; };
 		ED5B9EEA2C1B5EA40024EA95 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B9EE92C1B5EA40024EA95 /* Contact.swift */; };
+		ED66396A2C8A17FC006DCAD3 /* libz.1.3.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6639682C8A17FC006DCAD3 /* libz.1.3.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		ED6957392B5BD61A00D65664 /* UITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6957382B5BD61A00D65664 /* UITemplate.swift */; };
 		ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B52A8623830016D4FA /* OutlineViewController.m */; };
 		ED6D36B92A862D340016D4FA /* xmpp.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6D36B82A862D340016D4FA /* xmpp.c */; };
@@ -55,6 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				ED66396A2C8A17FC006DCAD3 /* libz.1.3.1.dylib in CopyFiles */,
 				EDC98B772B531DE700928CF4 /* libssl.3.dylib in CopyFiles */,
 				EDC98B782B531DE700928CF4 /* libgcrypt.20.dylib in CopyFiles */,
 				EDC98B792B531DE700928CF4 /* libgpg-error.0.dylib in CopyFiles */,
@@ -80,6 +82,8 @@
 		ED403C7C2A8812B700E8CDDB /* app.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = app.m; sourceTree = "<group>"; };
 		ED403C7E2A8812C400E8CDDB /* app.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
 		ED5B9EE92C1B5EA40024EA95 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		ED6639672C8A17FC006DCAD3 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = dep/install/lib/libz.a; sourceTree = "<group>"; };
+		ED6639682C8A17FC006DCAD3 /* libz.1.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.3.1.dylib; path = dep/install/lib/libz.1.3.1.dylib; sourceTree = "<group>"; };
 		ED6957372B5BD61900D65664 /* IM4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IM4-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED6957382B5BD61A00D65664 /* UITemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITemplate.swift; sourceTree = "<group>"; };
 		ED6D36B42A8623830016D4FA /* OutlineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutlineViewController.h; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 		ED3156D42A861FB100D9ADB3 = {
 			isa = PBXGroup;
 			children = (
+				ED6639682C8A17FC006DCAD3 /* libz.1.3.1.dylib */,
+				ED6639672C8A17FC006DCAD3 /* libz.a */,
 				EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */,
 				EDC98B722B531DE700928CF4 /* libgcrypt.20.dylib */,
 				EDC98B732B531DE700928CF4 /* libgpg-error.0.dylib */,
@@ -414,7 +420,10 @@
 					"$(inherited)",
 					"@executable_path",
 				);
-				LIBRARY_SEARCH_PATHS = dep/install/lib;
+				LIBRARY_SEARCH_PATHS = (
+					dep/install/lib,
+					"$(PROJECT_DIR)/dep/install/lib",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-lotr",
@@ -453,7 +462,10 @@
 					"$(inherited)",
 					"@executable_path",
 				);
-				LIBRARY_SEARCH_PATHS = dep/install/lib;
+				LIBRARY_SEARCH_PATHS = (
+					dep/install/lib,
+					"$(PROJECT_DIR)/dep/install/lib",
+				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-lotr",
