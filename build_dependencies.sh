@@ -1,5 +1,9 @@
 #!/bin/sh
 
+SAVED_CFLAGS=$CFLAGS
+SAVED_LDFLAGS=$LDFLAGS
+
+
 PROJECT_ROOT=$(pwd)
 
 # IM4 xcode project file
@@ -138,8 +142,8 @@ install_name_tool -change $INSTALL_DIR/lib/libcrypto.3.dylib @rpath/libcrypto.3.
 
 
 # build zlib
-export CFLAGS=-I$INSTALL_DIR/include
-export LDFLAGS=-L$INSTALL_DIR/lib
+export CFLAGS="$SAVED_CFLAGS -I$INSTALL_DIR/include"
+export LDFLAGS="$SAVED_CFLAGS -L$INSTALL_DIR/lib"
 export PATH=$PATH:$INSTALL_DIR/bin
 export zlib_CFLAGS=$CFLAGS
 export zlib_LIBS="$LDFLAGS -lz"
@@ -167,8 +171,8 @@ install_name_tool -id @rpath/libz.$ZLIB_VERSION.dylib $INSTALL_DIR/lib/libz.$ZLI
 
 
 # build libstrophe
-export CFLAGS=-I$INSTALL_DIR/include
-export LDFLAGS=-L$INSTALL_DIR/lib
+export CFLAGS="$SAVED_CFLAGS -I$INSTALL_DIR/include"
+export LDFLAGS="$SAVED_LDFLAGS -L$INSTALL_DIR/lib"
 export PATH=$PATH:$INSTALL_DIR/bin
 
 cd $DIR_LIBSTROPHE
@@ -222,7 +226,7 @@ install_name_tool -id @rpath/libgpg-error.0.dylib $INSTALL_DIR/lib/libgpg-error.
 # build libgcrypt
 cd $DIR_LIBGCRYPT
 
-./configure --prefix=$INSTALL_DIR
+./configure --prefix=$INSTALL_DIR --disable-asm
 if [ -$? -ne 0 ]; then
 	echo "libgcrypt configure failed"
 	exit 2
@@ -268,7 +272,7 @@ __EOF__
 chmod +x install/bin/libgcrypt-config
 
 cd $DIR_LIBOTR
-
+export CFLAGS="$SAVED_CFLAGS -I$INSTALL_DIR/include"
 ./configure --prefix=$INSTALL_DIR
 if [ -$? -ne 0 ]; then
 	echo "libotr configure failed"
