@@ -603,4 +603,8 @@ static const char * presencenum2str(int num) {
     }
 }
 
+- (IBAction)add:(id)sender {
+    printf("AppDelegate add\n");
+}
+
 @end

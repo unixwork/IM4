@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -96,6 +96,12 @@
                             <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
                                 <connections>
                                     <action selector="newDocument:" target="-1" id="4Si-XN-c54"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Add Contact" id="2An-u8-5Id">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="add:" target="-1" id="yai-Yf-33F"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
@@ -745,7 +751,7 @@
                         <rect key="frame" x="183" y="329" width="87" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Offline" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="mo3-qS-ikp" id="ngc-98-N1r">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" autoenablesItems="NO" id="gyq-QF-MZ5">
                                 <items>
                                     <menuItem title="Offline" id="mo3-qS-ikp"/>
@@ -843,7 +849,7 @@ Gw
                             <action selector="loginCancel:" target="Voe-Tx-rLC" id="pTb-WW-dko"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
                         <rect key="frame" x="22" y="105" width="301" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Login" id="BhT-jm-J9p">
                             <font key="font" metaFont="system"/>
@@ -851,7 +857,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
+                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
                         <rect key="frame" x="24" y="64" width="297" height="21"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
                             <font key="font" metaFont="system"/>
@@ -887,7 +893,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
                         <rect key="frame" x="22" y="133" width="172" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Open conversation with XID" id="J9B-Du-7Mv">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -895,7 +901,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
                         <rect key="frame" x="24" y="92" width="295" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
                             <font key="font" metaFont="system"/>
@@ -935,7 +941,7 @@ Gw
                             <action selector="openConversationCancel:" target="Voe-Tx-rLC" id="yry-jT-4ov"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
                         <rect key="frame" x="22" y="58" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
                             <font key="font" metaFont="system"/>
@@ -1001,7 +1007,7 @@ Gw
                             <action selector="statusDialogCancel:" target="Voe-Tx-rLC" id="DJl-C5-ntr"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
                         <rect key="frame" x="20" y="98" width="101" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Status Message" id="193-ZD-FRe">
                             <font key="font" metaFont="system"/>
@@ -1009,7 +1015,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
                         <rect key="frame" x="22" y="69" width="298" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
                             <font key="font" metaFont="system"/>

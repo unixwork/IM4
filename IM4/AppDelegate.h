@@ -118,6 +118,8 @@
 
 - (IBAction)newDocument:(id)sender;
 
+- (IBAction)add:(id)sender;
+
 @end
 
 enum StatusTag {
