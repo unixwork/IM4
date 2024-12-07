@@ -15,6 +15,9 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="addContactDialog" destination="fgm-VB-BH0" id="Obb-ll-0yS"/>
+                <outlet property="addContactErrorField" destination="IU3-2b-ndN" id="O6c-lc-ELA"/>
+                <outlet property="addContactXidTextField" destination="Izb-rT-wXG" id="mmb-b4-kIJ"/>
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
                 <outlet property="loginDialogPassword" destination="TQT-9G-EOx" id="6er-dK-DkX"/>
@@ -925,8 +928,16 @@ DQ
                             <action selector="openConversationOK:" target="Voe-Tx-rLC" id="RGW-hG-rpH"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7Y-Jh-gJI">
-                        <rect key="frame" x="176" y="3" width="84" height="32"/>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
+                        <rect key="frame" x="22" y="58" width="37" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f7Y-Jh-gJI">
+                        <rect key="frame" x="174" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AGy-J3-sVF">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -941,14 +952,6 @@ Gw
                             <action selector="openConversationCancel:" target="Voe-Tx-rLC" id="yry-jT-4ov"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
-                        <rect key="frame" x="22" y="58" width="37" height="16"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="hTa-6Q-oDD" firstAttribute="leading" secondItem="oqL-X4-VpU" secondAttribute="leading" constant="24" id="4Ek-Vr-Fb9"/>
@@ -1040,6 +1043,88 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="576" y="326"/>
+        </window>
+        <window title="Add Contact" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="fgm-VB-BH0">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="344" y="373" width="404" height="191"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
+            <view key="contentView" id="1CA-qG-u47">
+                <rect key="frame" x="0.0" y="0.0" width="404" height="191"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="508-qf-YPH">
+                        <rect key="frame" x="22" y="151" width="170" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Add XID to the Contact List" id="ujW-ux-UQL">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-rT-wXG">
+                        <rect key="frame" x="24" y="110" width="356" height="21"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="rpF-cQ-zvZ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RHL-WI-9Zi">
+                        <rect key="frame" x="317" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pbp-Hf-L1m">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="CTK-jA-Ftr"/>
+                        </constraints>
+                        <connections>
+                            <action selector="addContactOK:" target="Voe-Tx-rLC" id="STI-dV-b4Y"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="db6-RY-c5P">
+                        <rect key="frame" x="237" y="3" width="84" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2y-Ad-9hU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="uUY-Lp-25a"/>
+                        </constraints>
+                        <connections>
+                            <action selector="addContactCancel:" target="Voe-Tx-rLC" id="rCu-V9-YPs"/>
+                        </connections>
+                    </button>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IU3-2b-ndN">
+                        <rect key="frame" x="22" y="76" width="37" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="kQ7-Jd-FRV">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="508-qf-YPH" firstAttribute="leading" secondItem="1CA-qG-u47" secondAttribute="leading" constant="24" id="0K2-KP-PJB"/>
+                    <constraint firstAttribute="trailing" secondItem="RHL-WI-9Zi" secondAttribute="trailing" constant="10" id="0WH-0H-bfN"/>
+                    <constraint firstItem="508-qf-YPH" firstAttribute="top" secondItem="1CA-qG-u47" secondAttribute="top" constant="24" id="7Rc-2f-cq9"/>
+                    <constraint firstItem="Izb-rT-wXG" firstAttribute="top" secondItem="508-qf-YPH" secondAttribute="bottom" constant="20" id="A2M-qG-SqF"/>
+                    <constraint firstItem="Izb-rT-wXG" firstAttribute="leading" secondItem="1CA-qG-u47" secondAttribute="leading" constant="24" id="Atj-vz-js6"/>
+                    <constraint firstAttribute="bottom" secondItem="db6-RY-c5P" secondAttribute="bottom" constant="10" id="D1c-aE-V39"/>
+                    <constraint firstAttribute="bottom" secondItem="RHL-WI-9Zi" secondAttribute="bottom" constant="10" id="MXZ-a2-VCy"/>
+                    <constraint firstItem="RHL-WI-9Zi" firstAttribute="leading" secondItem="db6-RY-c5P" secondAttribute="trailing" constant="10" id="W6V-CV-58C"/>
+                    <constraint firstItem="IU3-2b-ndN" firstAttribute="leading" secondItem="1CA-qG-u47" secondAttribute="leading" constant="24" id="a8i-ig-QOt"/>
+                    <constraint firstAttribute="trailing" secondItem="Izb-rT-wXG" secondAttribute="trailing" constant="24" id="n6H-Uo-ood"/>
+                    <constraint firstItem="IU3-2b-ndN" firstAttribute="top" secondItem="Izb-rT-wXG" secondAttribute="bottom" constant="18" id="yqd-vZ-4pv"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="79" y="772.5"/>
         </window>
     </objects>
 </document>

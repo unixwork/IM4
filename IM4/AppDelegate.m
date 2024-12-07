@@ -71,6 +71,7 @@ static const char * presencenum2str(int num) {
 @property (strong) IBOutlet NSWindow *passwordDialog;
 @property (strong) IBOutlet NSWindow *openConversationDialog;
 @property (strong) IBOutlet NSWindow *statusMessageDialog;
+@property (strong) IBOutlet NSWindow *addContactDialog;
 @end
 
 @implementation AppDelegate
@@ -577,6 +578,14 @@ static const char * presencenum2str(int num) {
     _openConversationDialog.isVisible = NO;
 }
 
+- (IBAction) addContactCancel:(id)sender {
+    _addContactDialog.isVisible = NO;
+}
+
+- (IBAction) addContactOK:(id)sender {
+    
+}
+
 - (IBAction) statusDialogCancel:(id)sender {
     _statusMessageDialog.isVisible = NO;
 }
@@ -604,7 +613,9 @@ static const char * presencenum2str(int num) {
 }
 
 - (IBAction)add:(id)sender {
-    printf("AppDelegate add\n");
+    _addContactXidTextField.stringValue = @"";
+    _addContactErrorField.stringValue = @"";
+    _addContactDialog.isVisible = YES;
 }
 
 @end

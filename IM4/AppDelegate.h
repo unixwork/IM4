@@ -62,6 +62,9 @@
 @property (strong) IBOutlet NSTextField *openConversationXidTextField;
 @property (strong) IBOutlet NSTextField *openConversationErrorField;
 
+@property (strong) IBOutlet NSTextField *addContactXidTextField;
+@property (strong) IBOutlet NSTextField *addContactErrorField;
+
 @property (strong) IBOutlet NSTextField *statusMessageTextField;
 
 @property (copy) NSString *originalSetStatusItemLabel;
@@ -112,6 +115,9 @@
 
 - (IBAction) openConversationCancel:(id)sender;
 - (IBAction) openConversationOK:(id)sender;
+
+- (IBAction) addContactCancel:(id)sender;
+- (IBAction) addContactOK:(id)sender;
 
 - (IBAction) statusDialogCancel:(id)sender;
 - (IBAction) statusDialogOK:(id)sender;
