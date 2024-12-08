@@ -761,6 +761,54 @@ void XmppPresence(Xmpp *xmpp, const char *show, const char *status, int priority
     XmppCall(xmpp, xmpp_send_presence, presence);
 }
 
+typedef struct {
+    char *xid;
+    char *name;
+} xmpp_subscription_msg;
+
+static void xmpp_add_contact(Xmpp *xmpp, void *userdata) {
+    xmpp_subscription_msg *msg = userdata;
+    
+    // add XID to roster
+    char idbuf[16];
+    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    
+    xmpp_stanza_t *iq = xmpp_iq_new(xmpp->ctx, "set", idbuf);
+    xmpp_stanza_t *query = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(query, "query");
+    xmpp_stanza_set_ns(query, XMPP_NS_ROSTER);
+    xmpp_stanza_add_child(iq, query);
+    
+    xmpp_stanza_t *item = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(item, "item");
+    xmpp_stanza_set_attribute(item, "jid", msg->xid);
+    if(msg->name) {
+        xmpp_stanza_set_attribute(item, "name", msg->name);
+    }
+    xmpp_stanza_add_child(query, item);
+    
+    xmpp_send(xmpp->connection, iq);
+    xmpp_stanza_release(iq);
+    
+    // subscripte
+    xmpp_stanza_t *presence = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(presence, "presence");
+    xmpp_stanza_set_type(presence, "subscribe");
+    xmpp_stanza_set_attribute(presence, "to", msg->xid);
+    
+    xmpp_send(xmpp->connection, presence);
+    xmpp_stanza_release(presence);
+    
+    free(msg->xid);
+    free(msg);
+}
+
+void XmppAddContact(Xmpp *xmpp, const char *xid) {
+    xmpp_subscription_msg *msg = malloc(sizeof(xmpp_subscription_msg));
+    msg->xid = strdup(xid);
+    msg->name = NULL;
+    XmppCall(xmpp, xmpp_add_contact, msg);
+}
 
 static void init_xmpp_otr(Xmpp *xmpp, void *userdata) {
     start_otr(xmpp, userdata);

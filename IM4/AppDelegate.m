@@ -583,7 +583,24 @@ static const char * presencenum2str(int num) {
 }
 
 - (IBAction) addContactOK:(id)sender {
+    const char *recipient = [_addContactXidTextField.stringValue UTF8String];
+    int s = -1;
+    int c = 0;
+    size_t len = strlen(recipient);
+    for(int i=0;i<len;i++) {
+        if(recipient[i] == '@') {
+            s = i;
+            c++;
+        }
+    }
+    if(s <= 0 || s+1 == len || c != 1) {
+        _addContactErrorField.stringValue = @"invalid XID";
+        return;
+    }
     
+    _addContactDialog.isVisible = NO;
+    
+    XmppAddContact(_xmpp, recipient);
 }
 
 - (IBAction) statusDialogCancel:(id)sender {
