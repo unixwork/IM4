@@ -82,6 +82,9 @@
         }
         
         Contact *contact = [[Contact alloc] initContact:name xid:xid];
+        if(x->subscription) {
+            contact.subscription = [[NSString alloc] initWithCString:x->subscription encoding:NSUTF8StringEncoding];
+        }
         Presence *ps = [presence objectForKey:xid];
         if(ps != nil) {
             PresenceStatus *presenceStatus = [ps getRelevantPresenceStatus];
@@ -222,6 +225,15 @@
     return NO;
 }
 
+- (NSString *) outlineView:(NSOutlineView *) outlineView
+            toolTipForCell:(NSCell *) cell
+                      rect:(NSRectPointer) rect
+               tableColumn:(NSTableColumn *) tableColumn
+                      item:(id) item
+             mouseLocation:(NSPoint) mouseLocation {
+    Contact *c = item;
+    return [c tooltip];
+}
 
 // NSOutlineViewDataSource implementation
 

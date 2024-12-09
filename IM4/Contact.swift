@@ -13,6 +13,7 @@ import Cocoa
     @objc var presence: PresenceStatus?
     @objc var unread: Int
     @objc var contacts: NSMutableArray?
+    @objc var subscription: String?
     
     @objc(initContact:xid:) init(name: String, xid: String?) {
         self.name = name
@@ -61,5 +62,18 @@ import Cocoa
                 return String(format: "%@ %@%@", statusIcon, name, unreadNotification)
             }
         }
+    }
+    
+    @objc func tooltip() -> String {
+        var x = ""
+        var s = ""
+        if let xid = xid {
+            x = String(format: "%@ ", xid)
+        }
+        if let subscription = subscription {
+            s = String(format: "subscription: %@", subscription)
+        }
+        
+        return String(format: "%@%@", x, s)
     }
 }
