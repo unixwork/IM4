@@ -376,7 +376,11 @@ static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata)
         status = xmpp_stanza_get_text(status_elm);
     }
     
-    app_handle_presence(xmpp, from, type, show, status);
+    if(type && !strcmp(type, "subscribe")) {
+        // TODO: implement subscribe message
+    } else {
+        app_handle_presence(xmpp, from, type, show, status);
+    }
     
     free(show);
     free(status);

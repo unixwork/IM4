@@ -157,7 +157,7 @@
                 if(unread >= 0) {
                     c.unread = unread;
                 }
-                if(updateStatus && presence != nil) {
+                if(updateStatus) {
                     c.presence = presence;
                 }
                 update = true;

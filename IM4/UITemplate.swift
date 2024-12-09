@@ -73,6 +73,10 @@ import Cocoa
         dict["xmpp.presence.xa"] = value
     }
     
+    @objc func xmppUnsubscribed() -> String {
+        return dict["xmpp.presenceicon.unsubscribed"] as? String ?? "🚫";
+    }
+    
     @objc func xmppPresenceIconOnline() -> String {
         return dict["xmpp.presenceicon.online"] as? String ?? "🟢";
     }

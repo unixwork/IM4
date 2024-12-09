@@ -43,7 +43,16 @@ import Cocoa
             if let ps = presence {
                 statusIcon = ps.presenceShowIconUIString(template: tpl)
             } else {
-                statusIcon = tpl.xmppPresenceIconOffline()
+                if let sub = subscription {
+                    if sub == "none" || sub == "from" {
+                        statusIcon = tpl.xmppUnsubscribed()
+                    } else {
+                        statusIcon = tpl.xmppPresenceIconOffline()
+                    }
+                } else {
+                    statusIcon = tpl.xmppPresenceIconOffline()
+                }
+                
             }
             
             var status: String?
