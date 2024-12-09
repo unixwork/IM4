@@ -378,6 +378,7 @@ static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata)
     
     if(type && !strcmp(type, "subscribe")) {
         // TODO: implement subscribe message
+        printf("subscribe msg\n");
     } else {
         app_handle_presence(xmpp, from, type, show, status);
     }
@@ -805,6 +806,9 @@ static void xmpp_add_contact(Xmpp *xmpp, void *userdata) {
     
     free(msg->xid);
     free(msg);
+    
+    // refresh contact list
+    XmppQueryContacts(xmpp);
 }
 
 void XmppAddContact(Xmpp *xmpp, const char *xid) {
