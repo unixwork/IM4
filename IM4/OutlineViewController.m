@@ -194,6 +194,21 @@
     }
 }
 
+- (IBAction) removeMenuItem:(id)sender {
+    
+}
+
+- (IBAction) authorizeMenuItem:(id)sender {
+    NSInteger row = _outlineView.clickedRow;
+    Contact *c = [_outlineView itemAtRow:row];
+    if(c.xid == nil) {
+        return;
+    }
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app authorizeSubscription:c.xid];
+}
+
 - (IBAction) cellAction:(id)sender {
     //printf("cell action\n");
 }

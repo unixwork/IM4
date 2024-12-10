@@ -104,6 +104,8 @@
 
 - (void) startXmpp;
 
+- (void) authorizeSubscription:(NSString*)xid;
+
 - (IBAction) menuPreferences:(id)sender;
 - (IBAction) menuDebugLog:(id)sender;
 - (IBAction) menuContactList:(id)sender;

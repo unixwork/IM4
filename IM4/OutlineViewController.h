@@ -65,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) cellAction:(id)sender;
 
 - (IBAction) renameMenuItem:(id)sender;
+- (IBAction) removeMenuItem:(id)sender;
+- (IBAction) authorizeMenuItem:(id)sender;
 
 @end
 

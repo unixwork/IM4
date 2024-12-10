@@ -241,6 +241,8 @@ void XmppMessage(Xmpp *xmpp, const char *to, const char *message, bool encrypt);
 
 void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state);
 
+void XmppAuthorize(Xmpp *xmpp, const char *xid);
+
 void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 
 void XmppStopOtr(Xmpp *xmpp, const char *recipient);

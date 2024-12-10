@@ -481,6 +481,10 @@ static const char * presencenum2str(int num) {
     }
 }
 
+- (void) authorizeSubscription:(NSString*)xid {
+    XmppAuthorize(_xmpp, [xid UTF8String]);
+}
+
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
 }

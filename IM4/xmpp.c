@@ -663,6 +663,34 @@ void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state) {
     XmppCall(xmpp, send_xmpp_state_msg, msg);
 }
 
+typedef struct {
+    char *xid;
+} xmpp_authorize_msg;
+
+static void send_xmpp_authorize_msg(Xmpp *xmpp, void *userdata) {
+    xmpp_authorize_msg *msg = userdata;
+    
+    xmpp_stanza_t *response = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(response, "presence");
+    xmpp_stanza_set_type(response, "subscribed");
+    xmpp_stanza_set_attribute(response, "to", msg->xid);
+
+    xmpp_send(xmpp->connection, response);
+    xmpp_stanza_release(response);
+    
+    // refresh contact list
+    XmppQueryContacts(xmpp);
+    
+    free(msg->xid);
+    free(msg);
+}
+
+void XmppAuthorize(Xmpp *xmpp, const char *xid) {
+    xmpp_authorize_msg *msg = malloc(sizeof(xmpp_authorize_msg));
+    msg->xid = strdup(xid);
+    XmppCall(xmpp, send_xmpp_authorize_msg, msg);
+}
+
 void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
     char idbuf[16];
     snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
