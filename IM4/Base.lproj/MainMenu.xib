@@ -18,6 +18,8 @@
                 <outlet property="addContactDialog" destination="fgm-VB-BH0" id="Obb-ll-0yS"/>
                 <outlet property="addContactErrorField" destination="IU3-2b-ndN" id="O6c-lc-ELA"/>
                 <outlet property="addContactXidTextField" destination="Izb-rT-wXG" id="mmb-b4-kIJ"/>
+                <outlet property="authorizeDialog" destination="IK7-M1-jwb" id="5id-Ve-KMa"/>
+                <outlet property="authorizeLabel" destination="KBq-4A-qO4" id="cDx-QH-4Rn"/>
                 <outlet property="contactList" destination="HwH-VR-Obo" id="79R-DY-vdu"/>
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
                 <outlet property="loginDialogPassword" destination="TQT-9G-EOx" id="6er-dK-DkX"/>
@@ -1137,6 +1139,73 @@ Gw
                 </constraints>
             </view>
             <point key="canvasLocation" x="79" y="772.5"/>
+        </window>
+        <window title="Authorize Subscription" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IK7-M1-jwb">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="344" y="373" width="387" height="111"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
+            <view key="contentView" id="na8-Ih-O1R">
+                <rect key="frame" x="0.0" y="0.0" width="387" height="111"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KBq-4A-qO4">
+                        <rect key="frame" x="22" y="71" width="37" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="usO-Jm-0Pm">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="si3-2B-aSJ">
+                        <rect key="frame" x="292" y="3" width="92" height="32"/>
+                        <buttonCell key="cell" type="push" title="Authorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MkW-rz-SG5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="acceptSubscription:" target="Voe-Tx-rLC" id="chV-JM-d2P"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zap-P4-hSR">
+                        <rect key="frame" x="231" y="3" width="65" height="32"/>
+                        <buttonCell key="cell" type="push" title="Deny" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZpU-jF-MTH">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="denySubscription:" target="Voe-Tx-rLC" id="QMH-mV-I1e"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-fI-AyD">
+                        <rect key="frame" x="159" y="3" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fM1-KE-up1">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelSubscriptionDialog:" target="Voe-Tx-rLC" id="6dZ-9n-qlT"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="si3-2B-aSJ" secondAttribute="trailing" constant="10" id="I0e-P1-86P"/>
+                    <constraint firstItem="KBq-4A-qO4" firstAttribute="top" secondItem="na8-Ih-O1R" secondAttribute="top" constant="24" id="Nwc-d5-lRe"/>
+                    <constraint firstAttribute="bottom" secondItem="si3-2B-aSJ" secondAttribute="bottom" constant="10" id="aUF-Ws-4US"/>
+                    <constraint firstAttribute="bottom" secondItem="Zap-P4-hSR" secondAttribute="bottom" constant="10" id="d7e-BH-R3W"/>
+                    <constraint firstItem="Zap-P4-hSR" firstAttribute="leading" secondItem="3qQ-fI-AyD" secondAttribute="trailing" constant="10" id="dX3-Wz-7Gs"/>
+                    <constraint firstItem="si3-2B-aSJ" firstAttribute="leading" secondItem="Zap-P4-hSR" secondAttribute="trailing" constant="10" id="eBV-2F-7P5"/>
+                    <constraint firstItem="KBq-4A-qO4" firstAttribute="leading" secondItem="na8-Ih-O1R" secondAttribute="leading" constant="24" id="jNW-90-AVT"/>
+                    <constraint firstAttribute="bottom" secondItem="3qQ-fI-AyD" secondAttribute="bottom" constant="10" id="xkl-6O-6bJ"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="70.5" y="1029.5"/>
         </window>
     </objects>
 </document>

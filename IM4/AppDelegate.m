@@ -72,6 +72,7 @@ static const char * presencenum2str(int num) {
 @property (strong) IBOutlet NSWindow *openConversationDialog;
 @property (strong) IBOutlet NSWindow *statusMessageDialog;
 @property (strong) IBOutlet NSWindow *addContactDialog;
+@property (strong) IBOutlet NSWindow *authorizeDialog;
 @end
 
 @implementation AppDelegate
@@ -637,6 +638,18 @@ static const char * presencenum2str(int num) {
     _addContactXidTextField.stringValue = @"";
     _addContactErrorField.stringValue = @"";
     _addContactDialog.isVisible = YES;
+}
+
+- (IBAction)acceptSubscription:(id)sender {
+    
+}
+
+- (IBAction)denySubscription:(id)sender {
+    
+}
+
+- (IBAction)cancelSubscriptionDialog:(id)sender {
+    
 }
 
 @end

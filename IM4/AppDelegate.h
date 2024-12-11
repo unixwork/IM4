@@ -67,6 +67,8 @@
 
 @property (strong) IBOutlet NSTextField *statusMessageTextField;
 
+@property (strong) IBOutlet NSTextField *authorizeLabel;
+
 @property (copy) NSString *originalSetStatusItemLabel;
 
 @property Boolean isOnline;
@@ -127,6 +129,11 @@
 - (IBAction)newDocument:(id)sender;
 
 - (IBAction)add:(id)sender;
+
+- (IBAction)acceptSubscription:(id)sender;
+- (IBAction)denySubscription:(id)sender;
+- (IBAction)cancelSubscriptionDialog:(id)sender;
+
 
 @end
 
