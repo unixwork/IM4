@@ -68,6 +68,7 @@
 @property (strong) IBOutlet NSTextField *statusMessageTextField;
 
 @property (strong) IBOutlet NSTextField *authorizeLabel;
+@property (strong) NSString *authorizeXid;
 
 @property (copy) NSString *originalSetStatusItemLabel;
 
@@ -89,6 +90,8 @@
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session secure:(BOOL)secure xmpp:(Xmpp*)xmpp;
 
 - (void) handlePresence:(const char*)from type:(const char*)type show:(const char*)show status:(const char*)status xmpp:(Xmpp*)xmpp;
+
+- (void) handlePresenceSubscribe:(const char*)from xmpp:(Xmpp*)xmpp;
 
 - (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state session:(XmppSession*)session;
 

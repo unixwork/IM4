@@ -157,7 +157,25 @@ void app_handle_presence(Xmpp *xmpp, const char *from, const char *type, const c
     app_call_mainthread(mt_app_handle_presence, p);
 }
 
+static void mt_app_handle_presence_sub(void *userdata) {
+    app_presence *p = userdata;
+    
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app handlePresenceSubscribe:p->from xmpp:p->xmpp];
+    
+    free(p->from);
+    free(p);
+}
 
+void app_handle_presence_subscribe(Xmpp *xmpp, const char *from) {
+    app_presence *p = malloc(sizeof(app_presence));
+    p->xmpp = xmpp;
+    p->from = strdup(from);
+    p->type = NULL;
+    p->show = NULL;
+    p->status = NULL;
+    app_call_mainthread(mt_app_handle_presence_sub, p);
+}
 
 typedef struct {
     Xmpp *xmpp;

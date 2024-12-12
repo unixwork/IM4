@@ -46,6 +46,8 @@ void app_set_status(Xmpp *xmpp, int status);
 
 void app_handle_presence(Xmpp *xmpp, const char *from, const char *type, const char *show, const char *status);
 
+void app_handle_presence_subscribe(Xmpp *xmpp, const char *from);
+
 void app_handle_new_fingerprint(Xmpp *xmpp, const char *from, const unsigned char *fingerprint, size_t fplen);
 
 void app_otr_error(Xmpp *xmpp, const char *from, uint64_t error);

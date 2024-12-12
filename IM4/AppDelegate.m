@@ -386,6 +386,13 @@ static const char * presencenum2str(int num) {
     }
 }
 
+- (void) handlePresenceSubscribe:(const char*)from xmpp:(Xmpp*)xmpp {
+    NSString *msg = [[NSString alloc] initWithFormat: @"Authorize subscription from %s", from];
+    _authorizeLabel.stringValue = msg;
+    [_authorizeDialog setIsVisible:YES];
+    _authorizeXid = [[NSString alloc] initWithUTF8String:from];
+}
+
 - (void) handleChatstate:(const char*)from state:(enum XmppChatstate)state session:(XmppSession*)session {
     char *res = strchr(from, '/');
     size_t from_len;
@@ -641,11 +648,15 @@ static const char * presencenum2str(int num) {
 }
 
 - (IBAction)acceptSubscription:(id)sender {
+    [self authorizeSubscription:_authorizeXid];
+    _authorizeXid = nil;
+    [_authorizeDialog setIsVisible:NO];
     
 }
 
 - (IBAction)denySubscription:(id)sender {
-    
+    _authorizeXid = nil;
+    [_authorizeDialog setIsVisible:NO];
 }
 
 - (IBAction)cancelSubscriptionDialog:(id)sender {

@@ -377,8 +377,7 @@ static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata)
     }
     
     if(type && !strcmp(type, "subscribe")) {
-        // TODO: implement subscribe message
-        printf("subscribe msg\n");
+        app_handle_presence_subscribe(xmpp, from);
     } else {
         app_handle_presence(xmpp, from, type, show, status);
     }
@@ -823,7 +822,7 @@ static void xmpp_add_contact(Xmpp *xmpp, void *userdata) {
     xmpp_send(xmpp->connection, iq);
     xmpp_stanza_release(iq);
     
-    // subscripte
+    // subscribe
     xmpp_stanza_t *presence = xmpp_stanza_new(xmpp->ctx);
     xmpp_stanza_set_name(presence, "presence");
     xmpp_stanza_set_type(presence, "subscribe");
