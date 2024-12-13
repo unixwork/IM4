@@ -493,6 +493,10 @@ static const char * presencenum2str(int num) {
     XmppAuthorize(_xmpp, [xid UTF8String]);
 }
 
+- (void) removeContact:(NSString*)xid {
+    XmppRemove(_xmpp, [xid UTF8String], true);
+}
+
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
 }

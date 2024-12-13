@@ -690,6 +690,51 @@ void XmppAuthorize(Xmpp *xmpp, const char *xid) {
     XmppCall(xmpp, send_xmpp_authorize_msg, msg);
 }
 
+
+typedef struct {
+    char *xid;
+    bool unsub;
+} xmpp_remove_msg;
+
+static void send_xmpp_remove_msg(Xmpp *xmpp, void *userdata) {
+    xmpp_remove_msg *msg = userdata;
+    
+    // remove XID from roster
+    char idbuf[16];
+    snprintf(idbuf, 16, "%d", ++xmpp->iq_id);
+    
+    xmpp_stanza_t *iq = xmpp_iq_new(xmpp->ctx, "set", idbuf);
+    xmpp_stanza_t *query = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(query, "query");
+    xmpp_stanza_set_ns(query, XMPP_NS_ROSTER);
+    xmpp_stanza_add_child(iq, query);
+    
+    xmpp_stanza_t *item = xmpp_stanza_new(xmpp->ctx);
+    xmpp_stanza_set_name(item, "item");
+    xmpp_stanza_set_attribute(item, "jid", msg->xid);
+    xmpp_stanza_set_attribute(item, "subscription", "remove");
+    xmpp_stanza_add_child(query, item);
+    
+    xmpp_send(xmpp->connection, iq);
+    xmpp_stanza_release(iq);
+    
+    if(msg->unsub) {
+        //TODO
+    }
+    
+    XmppQueryContacts(xmpp);
+    
+    free(msg->xid);
+    free(msg);
+}
+
+void XmppRemove(Xmpp *xmpp, const char *xid, bool unsub) {
+    xmpp_remove_msg *msg = malloc(sizeof(xmpp_remove_msg));
+    msg->xid = strdup(xid);
+    msg->unsub = unsub;
+    XmppCall(xmpp, send_xmpp_remove_msg, msg);
+}
+
 void Xmpp_Send(Xmpp *xmpp, const char *to, const char *message) {
     char idbuf[16];
     snprintf(idbuf, 16, "%d", ++xmpp->iq_id);

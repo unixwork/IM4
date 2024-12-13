@@ -243,6 +243,8 @@ void XmppStateMessage(Xmpp *xmpp, const char *to, enum XmppChatstate state);
 
 void XmppAuthorize(Xmpp *xmpp, const char *xid);
 
+void XmppRemove(Xmpp *xmpp, const char *xid, bool unsub);
+
 void XmppStartOtr(Xmpp *xmpp, const char *recipient);
 
 void XmppStopOtr(Xmpp *xmpp, const char *recipient);

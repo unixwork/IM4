@@ -110,6 +110,7 @@
 - (void) startXmpp;
 
 - (void) authorizeSubscription:(NSString*)xid;
+- (void) removeContact:(NSString*)xid;
 
 - (IBAction) menuPreferences:(id)sender;
 - (IBAction) menuDebugLog:(id)sender;

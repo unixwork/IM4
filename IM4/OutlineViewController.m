@@ -195,7 +195,14 @@
 }
 
 - (IBAction) removeMenuItem:(id)sender {
+    NSInteger row = _outlineView.clickedRow;
+    Contact *c = [_outlineView itemAtRow:row];
+    if(c.xid == nil) {
+        return;
+    }
     
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app removeContact:c.xid];
 }
 
 - (IBAction) authorizeMenuItem:(id)sender {
