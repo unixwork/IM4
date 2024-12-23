@@ -719,7 +719,14 @@ static void send_xmpp_remove_msg(Xmpp *xmpp, void *userdata) {
     xmpp_stanza_release(iq);
     
     if(msg->unsub) {
-        //TODO
+        // unsubscribe presence
+        xmpp_stanza_t *presence = xmpp_stanza_new(xmpp->ctx);
+        xmpp_stanza_set_name(presence, "presence");
+        xmpp_stanza_set_attribute(presence, "to", msg->xid);
+        xmpp_stanza_set_attribute(presence, "type", "unsubscribe");
+
+        xmpp_send(xmpp->connection, presence);
+        xmpp_stanza_release(presence);
     }
     
     XmppQueryContacts(xmpp);
