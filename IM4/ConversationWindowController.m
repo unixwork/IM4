@@ -147,7 +147,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     PresenceStatus *presenceStatus = [status getRelevantPresenceStatus];
     
     NSString *title = _alias;
-    if(status != nil) {
+    if(status != nil && _online) {
         _statusLabel.stringValue = [presenceStatus presenceShowIconUIString:_tpl];
         if(presenceStatus.status != nil) {
             NSString *showMsg = [presenceStatus presenceShowUIString:_tpl];
