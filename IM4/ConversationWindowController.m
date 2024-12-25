@@ -189,6 +189,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         }
         [comboMenu addItem:item];
     }
+    if(_conversation->nsessions == 0) {
+        NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:_xid action:@selector(xidConversation:) keyEquivalent:@""];
+        item.target = self;
+        [comboMenu addItem:item];
+    }
     
     [comboMenu addItem:[NSMenuItem separatorItem]];
     
@@ -235,6 +240,17 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         }
     }
     
+    return YES;
+}
+
+- (BOOL)xidConversation:(NSMenuItem*)sender {
+    if(sender.state == NSControlStateValueOn) {
+        sender.state = NSControlStateValueOff;
+        _selectXidSession = NO;
+    } else {
+        sender.state = NSControlStateValueOn;
+        _selectXidSession = YES;
+    }
     return YES;
 }
 
@@ -526,6 +542,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
             XmppMessage(_xmpp, [to UTF8String], message, _secure);
             msgSent = TRUE;
         }
+    }
+    if(_selectXidSession && !msgSent) {
+        XmppMessage(_xmpp, [_xid UTF8String], message, _secure);
+        msgSent = TRUE;
     }
     
     if(msgSent) {

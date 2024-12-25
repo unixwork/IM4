@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int unread;
 @property NSMutableAttributedString* chatstateMsg;
 @property bool selectSingleSession;
+@property bool selectXidSession;
 @property (readonly) NSMenuItem *singleSessionMenuItem;
 @property (readonly) NSMenuItem *multiSessionMenuItem;
 @property (copy) NSURL *historyFile;
@@ -58,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateStatus;
 
 - (BOOL)selectConversation:(NSMenuItem*)sender;
+- (BOOL)xidConversation:(NSMenuItem*)sender;
 - (BOOL)singleSession:(NSMenuItem*)sender;
 - (BOOL)multiSession:(NSMenuItem*)sender;
 
