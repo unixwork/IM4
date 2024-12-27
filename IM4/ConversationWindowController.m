@@ -193,6 +193,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:_xid action:@selector(xidConversation:) keyEquivalent:@""];
         item.target = self;
         [comboMenu addItem:item];
+    } else {
+        _selectXidSession = NO;
     }
     
     [comboMenu addItem:[NSMenuItem separatorItem]];
