@@ -200,9 +200,6 @@ install_name_tool -id @rpath/libstrophe.0.dylib $INSTALL_DIR/lib/libstrophe.0.dy
 # build libgpg-error
 cd $DIR_LIBGPGERR
 
-# libgpg-error 1.50 build is broken
-#patch < ../../libgpg-error.patch
-
 
 ./configure --prefix=$INSTALL_DIR
 if [ -$? -ne 0 ]; then
