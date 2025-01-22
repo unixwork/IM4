@@ -33,6 +33,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "app.h"
+#import "regexreplace.h"
 
 #import <sys/stat.h>
 #import <unistd.h>
@@ -96,6 +97,12 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _aliases = [NSMutableDictionary dictionaryWithContentsOfFile:aliasFilePath];
     if (_aliases == nil) {
         _aliases = [[NSMutableDictionary alloc]init];
+    }
+    
+    // text replacement rules
+    NSString *rttRulesFilePath = [self configFilePath:@ REGEX_TEXT_REPLACEMENT_RULES_FILE];
+    if(load_rules_config([rttRulesFilePath UTF8String])) {
+        printf("cannot load %s\n", REGEX_TEXT_REPLACEMENT_RULES_FILE);
     }
     
     NSString *templateFilePath = [self configFilePath:@"uitemplates.plist"];

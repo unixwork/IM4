@@ -33,6 +33,7 @@
 		EDC98B7A2B531DE700928CF4 /* libotr.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B742B531DE700928CF4 /* libotr.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		EDC98B7B2B531DE700928CF4 /* libcrypto.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		EDC98B7C2B531DE700928CF4 /* libstrophe.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDC98B762B531DE700928CF4 /* libstrophe.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EDCC80D32D416419001178F3 /* regexreplace.c in Sources */ = {isa = PBXBuildFile; fileRef = EDCC80D22D416419001178F3 /* regexreplace.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -107,6 +108,8 @@
 		EDC98B742B531DE700928CF4 /* libotr.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libotr.5.dylib; path = dep/install/lib/libotr.5.dylib; sourceTree = "<group>"; };
 		EDC98B752B531DE700928CF4 /* libcrypto.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.3.dylib; path = dep/install/lib/libcrypto.3.dylib; sourceTree = "<group>"; };
 		EDC98B762B531DE700928CF4 /* libstrophe.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libstrophe.0.dylib; path = dep/install/lib/libstrophe.0.dylib; sourceTree = "<group>"; };
+		EDCC80D12D416419001178F3 /* regexreplace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = regexreplace.h; sourceTree = "<group>"; };
+		EDCC80D22D416419001178F3 /* regexreplace.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = regexreplace.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,8 @@
 				EDB15D652B6D71F20088C96A /* TemplateSettingsController.xib */,
 				EDA6E3612BE4278300A7ADF0 /* PresenceStatus.swift */,
 				ED5B9EE92C1B5EA40024EA95 /* Contact.swift */,
+				EDCC80D12D416419001178F3 /* regexreplace.h */,
+				EDCC80D22D416419001178F3 /* regexreplace.c */,
 			);
 			path = IM4;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				ED6D36B92A862D340016D4FA /* xmpp.c in Sources */,
 				ED3156E92A861FB200D9ADB3 /* main.m in Sources */,
 				ED6D36B62A8623830016D4FA /* OutlineViewController.m in Sources */,
+				EDCC80D32D416419001178F3 /* regexreplace.c in Sources */,
 				ED2117262A9B64250059C02C /* SettingsController.m in Sources */,
 				ED7EEE022A8D34C6007EECC7 /* otr.c in Sources */,
 				ED5B9EEA2C1B5EA40024EA95 /* Contact.swift in Sources */,

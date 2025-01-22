@@ -31,6 +31,7 @@
 #import "AppDelegate.h"
 
 #include "xmpp.h"
+#include "regexreplace.h"
 
 static NSString* escape_input(NSString *input) {
     NSMutableString *inputEscaped = [[NSMutableString alloc] init];
@@ -526,7 +527,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (void)sendMessage {
-    NSString *input = _messageInput.string;
+    char *msg = strdup([_messageInput.string UTF8String]);
+    apply_all_rules(&msg);
+    NSString *input = [[NSString alloc]initWithUTF8String:msg];
+    free(msg);
+    
     NSString *inputEscaped = convert_urls_to_links(input, true);
     
     // if otr is on, we have to give the Xmpp module an escaped string
