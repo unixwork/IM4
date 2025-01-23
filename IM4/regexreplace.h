@@ -90,38 +90,6 @@ void free_rules(TextReplacementRule *rules, size_t nelm);
 TextReplacementRule* get_rules(size_t *numelm);
 
 
-/*
- * replace the rule's pattern
- * returns 1 if the pattern was compiled successfully
- * returns 0 if the pattern couldn't be compiled
- */
-int rule_update_pattern(size_t index, char *new_pattern);
-
-/*
- * replace the rule's text replacement at the specified index
- */
-void rule_update_replacement(size_t index, char *new_replacement);
-
-/*
- * Remove a rule at the specified index
- */
-void rule_remove(size_t index);
-
-void rule_move_up(size_t index);
-void rule_move_down(size_t index);
-
-/*
- * adds a new empty rule to the rules array
- * returns the new size of the array
- */
-size_t add_empty_rule(void);
-
-/*
- * save loaded rules to ~/.purple/regex-text-replacement.rules
- */
-int save_rules(const char *path);
-
-
 
 // ------------------------- regex replace -------------------------
 
