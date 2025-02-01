@@ -527,6 +527,18 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (void)sendMessage {
+    if(!_secure) {
+        AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+        int unencrypted = app.settingsController.UnencryptedMessages;
+        if(unencrypted == 0) {
+            // TODO: warn
+        } else if(unencrypted == 2) {
+            // unencrypted messages are not allowed
+            [self addStringToLog:@"xmpp: unencrypted communication is disabled: no message sent\n"];
+            return;
+        }
+    }
+    
     char *msg = strdup([_messageInput.string UTF8String]);
     apply_all_rules(&msg);
     NSString *input = [[NSString alloc]initWithUTF8String:msg];

@@ -319,8 +319,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _StartupPresence = presence;
     NSNumber *num = [[NSNumber alloc]initWithInt:presence];
     [_config setValue:num forKey:@"presence"];
-    int um = (int)_unencryptedMessagesBox.indexOfSelectedItem;
-    NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:um];
+    _UnencryptedMessages = (int)_unencryptedMessagesBox.indexOfSelectedItem;
+    NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:_UnencryptedMessages];
     [_config setValue:unencryptedMessages forKey:@"unencrypted"];
     
     if(restartConnection) {
