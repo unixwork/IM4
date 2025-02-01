@@ -17,6 +17,7 @@
                 <outlet property="port" destination="SJc-h7-mzy" id="xcE-H4-fjr"/>
                 <outlet property="presenceStatus" destination="sPS-d8-Uw3" id="eoO-Un-aQt"/>
                 <outlet property="resource" destination="AfC-cE-KQF" id="PGv-9l-yQ1"/>
+                <outlet property="unencryptedMessagesBox" destination="vqL-TE-ziy" id="e19-RZ-Ta0"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="Zp4-Oi-Vci"/>
             </connections>
         </customObject>
@@ -303,7 +304,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="ryo-Wi-tzp"/>
                                             </constraints>
-                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="zly-f2-DFt">
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="zly-f2-DFt">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

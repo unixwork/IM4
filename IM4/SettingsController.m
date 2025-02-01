@@ -62,6 +62,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSTextField *otrFingerprint;
 @property (strong) IBOutlet NSComboBox  *logLevel;
 @property (strong) IBOutlet NSComboBox  *presenceStatus;
+@property (strong) IBOutlet NSComboBox  *unencryptedMessagesBox;
 
 @end
 
@@ -129,6 +130,15 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
     }
     
+    NSNumber *unsafeMessages = [_config valueForKey:@"unencrypted"];
+    _UnencryptedMessages = 0;
+    if(unsafeMessages) {
+        int um = unsafeMessages.intValue;
+        if(um >= 0 && um <= 2) {
+            _UnencryptedMessages = um;
+        }
+    }
+    
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
     bool importCerts = false;
@@ -181,6 +191,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     [_logLevel selectItemAtIndex:XmppGetLogLevel()];
     [_presenceStatus selectItemAtIndex:_StartupPresence];
+    [_unencryptedMessagesBox selectItemAtIndex:_UnencryptedMessages];
 }
 
 - (void)windowDidLoad {
@@ -308,6 +319,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _StartupPresence = presence;
     NSNumber *num = [[NSNumber alloc]initWithInt:presence];
     [_config setValue:num forKey:@"presence"];
+    int um = (int)_unencryptedMessagesBox.indexOfSelectedItem;
+    NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:um];
+    [_config setValue:unencryptedMessages forKey:@"unencrypted"];
     
     if(restartConnection) {
         // create new xmpp object
