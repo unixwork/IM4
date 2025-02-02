@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming secure:(Boolean)secure;
 
-- (void)sendMessage;
+- (void)sendMessage:(Boolean)force;
 
 - (void)sendState:(enum XmppChatstate) state;
 

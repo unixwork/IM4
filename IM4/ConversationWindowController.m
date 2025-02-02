@@ -526,12 +526,28 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
 }
 
-- (void)sendMessage {
-    if(!_secure) {
+- (void)sendMessage:(Boolean)force {
+    if(!_secure && !force) {
         AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
         int unencrypted = app.settingsController.UnencryptedMessages;
+        // unencrypted message values:
+        // 0: warn
+        // 1: allow
+        // 2: disabled
         if(unencrypted == 0) {
-            // TODO: warn
+            // warn
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"Unencrypted Message"];
+            [alert setInformativeText:@"Do you want to send an unencrypted message?"];
+            [alert addButtonWithTitle:@"Send Message"];
+            [alert addButtonWithTitle:@"Cancel"];
+
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                if (returnCode == NSAlertFirstButtonReturn) {
+                    [self sendMessage:YES];
+                }
+            }];
+            return;
         } else if(unencrypted == 2) {
             // unencrypted messages are not allowed
             [self addStringToLog:@"xmpp: unencrypted communication is disabled: no message sent\n"];
@@ -662,7 +678,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     if(commandSelector == @selector(insertNewline:)) {
         NSEvent *ev = [NSApp currentEvent];
         if(ev.type == NSEventTypeKeyDown) {
-            [self sendMessage];
+            [self sendMessage:NO];
             return YES;
         }
     }
