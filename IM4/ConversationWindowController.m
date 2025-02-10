@@ -716,10 +716,20 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSData *htmlData = [attributedString dataFromRange:NSMakeRange(0, attributedString.length)
                                   documentAttributes:documentAttributes
                                                error:&error];
-    // TODO: check error
-    
-    if (![htmlData writeToURL:_historyFile atomically:YES]) {
-        // TODO: error
+    if(htmlData == nil) {
+        NSString *errormsg = [[NSString alloc] initWithFormat:@"Cannot save the conversation: %@", error.localizedDescription];
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:errormsg];
+        [alert addButtonWithTitle:@"OK"];
+        [alert beginSheetModalForWindow:self.window completionHandler:nil];
+    } else if (![htmlData writeToURL:_historyFile atomically:YES]) {
+        NSString *errormsg = [[NSString alloc] initWithFormat:@"Cannot save the conversation to the file: %@", _historyFile.absoluteString];
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:errormsg];
+        [alert addButtonWithTitle:@"OK"];
+        [alert beginSheetModalForWindow:self.window completionHandler:nil];
     }
     
     [self addStringToLog:@"\n"]; // fixes missing newline after clearChatStateMsg
