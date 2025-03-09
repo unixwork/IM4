@@ -143,15 +143,6 @@ void XmppSetStartupPresence(Xmpp *xmpp, int num, const char *show, const char *s
     xmpp->startup_presence_num = num;
 }
 
-static int iq_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
-    xmpp_stanza_t *disco = xmpp_stanza_get_child_by_name_and_ns(stanza, "query", "http://jabber.org/protocol/disco#info");
-    //if(disco) {
-    //    printf("disco\n");
-    //}
-    
-    return 1;
-}
-
 typedef struct StrBuf {
     char *str;
     size_t alloc;
@@ -359,8 +350,6 @@ static int query_roster_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userd
 static int presence_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userdata) {
     Xmpp *xmpp = userdata;
     
-    const char *ns = xmpp_stanza_get_ns(stanza);
-    
     const char *type = xmpp_stanza_get_attribute(stanza, "type");
     const char *from = xmpp_stanza_get_attribute(stanza, "from");
     
@@ -414,7 +403,6 @@ static void connect_cb(
     Xmpp *xmpp = userdata;
     
     if(status == XMPP_CONN_CONNECT) {
-        xmpp_handler_add(conn, iq_cb, NULL, "iq", NULL, xmpp);
         xmpp_handler_add(conn, message_cb, NULL, "message", NULL, xmpp);
         xmpp_handler_add(conn, presence_cb, NULL, "presence", NULL, xmpp);
         

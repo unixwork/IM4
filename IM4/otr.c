@@ -145,7 +145,7 @@ OtrlPolicy otr_policy(void *opdata, ConnContext *context) {
 void otr_create_privkey(void *opdata, const char *accountname,
     const char *protocol)
 {
-    Xmpp *xmpp = opdata;
+    //Xmpp *xmpp = opdata;
     
     char *filename = app_configfile("otr.private_key");
     
