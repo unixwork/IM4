@@ -527,6 +527,21 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (void)sendMessage:(Boolean)force {
+    // check if a session is enabled
+    BOOL sessionEnabled = FALSE;
+    for(int i=0;i<_conversation->nsessions;i++) {
+        XmppSession *sn = _conversation->sessions[i];
+        if(sn->enabled) {
+            sessionEnabled = TRUE;
+        }
+    }
+    if(!sessionEnabled && !_selectXidSession) {
+        // inform the user that no message was sent
+        [self addStringToLog:@"xmpp: no active sessions: no message sent\n"];
+        return;
+    }
+    
+    // unencrypted message warning
     if(!_secure && !force) {
         AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
         int unencrypted = app.settingsController.UnencryptedMessages;
@@ -555,6 +570,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         }
     }
     
+    // apply outgoing message filters
     char *msg = strdup([_messageInput.string UTF8String]);
     apply_all_rules(&msg);
     NSString *input = [[NSString alloc]initWithUTF8String:msg];
@@ -583,13 +599,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
         msgSent = TRUE;
     }
     
-    if(msgSent) {
-        [self addLog:inputEscaped incoming:FALSE secure:_secure];
-        _composing = FALSE;
-    } else {
-        // inform the user that no message was sent
-        [self addStringToLog:@"xmpp: no active sessions: no message sent\n"];
-    }
+    [self addLog:inputEscaped incoming:FALSE secure:_secure];
+    _composing = FALSE;
     [_messageInput setString:@""];
 }
 

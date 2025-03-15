@@ -828,7 +828,7 @@ Gw
                             <action selector="loginCancel:" target="Voe-Tx-rLC" id="pTb-WW-dko"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Gf-uh-O53">
                         <rect key="frame" x="22" y="105" width="301" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Login" id="BhT-jm-J9p">
                             <font key="font" metaFont="system"/>
@@ -836,7 +836,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
+                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
                         <rect key="frame" x="24" y="64" width="297" height="21"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
                             <font key="font" metaFont="system"/>
@@ -872,7 +872,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-6Q-oDD">
                         <rect key="frame" x="22" y="133" width="172" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Open conversation with XID" id="J9B-Du-7Mv">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -880,7 +880,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
                         <rect key="frame" x="24" y="92" width="295" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
                             <font key="font" metaFont="system"/>
@@ -904,7 +904,7 @@ DQ
                             <action selector="openConversationOK:" target="Voe-Tx-rLC" id="RGW-hG-rpH"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
                         <rect key="frame" x="22" y="58" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
                             <font key="font" metaFont="system"/>
@@ -986,7 +986,7 @@ Gw
                             <action selector="statusDialogCancel:" target="Voe-Tx-rLC" id="DJl-C5-ntr"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-sK-Zg2">
                         <rect key="frame" x="20" y="98" width="101" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Status Message" id="193-ZD-FRe">
                             <font key="font" metaFont="system"/>
@@ -994,7 +994,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
                         <rect key="frame" x="22" y="69" width="298" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
                             <font key="font" metaFont="system"/>
@@ -1029,7 +1029,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="404" height="191"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="508-qf-YPH">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="508-qf-YPH">
                         <rect key="frame" x="22" y="151" width="170" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Add XID to the Contact List" id="ujW-ux-UQL">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -1037,7 +1037,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-rT-wXG">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-rT-wXG">
                         <rect key="frame" x="24" y="110" width="356" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="rpF-cQ-zvZ">
                             <font key="font" metaFont="system"/>
@@ -1077,7 +1077,7 @@ Gw
                             <action selector="addContactCancel:" target="Voe-Tx-rLC" id="rCu-V9-YPs"/>
                         </connections>
                     </button>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IU3-2b-ndN">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IU3-2b-ndN">
                         <rect key="frame" x="22" y="76" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="kQ7-Jd-FRV">
                             <font key="font" metaFont="system"/>
@@ -1111,7 +1111,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="387" height="111"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KBq-4A-qO4">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KBq-4A-qO4">
                         <rect key="frame" x="22" y="71" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="usO-Jm-0Pm">
                             <font key="font" usesAppearanceFont="YES"/>
