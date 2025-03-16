@@ -63,6 +63,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSComboBox  *logLevel;
 @property (strong) IBOutlet NSComboBox  *presenceStatus;
 @property (strong) IBOutlet NSComboBox  *unencryptedMessagesBox;
+@property (strong) IBOutlet NSSwitch    *automaticDashSub;
+@property (strong) IBOutlet NSSwitch    *automaticQuoteSub;
 
 @end
 
@@ -139,6 +141,20 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
     }
     
+    NSNumber *textSubDash = [_config valueForKey:@"subdash"];
+    if(textSubDash) {
+        _TextDefaultSubDash = (BOOL)textSubDash.intValue;
+    } else {
+        _TextDefaultSubDash = YES;
+    }
+    NSNumber *textSubQuote = [_config valueForKey:@"subquote"];
+    if(textSubQuote) {
+        _TextDefaultSubQuote = (BOOL)textSubQuote.intValue;
+    } else {
+        _TextDefaultSubQuote = YES;
+    }
+    
+    
     // create ssl config if needed
     NSString *ssl_file = [self configFilePath:@"certs.pem"];
     bool importCerts = false;
@@ -192,6 +208,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_logLevel selectItemAtIndex:XmppGetLogLevel()];
     [_presenceStatus selectItemAtIndex:_StartupPresence];
     [_unencryptedMessagesBox selectItemAtIndex:_UnencryptedMessages];
+    
+    _automaticDashSub.state = _TextDefaultSubDash ? NSControlStateValueOn : NSControlStateValueOff;
+    _automaticQuoteSub.state = _TextDefaultSubQuote ? NSControlStateValueOn : NSControlStateValueOff;
 }
 
 - (void)windowDidLoad {
@@ -322,6 +341,13 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _UnencryptedMessages = (int)_unencryptedMessagesBox.indexOfSelectedItem;
     NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:_UnencryptedMessages];
     [_config setValue:unencryptedMessages forKey:@"unencrypted"];
+    
+    _TextDefaultSubDash = _automaticDashSub.state == NSControlStateValueOn ? YES : NO;
+    _TextDefaultSubQuote = _automaticQuoteSub.state == NSControlStateValueOn ? YES : NO;
+    NSNumber *subdash = [[NSNumber alloc] initWithBool:_TextDefaultSubDash];
+    NSNumber *subquote = [[NSNumber alloc] initWithBool:_TextDefaultSubQuote];
+    [_config setValue:subdash forKey:@"subdash"];
+    [_config setValue:subquote forKey:@"subquote"];
     
     if(restartConnection) {
         // create new xmpp object

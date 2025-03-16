@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property int StartupPresence;
 
+@property BOOL TextDefaultSubDash;
+@property BOOL TextDefaultSubQuote;
+
 
 - (id)initSettings;
 

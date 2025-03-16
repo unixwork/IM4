@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsController">
             <connections>
                 <outlet property="alias" destination="1lt-Uk-Qz3" id="uZk-4p-8D5"/>
+                <outlet property="automaticDashSub" destination="3lT-zw-pIh" id="V2b-aD-tGK"/>
+                <outlet property="automaticQuoteSub" destination="VQs-zF-2rH" id="wK8-i9-iEc"/>
                 <outlet property="host" destination="HVI-i9-lKi" id="QSE-lG-ala"/>
                 <outlet property="jid" destination="MBc-Ab-z6z" id="4eq-Bt-BPZ"/>
                 <outlet property="logLevel" destination="zC2-rO-gyg" id="82Q-gZ-t9R"/>
@@ -346,6 +348,47 @@
                                         <constraint firstItem="sPS-d8-Uw3" firstAttribute="leading" secondItem="bdQ-BQ-7yd" secondAttribute="trailing" constant="16" id="uJw-sx-y3G"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="vHN-MK-seW"/>
                                         <constraint firstItem="bdQ-BQ-7yd" firstAttribute="width" secondItem="nma-c8-Xft" secondAttribute="width" id="zeM-iQ-5EC"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Text" identifier="" id="Hqx-Gw-FEc">
+                                <view key="view" id="Jfw-j1-Gfs">
+                                    <rect key="frame" x="10" y="33" width="449" height="281"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TRt-7M-Nsn">
+                                            <rect key="frame" x="6" y="257" width="183" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Automatic Dash Substitution" id="zqq-n2-79h">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="3lT-zw-pIh">
+                                            <rect key="frame" x="201" y="251" width="42" height="25"/>
+                                        </switch>
+                                        <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="VQs-zF-2rH">
+                                            <rect key="frame" x="201" y="215" width="42" height="25"/>
+                                        </switch>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x2N-dI-SuD">
+                                            <rect key="frame" x="6" y="221" width="183" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Automatic Quote Substitution" id="1Ol-lK-oG4">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="x2N-dI-SuD" firstAttribute="leading" secondItem="Jfw-j1-Gfs" secondAttribute="leading" constant="8" id="1fh-dS-yOZ"/>
+                                        <constraint firstItem="x2N-dI-SuD" firstAttribute="top" secondItem="TRt-7M-Nsn" secondAttribute="bottom" constant="20" id="7vL-xi-Cca"/>
+                                        <constraint firstItem="TRt-7M-Nsn" firstAttribute="top" secondItem="Jfw-j1-Gfs" secondAttribute="top" constant="8" id="PQq-Wp-dR7"/>
+                                        <constraint firstItem="3lT-zw-pIh" firstAttribute="top" secondItem="Jfw-j1-Gfs" secondAttribute="top" constant="6" id="SZO-y2-dcK"/>
+                                        <constraint firstItem="VQs-zF-2rH" firstAttribute="leading" secondItem="x2N-dI-SuD" secondAttribute="trailing" constant="16" id="XGu-wi-7E8"/>
+                                        <constraint firstItem="3lT-zw-pIh" firstAttribute="leading" secondItem="TRt-7M-Nsn" secondAttribute="trailing" constant="16" id="aNO-zq-6we"/>
+                                        <constraint firstItem="x2N-dI-SuD" firstAttribute="width" secondItem="TRt-7M-Nsn" secondAttribute="width" id="kvW-pX-zye"/>
+                                        <constraint firstItem="TRt-7M-Nsn" firstAttribute="leading" secondItem="Jfw-j1-Gfs" secondAttribute="leading" constant="8" id="lu6-ji-sjr"/>
+                                        <constraint firstItem="VQs-zF-2rH" firstAttribute="top" secondItem="3lT-zw-pIh" secondAttribute="bottom" constant="14" id="sH1-Y5-f6E"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>

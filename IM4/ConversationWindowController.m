@@ -129,10 +129,14 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     
     [_splitview setPosition:320 ofDividerAtIndex:0];
     
     [_messageInput setDelegate:self];
+    
+    _messageInput.automaticDashSubstitutionEnabled = app.settingsController.TextDefaultSubDash;
+    _messageInput.automaticQuoteSubstitutionEnabled = app.settingsController.TextDefaultSubQuote;
     
     [self updateStatus];
     
