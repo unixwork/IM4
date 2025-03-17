@@ -166,11 +166,29 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
     } else {
         if(S_ISREG(s.st_mode)) {
-            time_t current = time(NULL);
-            time_t mt = s.st_mtime;
-            if(current > mt && current - mt > 604800) {
+            struct stat chs;
+            if(!stat("/System/Library/Keychains/SystemRootCertificates.keychain", &chs)) {
+                if(chs.st_mtime > s.st_mtime) {
+                    importCerts = true;
+                }
+            }
+            if(!stat("/Library/Keychains/System.keychain", &chs)) {
+                if(chs.st_mtime > s.st_mtime) {
+                    importCerts = true;
+                }
+            }
+            char *user_home = getenv("HOME");
+            char *login_keychain_path;
+            asprintf(&login_keychain_path, "%s%s", user_home, "/Library/Keychains/login.keychain-db");
+            if(!stat(login_keychain_path, &chs)) {
+                if(chs.st_mtime > s.st_mtime) {
+                    importCerts = true;
+                }
+            }
+            free(login_keychain_path);
+            
+            if(importCerts) {
                 XmppLog("IM4: reimport certs");
-                importCerts = true;
             }
         }
     }
