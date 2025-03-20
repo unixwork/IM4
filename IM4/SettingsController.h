@@ -92,6 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)openTemplateSettings:(id)sender;
 
+- (IBAction)selectChatFont:(id)sender;
+
+- (IBAction)selectMessageInputfont:(id)sender;
+
 
 @end
 

@@ -418,4 +418,12 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_tplController showWindow:nil];
 }
 
+- (IBAction)selectChatFont:(id)sender {
+    
+}
+
+- (IBAction)selectMessageInputfont:(id)sender {
+    
+}
+
 @end
