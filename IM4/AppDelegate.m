@@ -497,6 +497,13 @@ static const char * presencenum2str(int num) {
     XmppRemove(_xmpp, [xid UTF8String], true);
 }
 
+- (void) updateFonts:(NSFont*)chatFont inputFont:(NSFont*)inputFont {
+    for(id key in _conversations) {
+        ConversationWindowController *conversation = [_conversations objectForKey:key];
+        [conversation updateFonts:chatFont inputFont:inputFont];
+    }
+}
+
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
 }

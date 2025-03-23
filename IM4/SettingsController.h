@@ -63,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL TextDefaultSubDash;
 @property BOOL TextDefaultSubQuote;
 
+@property (strong) NSFont *ChatFont;
+@property (strong) NSFont *InputFont;
+
 
 - (id)initSettings;
 
@@ -82,6 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) createFingerprintFromPubkey;
 
+- (void)changeFont:(NSFontManager*)fontManager;
+- (void) openFontPanel;
+
 - (IBAction)okAction:(id)sender;
 
 - (IBAction)cancelAction:(id)sender;
@@ -95,6 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)selectChatFont:(id)sender;
 
 - (IBAction)selectMessageInputfont:(id)sender;
+
 
 
 @end

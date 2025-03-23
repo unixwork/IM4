@@ -479,6 +479,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
 }
 
+- (void)updateFonts:(NSFont*)chatFont inputFont:(NSFont*)inputFont {
+    _conversationTextView.font = chatFont;
+    _messageInput.font = inputFont;
+}
+
 
 - (void)addLog:(NSString*)message incoming:(Boolean)incoming secure:(Boolean)secure {
     NSScrollView *scrollview = [_conversationTextView enclosingScrollView];

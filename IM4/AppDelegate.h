@@ -112,6 +112,8 @@
 - (void) authorizeSubscription:(NSString*)xid;
 - (void) removeContact:(NSString*)xid;
 
+- (void) updateFonts:(NSFont*)chatFont inputFont:(NSFont*)inputFont;
+
 - (IBAction) menuPreferences:(id)sender;
 - (IBAction) menuDebugLog:(id)sender;
 - (IBAction) menuContactList:(id)sender;

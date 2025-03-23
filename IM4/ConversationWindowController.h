@@ -84,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)newFingerprint:(NSString*)fingerprint from:(NSString*)from;
 
+- (void)updateFonts:(NSFont*)chatFont inputFont:(NSFont*)inputFont;
+
 - (IBAction) secureAction:(id)sender;
 
 - (IBAction)saveDocument:(id)sender;

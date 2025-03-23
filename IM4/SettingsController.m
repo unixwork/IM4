@@ -66,6 +66,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSSwitch    *automaticDashSub;
 @property (strong) IBOutlet NSSwitch    *automaticQuoteSub;
 
+@property int editFont; // 1: ChatFont, 2: InputFont
+
 @end
 
 @implementation SettingsController
@@ -73,6 +75,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 - (id)initSettings {
     self = [self initWithWindowNibName:@"SettingsController"];
     _xmpp = NULL;
+    _editFont = 0;
     
     // check config dir
     NSString *configDir = [self configFilePath:@""];
@@ -202,6 +205,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
     
     setenv("SSL_CERT_FILE", [ssl_file UTF8String], 0);
+    
+    // get default fonts
+    NSTextView *textview = [[NSTextView alloc] init];
+    _ChatFont = textview.font;
+    _InputFont = _ChatFont;
     
     
     [self createXmpp];
@@ -418,12 +426,30 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_tplController showWindow:nil];
 }
 
+- (void)changeFont:(NSFontManager*)fontManager {
+    if(_editFont == 1) {
+        _ChatFont = [fontManager convertFont:_ChatFont];
+    } else {
+        _InputFont = [fontManager convertFont:_InputFont];
+    }
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app updateFonts:_ChatFont inputFont:_InputFont];
+}
+
+- (void) openFontPanel {
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    NSFontPanel *fontPanel = [fontManager fontPanel:YES];
+    [fontPanel makeKeyAndOrderFront:self];
+}
+
 - (IBAction)selectChatFont:(id)sender {
-    
+    _editFont = 1;
+    [self openFontPanel];
 }
 
 - (IBAction)selectMessageInputfont:(id)sender {
-    
+    _editFont = 2;
+    [self openFontPanel];
 }
 
 @end
