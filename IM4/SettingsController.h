@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSFont *ChatFont;
 @property (strong) NSFont *InputFont;
 
+@property (strong) NSFont *TmpChatFont;
+@property (strong) NSFont *TmpInputFont;
 
 - (id)initSettings;
 

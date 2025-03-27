@@ -207,10 +207,28 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     setenv("SSL_CERT_FILE", [ssl_file UTF8String], 0);
     
     // get default fonts
-    NSTextView *textview = [[NSTextView alloc] init];
-    _ChatFont = textview.font;
-    _InputFont = _ChatFont;
+    NSString *chatFontName = [_config valueForKey:@"chatfontname"];
+    NSNumber *chatFontSize = [_config valueForKey:@"chatfontsize"];
+    NSString *inputFontName = [_config valueForKey:@"inputfontname"];
+    NSNumber *inputFontSize = [_config valueForKey:@"inputfontsize"];
     
+    NSTextView *textview = [[NSTextView alloc] init];
+    
+    if(chatFontName) {
+        int fontSize = chatFontSize ? chatFontSize.intValue : 11;
+        _ChatFont = [NSFont fontWithName:chatFontName size:fontSize];
+    }
+    if(inputFontName) {
+        int fontSize = inputFontSize ? inputFontSize.intValue : 11;
+        _InputFont = [NSFont fontWithName:inputFontName size:fontSize];
+    }
+    
+    if(_ChatFont == nil) {
+        _ChatFont = textview.font;
+    }
+    if(_InputFont == nil) {
+        _InputFont = textview.font;
+    }
     
     [self createXmpp];
     return self;
@@ -237,6 +255,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     _automaticDashSub.state = _TextDefaultSubDash ? NSControlStateValueOn : NSControlStateValueOff;
     _automaticQuoteSub.state = _TextDefaultSubQuote ? NSControlStateValueOn : NSControlStateValueOff;
+    
+    _TmpChatFont = _ChatFont;
+    _TmpInputFont = _InputFont;
 }
 
 - (void)windowDidLoad {
@@ -341,6 +362,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (IBAction)okAction:(id)sender {
+    _ChatFont = _TmpChatFont;
+    _InputFont = _TmpInputFont;
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    [app updateFonts:_ChatFont inputFont:_InputFont];
+    
     NSString *jid = _jid.stringValue;
     NSString *password = _password.stringValue;
     NSString *alias = _alias.stringValue;
@@ -387,6 +413,17 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         // TODO: update alias via xmpp call
     }
     
+    NSString *chatFontName = _ChatFont.familyName;
+    NSNumber *chatFontSize = [[NSNumber alloc] initWithInt:_ChatFont.pointSize];
+    
+    NSString *inputFontName = _InputFont.familyName;
+    NSNumber *inputFontSize = [[NSNumber alloc] initWithInt:_InputFont.pointSize];
+    
+    [_config setValue:chatFontName forKey:@"chatfontname"];
+    [_config setValue:chatFontSize forKey:@"chatfontsize"];
+    [_config setValue:inputFontName forKey:@"inputfontname"];
+    [_config setValue:inputFontSize forKey:@"inputfontsize"];
+    
     [[self window] close];
 }
 
@@ -428,12 +465,10 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 
 - (void)changeFont:(NSFontManager*)fontManager {
     if(_editFont == 1) {
-        _ChatFont = [fontManager convertFont:_ChatFont];
+        _TmpChatFont = [fontManager convertFont:_ChatFont];
     } else {
-        _InputFont = [fontManager convertFont:_InputFont];
+        _TmpInputFont = [fontManager convertFont:_InputFont];
     }
-    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app updateFonts:_ChatFont inputFont:_InputFont];
 }
 
 - (void) openFontPanel {
