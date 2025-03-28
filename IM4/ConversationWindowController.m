@@ -134,9 +134,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     [_splitview setPosition:320 ofDividerAtIndex:0];
     
     [_messageInput setDelegate:self];
-    
+    _messageInput.font = app.settingsController.InputFont;
     _messageInput.automaticDashSubstitutionEnabled = app.settingsController.TextDefaultSubDash;
     _messageInput.automaticQuoteSubstitutionEnabled = app.settingsController.TextDefaultSubQuote;
+    
+    _conversationTextView.font = app.settingsController.ChatFont;
     
     [self updateStatus];
     
@@ -533,6 +535,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     if(scrollToEnd) {
         [_conversationTextView scrollToEndOfDocument:nil];
     }
+    
+    // workaround: for some reason this is required
+    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+    _conversationTextView.font = app.settingsController.ChatFont;
 }
 
 - (void)sendMessage:(Boolean)force {
