@@ -103,6 +103,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 @property (strong) IBOutlet NSComboButton *secureButton;
 @property (strong) IBOutlet NSTextField *statusLabel;
 
+@property BOOL fontInitialized;
+
 @end
 
 @implementation ConversationWindowController
@@ -117,6 +119,8 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     _unread = 0;
     _composing = false;
     _selectSingleSession = true;
+    
+    _fontInitialized = NO;
     
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     _tpl = app.settingsController.templateSettings;
@@ -537,8 +541,11 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
     
     // workaround: for some reason this is required
-    AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    _conversationTextView.font = app.settingsController.ChatFont;
+    if(!_fontInitialized) {
+        AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
+        _conversationTextView.font = app.settingsController.ChatFont;
+        _fontInitialized = YES;
+    }
 }
 
 - (void)sendMessage:(Boolean)force {
