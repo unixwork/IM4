@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) createFingerprintFromPubkey;
 
 - (void)changeFont:(NSFontManager*)fontManager;
-- (void) openFontPanel;
+- (void) openFontPanel:(NSFont*)font;
 
 - (IBAction)okAction:(id)sender;
 

@@ -471,20 +471,21 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     }
 }
 
-- (void) openFontPanel {
+- (void) openFontPanel:(NSFont*)font {
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFontPanel *fontPanel = [fontManager fontPanel:YES];
+    [fontPanel setPanelFont:font isMultiple:NO];
     [fontPanel makeKeyAndOrderFront:self];
 }
 
 - (IBAction)selectChatFont:(id)sender {
     _editFont = 1;
-    [self openFontPanel];
+    [self openFontPanel:_ChatFont];
 }
 
 - (IBAction)selectMessageInputfont:(id)sender {
     _editFont = 2;
-    [self openFontPanel];
+    [self openFontPanel:_InputFont];
 }
 
 @end
