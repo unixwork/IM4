@@ -276,6 +276,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (BOOL)storeSettings {
+    NSNumber *presence = [[NSNumber alloc] initWithInt:_PreviousPresenceStatus];
+    NSString *presenceMsg = _PreviousPresenceStatusMessage;
+    [_config setValue:presence forKey:@"prevstatus"];
+    [_config setValue:presenceMsg forKey:@"prevstatusmsg"];
+    
     NSString *configFilePath = [self configFilePath:@"config.plist"];
     NSString *aliasFilePath = [self configFilePath:@"aliases.plist"];
     NSString *templateFilePath = [self configFilePath:@"uitemplates.plist"];

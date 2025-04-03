@@ -116,6 +116,11 @@ static const char * presencenum2str(int num) {
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    int status = (int)[_statusButton selectedTag];
+    NSString *statusMsg = _statusMessageTextField.stringValue;
+    _settingsController.PreviousPresenceStatus = status;
+    _settingsController.PreviousPresenceStatusMessage = statusMsg;
+    
     [_settingsController storeSettings];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

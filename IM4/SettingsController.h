@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property int UnencryptedMessages;
 
 @property int StartupPresence;
+@property int PreviousPresenceStatus;
+@property (strong) NSString *PreviousPresenceStatusMessage;
 
 @property BOOL TextDefaultSubDash;
 @property BOOL TextDefaultSubQuote;
