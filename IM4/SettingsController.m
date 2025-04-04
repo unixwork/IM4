@@ -126,12 +126,20 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         }
     }
     
+    NSNumber *prevStatus = [_config valueForKey:@"prevstatus"];
+    if(prevStatus) {
+        _PreviousPresenceStatus = prevStatus.intValue;
+    }
+    _PreviousPresenceStatusMessage = [_config valueForKey:@"prevstatusmsg"];
+    
     NSNumber *presence = [_config valueForKey:@"presence"];
     _StartupPresence = 1; // default status: online
     if(presence) {
         int ps = presence.intValue;
         if(ps >= 0 && ps <= 5) {
             _StartupPresence = ps;
+        } else if(ps == 6) {
+            _StartupPresence = _PreviousPresenceStatus;
         }
     }
     

@@ -290,6 +290,7 @@
                                                     <string>Chat</string>
                                                     <string>DND</string>
                                                     <string>XA</string>
+                                                    <string>Restore previous state</string>
                                                 </objectValues>
                                             </comboBoxCell>
                                         </comboBox>
