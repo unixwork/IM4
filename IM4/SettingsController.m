@@ -65,6 +65,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSComboBox  *unencryptedMessagesBox;
 @property (strong) IBOutlet NSSwitch    *automaticDashSub;
 @property (strong) IBOutlet NSSwitch    *automaticQuoteSub;
+@property (strong) IBOutlet NSTextField *chatFontLabel;
+@property (strong) IBOutlet NSTextField *inputFontLabel;
 
 @property int editFont; // 1: ChatFont, 2: InputFont
 
@@ -266,6 +268,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     _TmpChatFont = _ChatFont;
     _TmpInputFont = _InputFont;
+    
+    _chatFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _ChatFont.familyName, (int)_ChatFont.pointSize];
+    _inputFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _InputFont.familyName, (int)_InputFont.pointSize];
 }
 
 - (void)windowDidLoad {
@@ -482,6 +487,9 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     } else {
         _TmpInputFont = [fontManager convertFont:_InputFont];
     }
+    
+    _chatFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _TmpChatFont.familyName, (int)_TmpChatFont.pointSize];
+    _inputFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _TmpInputFont.familyName, (int)_TmpInputFont.pointSize];
 }
 
 - (void) openFontPanel:(NSFont*)font {
