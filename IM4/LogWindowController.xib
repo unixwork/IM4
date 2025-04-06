@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,17 +24,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyA-9F-4RA">
-                        <rect key="frame" x="0.0" y="30" width="480" height="375"/>
+                        <rect key="frame" x="0.0" y="28" width="480" height="377"/>
                         <clipView key="contentView" drawsBackground="NO" id="VUm-gX-2p9">
-                            <rect key="frame" x="0.0" y="0.0" width="465" height="375"/>
+                            <rect key="frame" x="0.0" y="0.0" width="465" height="377"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView wantsLayer="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="dRF-ob-AGC">
-                                    <rect key="frame" x="0.0" y="0.0" width="465" height="375"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="465" height="377"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="465" height="375"/>
+                                    <size key="minSize" width="465" height="377"/>
                                     <size key="maxSize" width="480" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -44,15 +44,15 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hOc-QO-JIq">
-                            <rect key="frame" x="465" y="0.0" width="15" height="375"/>
+                            <rect key="frame" x="465" y="0.0" width="15" height="377"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="wJg-oW-FdC">
-                        <rect key="frame" x="8" y="8" width="42" height="22"/>
-                        <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VFf-Nh-D2h">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wJg-oW-FdC">
+                        <rect key="frame" x="6" y="5" width="44" height="19"/>
+                        <buttonCell key="cell" type="roundRect" title="Clear" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VFf-Nh-D2h">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                         <connections>
                             <action selector="clearAction:" target="-2" id="Tbz-zG-pZ9"/>
@@ -61,11 +61,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="cyA-9F-4RA" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="AdQ-qA-hTW"/>
-                    <constraint firstItem="wJg-oW-FdC" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="Xah-LD-bjv"/>
+                    <constraint firstItem="wJg-oW-FdC" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="6" id="Xah-LD-bjv"/>
                     <constraint firstItem="cyA-9F-4RA" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="aWF-vO-DCT"/>
                     <constraint firstAttribute="trailing" secondItem="cyA-9F-4RA" secondAttribute="trailing" id="cE0-rT-fYH"/>
-                    <constraint firstAttribute="bottom" secondItem="wJg-oW-FdC" secondAttribute="bottom" constant="8" id="nPZ-yb-ro2"/>
-                    <constraint firstItem="wJg-oW-FdC" firstAttribute="top" secondItem="cyA-9F-4RA" secondAttribute="bottom" id="wJb-CF-tJo"/>
+                    <constraint firstAttribute="bottom" secondItem="wJg-oW-FdC" secondAttribute="bottom" constant="6" id="nPZ-yb-ro2"/>
+                    <constraint firstItem="wJg-oW-FdC" firstAttribute="top" secondItem="cyA-9F-4RA" secondAttribute="bottom" constant="4" id="wJb-CF-tJo"/>
                 </constraints>
             </view>
             <connections>
