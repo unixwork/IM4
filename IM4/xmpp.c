@@ -304,7 +304,6 @@ static int query_roster_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userd
         size_t contactsNum = 0;
         XmppContact *contacts = calloc(contactsAlloc, sizeof(XmppContact));
         
-        // TODO: the contacts list should be updated in the app thread
         printf("BEGIN CONTACTS\n");
         for (xmpp_stanza_t *item = xmpp_stanza_get_children(query);item;item = xmpp_stanza_get_next(item)) {
             const char *contactName = xmpp_stanza_get_attribute(item, "name");
@@ -331,14 +330,8 @@ static int query_roster_cb(xmpp_conn_t *conn, xmpp_stanza_t *stanza, void *userd
             contactsNum++;
         }
         
-        if(xquery->xmpp->contacts) {
-            free(xquery->xmpp->contacts);
-        }
-        xquery->xmpp->contacts = contacts;
-        xquery->xmpp->ncontacts = contactsNum;
-        
         printf("END\n");
-        app_refresh_contactlist(xquery->xmpp);
+        app_refresh_contactlist(xquery->xmpp, contacts, contactsNum);
     }
     
     

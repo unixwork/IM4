@@ -40,7 +40,7 @@ char* app_configfile(const char *name);
 
 void app_call_mainthread(app_func func, void *userdata);
 
-void app_refresh_contactlist(void *xmpp);
+void app_refresh_contactlist(void *xmpp, XmppContact *contacts, size_t numcontacts);
 
 void app_set_status(Xmpp *xmpp, int status);
 

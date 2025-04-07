@@ -92,15 +92,31 @@ void app_call_mainthread(app_func func, void *userdata) {
     [cb callMainThread];
 }
 
+typedef struct {
+    Xmpp *xmpp;
+    XmppContact *contacts;
+    size_t numcontacts;
+} app_update_contactlist;
 
-static void mt_app_refresh_contactlist(void *xmpp) {
+static void mt_app_refresh_contactlist(void *update_data) {
+    app_update_contactlist *update = update_data;
+    free(update->xmpp->contacts);
+    update->xmpp->contacts = update->contacts;
+    update->xmpp->ncontacts = update->numcontacts;
+    
     // TODO: xmpp currently unused, maybe we want to pass it to the appDelegate, when multiple xmpp accounts are supported
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app refreshContactList];
+    
+    free(update);
 }
 
-void app_refresh_contactlist(void *xmpp) {
-    app_call_mainthread(mt_app_refresh_contactlist, xmpp);
+void app_refresh_contactlist(void *xmpp, XmppContact *contacts, size_t numcontacts) {
+    app_update_contactlist *update = malloc(sizeof(app_update_contactlist));
+    update->xmpp = xmpp;
+    update->contacts = contacts;
+    update->numcontacts;
+    app_call_mainthread(mt_app_refresh_contactlist, update);
 }
 
 typedef struct {
