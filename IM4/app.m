@@ -100,7 +100,7 @@ typedef struct {
 
 static void mt_app_refresh_contactlist(void *update_data) {
     app_update_contactlist *update = update_data;
-    free(update->xmpp->contacts);
+    //free(update->xmpp->contacts);
     update->xmpp->contacts = update->contacts;
     update->xmpp->ncontacts = update->numcontacts;
     
@@ -115,7 +115,7 @@ void app_refresh_contactlist(void *xmpp, XmppContact *contacts, size_t numcontac
     app_update_contactlist *update = malloc(sizeof(app_update_contactlist));
     update->xmpp = xmpp;
     update->contacts = contacts;
-    update->numcontacts;
+    update->numcontacts = numcontacts;
     app_call_mainthread(mt_app_refresh_contactlist, update);
 }
 
