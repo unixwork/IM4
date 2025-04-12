@@ -100,7 +100,7 @@ typedef struct {
 
 static void mt_app_refresh_contactlist(void *update_data) {
     app_update_contactlist *update = update_data;
-    //free(update->xmpp->contacts);
+    free(update->xmpp->contacts);
     update->xmpp->contacts = update->contacts;
     update->xmpp->ncontacts = update->numcontacts;
     
