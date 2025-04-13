@@ -229,7 +229,7 @@ import Cocoa
         dict["msg.htmlout.format"] = value
     }
     
-    @objc func msgPrefixFormat(format: String, xid: String, alias: String, secure: Bool) -> String {
+    @objc func msgPrefixFormat(format: String, xid: String, alias: String, secure: Bool, message: String) -> String {
         var fstr = ""
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -249,6 +249,8 @@ import Cocoa
                         fstr.append(alias)
                     case "s":
                         fstr.append(secure ? otrSecure() : otrInsecure())
+                    case "m":
+                    fstr.append(message)
                     default:
                         fstr.append(char)
                     }

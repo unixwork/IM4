@@ -518,10 +518,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSString *entry;
     if(htmlFormat == nil) {
         // no html format defined, use plain text msg prefix settings
-        NSString *msgPrefix = [_tpl msgPrefixFormatWithFormat:incoming ? _tpl.msgInPrefixFormat : _tpl.msgOutPrefixFormat xid:_xid alias:name secure:secure];
+        NSString *msgPrefix = [_tpl msgPrefixFormatWithFormat:incoming ? _tpl.msgInPrefixFormat : _tpl.msgOutPrefixFormat xid:_xid alias:name secure:secure message:@""];
         entry = [NSString stringWithFormat:@"<pre style=\"font-family: -apple-system\"><span style=\"color: %@\">%@</span>%@</pre>", color, msgPrefix, message];
     } else {
-        entry = [_tpl msgPrefixFormatWithFormat:htmlFormat xid:_xid alias:name secure:secure];
+        entry = [_tpl msgPrefixFormatWithFormat:htmlFormat xid:_xid alias:name secure:secure message:message];
     }
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
