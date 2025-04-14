@@ -481,7 +481,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_tplController showWindow:nil];
 }
 
-- (void)changeFont:(NSFontManager*)fontManager {
+- (void)changeFont:(nullable NSFontManager*)fontManager {
     if(_editFont == 1) {
         _TmpChatFont = [fontManager convertFont:_ChatFont];
     } else {
