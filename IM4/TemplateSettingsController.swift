@@ -41,8 +41,6 @@ import Cocoa
     @IBOutlet var chatStateGone : NSTextField!
     @IBOutlet var incomingMessageFormat : NSTextField!
     @IBOutlet var outgoingMessageFormat : NSTextField!
-    @IBOutlet var incomingMsgHtml : NSTextField!
-    @IBOutlet var outgoingMsgHtml: NSTextField!
 
     var templateStrings : UITemplate!
     
@@ -73,13 +71,6 @@ import Cocoa
         chatStateGone.stringValue = templateStrings.chatStateGone()
         incomingMessageFormat.stringValue = templateStrings.msgInPrefixFormat()
         outgoingMessageFormat.stringValue = templateStrings.msgOutPrefixFormat()
-        
-        if let htmlInFormat = templateStrings.htmlMsgInFormat() {
-            incomingMsgHtml.stringValue = htmlInFormat
-        }
-        if let htmlOutFormat = templateStrings.htmlMsgOutFormat() {
-            outgoingMsgHtml.stringValue = htmlOutFormat
-        }
     }
     
     override var windowNibName: String! {
@@ -98,14 +89,6 @@ import Cocoa
         templateStrings.setChatStateGone(chatStateGone.stringValue)
         templateStrings.setMsgInPrefixFormat(incomingMessageFormat.stringValue)
         templateStrings.setMsgOutPrefixFormat(outgoingMessageFormat.stringValue)
-        
-        if(!incomingMsgHtml.stringValue.isEmpty) {
-            templateStrings.setHtmlMsgInFormat(incomingMsgHtml.stringValue)
-        }
-        if(!incomingMsgHtml.stringValue.isEmpty) {
-            templateStrings.setHtmlMsgOutFormat(outgoingMsgHtml.stringValue)
-        }
-  
         
         window?.close()
     }
