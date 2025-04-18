@@ -120,7 +120,7 @@
                             <real value="367"/>
                         </holdingPriorities>
                     </splitView>
-                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-pd-HPs">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-pd-HPs">
                         <rect key="frame" x="418" y="421" width="43" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Status" id="iQf-cg-1Ia">
                             <font key="font" usesAppearanceFont="YES"/>
