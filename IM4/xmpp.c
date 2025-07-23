@@ -42,7 +42,6 @@
 #include "otr.h"
 
 
-// TODO: list of all accounts
 static Xmpp *im_account;
 
 static xmpp_log_level_t xmpp_log_level = XMPP_LEVEL_INFO;
@@ -432,7 +431,6 @@ static int session_xmpp_connect(Xmpp *xmpp) {
     connection = xmpp_conn_new(xmpp->ctx);
     xmpp_conn_set_flags(connection, xmpp->settings.flags);
     
-    // TODO: replace im_account with threadsafe list, when multi account is implemented
     im_account = xmpp;
     
     xmpp_conn_set_sockopt_callback(connection, socketopt_cb);

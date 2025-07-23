@@ -104,7 +104,6 @@ static void mt_app_refresh_contactlist(void *update_data) {
     update->xmpp->contacts = update->contacts;
     update->xmpp->ncontacts = update->numcontacts;
     
-    // TODO: xmpp currently unused, maybe we want to pass it to the appDelegate, when multiple xmpp accounts are supported
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
     [app refreshContactList];
     
