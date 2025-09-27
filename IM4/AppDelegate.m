@@ -179,7 +179,9 @@ static const char * presencenum2str(int num) {
     if(_unread != 0) {
         badge = [@(_unread) stringValue];
     }
-    [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badge];
+    if(!_doNotDisturb) {
+        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badge];
+    }
 }
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp updatePresence:(bool)updatePresence {
@@ -677,6 +679,19 @@ static const char * presencenum2str(int num) {
 
 - (IBAction)cancelSubscriptionDialog:(id)sender {
     
+}
+
+- (IBAction)doNotDisturb:(id)sender {
+    _doNotDisturb = !_doNotDisturb;
+    NSMenuItem *menuItem = sender;
+    if(_doNotDisturb) {
+        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:nil];
+        menuItem.state = NSControlStateValueOn;
+    } else {
+        // re-enable unread indicator
+        [self addUnread:0];
+        menuItem.state = NSControlStateValueOff;
+    }
 }
 
 @end

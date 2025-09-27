@@ -75,6 +75,7 @@
 @property Boolean isOnline;
 
 @property int unread;
+@property Boolean doNotDisturb;
 
 
 - (void) setStatus:(int)status xmpp:(Xmpp*)xmpp updatePresence:(bool)updatePresence;
@@ -139,6 +140,8 @@
 - (IBAction)acceptSubscription:(id)sender;
 - (IBAction)denySubscription:(id)sender;
 - (IBAction)cancelSubscriptionDialog:(id)sender;
+
+- (IBAction)doNotDisturb:(id)sender;
 
 
 @end
