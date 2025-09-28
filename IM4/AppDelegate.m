@@ -159,7 +159,7 @@ static const char * presencenum2str(int num) {
         conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
         [_conversations setObject:conversation forKey:xid];
         session->conversation->userdata1 = (__bridge void*)conversation;
-        
+         
         // add all online sessions
         Presence *presence = [self xidStatus:xid];
         for(NSString *res in presence.statusMap) {
@@ -167,7 +167,7 @@ static const char * presencenum2str(int num) {
             (void)XmppGetSession(_xmpp, [contact UTF8String]); // adds a session, if it doesn't exist
         }
     }
-    if(![conversation.window isVisible]) {
+    if(!_doNotDisturb && ![conversation.window isVisible]) {
         [conversation showWindow:nil];
     }
     return conversation;
