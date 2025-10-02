@@ -90,6 +90,8 @@
 
 - (void) handleXmppMessage:(const char*)msg_body from:(const char*)from session:(XmppSession*)session secure:(BOOL)secure xmpp:(Xmpp*)xmpp;
 
+- (void) sendUserNotification:(NSString*)msg from:(NSString*)from secure:(BOOL)secure;
+
 - (void) handlePresence:(const char*)from type:(const char*)type show:(const char*)show status:(const char*)status xmpp:(Xmpp*)xmpp;
 
 - (void) handlePresenceSubscribe:(const char*)from xmpp:(Xmpp*)xmpp;

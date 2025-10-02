@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#import <UserNotifications/UserNotifications.h>
 #import "AppDelegate.h"
 #import "ConversationWindowController.h"
 #import "SettingsController.h"
@@ -279,6 +280,28 @@ static const char * presencenum2str(int num) {
     
     ConversationWindowController *conversation = [self conversationController:session];
     [conversation addReceivedMessage:message_text resource:resource secure:secure];
+    
+    if(_settingsController.NotificationsAllowed) {
+        [self sendUserNotification:message_text from:alias secure:secure];
+    }
+}
+
+- (void) sendUserNotification:(NSString*)msg from:(NSString*)from secure:(BOOL)secure {
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.subtitle = from;
+    content.body = msg;
+    content.sound = [UNNotificationSound defaultSound];
+
+    NSString *identifier = @"IM4";
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:nil];
+
+    // Add the request
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        }
+    }];
 }
 
 - (void) handlePresence:(const char*)from type:(const char*)type show:(const char*)show status:(const char*)status xmpp:(Xmpp*)xmpp {

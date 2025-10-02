@@ -65,6 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL TextDefaultSubDash;
 @property BOOL TextDefaultSubQuote;
 
+@property BOOL EnableNotifications;
+@property BOOL NotificationsAllowed;
+
 @property (strong) NSFont *ChatFont;
 @property (strong) NSFont *InputFont;
 
