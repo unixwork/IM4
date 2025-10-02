@@ -281,14 +281,14 @@ static const char * presencenum2str(int num) {
     ConversationWindowController *conversation = [self conversationController:session];
     [conversation addReceivedMessage:message_text resource:resource secure:secure];
     
-    if(_settingsController.NotificationsAllowed) {
+    if(_settingsController.EnableNotifications) {
         [self sendUserNotification:message_text from:alias secure:secure];
     }
 }
 
 - (void) sendUserNotification:(NSString*)msg from:(NSString*)from secure:(BOOL)secure {
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-    content.subtitle = from;
+    content.title = from;
     content.body = msg;
     content.sound = [UNNotificationSound defaultSound];
 

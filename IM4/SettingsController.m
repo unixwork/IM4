@@ -224,31 +224,24 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     } else {
         _EnableNotifications = NO;
     }
-    if(_EnableNotifications) {
+    if(_EnableNotifications || 1) {
         __weak typeof(self) weakSelf = self;
+        
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if(!granted) {
+                weakSelf.NotificationsDenied = YES;
+            }
+        }];
+        
         [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
             switch (settings.authorizationStatus) {
-                case UNAuthorizationStatusNotDetermined: {
-                    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-                    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                        if (granted) {
-                            weakSelf.NotificationsAllowed = YES;
-                        }
-                    }];
-                    break;
-                }
                 case UNAuthorizationStatusDenied: {
-                    break;
-                }
-                case UNAuthorizationStatusAuthorized:
-                case UNAuthorizationStatusProvisional: {
-                    weakSelf.NotificationsAllowed = YES;
+                    weakSelf.NotificationsDenied = YES;
                 }
             }
         }];
-
     }
     
     // get default fonts

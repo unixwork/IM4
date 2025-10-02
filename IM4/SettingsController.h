@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL TextDefaultSubQuote;
 
 @property BOOL EnableNotifications;
-@property BOOL NotificationsAllowed;
+@property BOOL NotificationsDenied;
 
 @property (strong) NSFont *ChatFont;
 @property (strong) NSFont *InputFont;
