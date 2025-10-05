@@ -469,13 +469,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (void) checkNotifications {
-    __weak typeof(self) weakSelf = self;
-    
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if(!granted) {
-            weakSelf.NotificationsDenied = YES;
+            self.NotificationsDenied = YES;
         }
     }];
     
@@ -483,16 +481,16 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         switch (settings.authorizationStatus) {
             default: {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.notificationsSettingsLabel.stringValue = @"";
+                    self.notificationsSettingsLabel.stringValue = @"";
                 });
                 break;
             }
             case UNAuthorizationStatusDenied: {
-                weakSelf.NotificationsDenied = YES;
+                self.NotificationsDenied = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.notificationsSettingsLabel.stringValue = @"Denied";
-                    weakSelf.notifications.state = NSControlStateValueOff;
-                    weakSelf.EnableNotifications = NO;
+                    self.notificationsSettingsLabel.stringValue = @"Denied";
+                    self.notifications.state = NSControlStateValueOff;
+                    self.EnableNotifications = NO;
                 });
             }
         }
