@@ -281,7 +281,7 @@ static const char * presencenum2str(int num) {
     ConversationWindowController *conversation = [self conversationController:session];
     [conversation addReceivedMessage:message_text resource:resource secure:secure];
     
-    if(_settingsController.EnableNotifications) {
+    if(!_doNotDisturb && _settingsController.EnableNotifications) {
         [self sendUserNotification:message_text from:alias secure:secure];
     }
 }

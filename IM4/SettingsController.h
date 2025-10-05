@@ -95,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) changeFont:(nullable NSFontManager*)fontManager;
 - (void) openFontPanel:(NSFont*)font;
 
+- (void) checkNotifications;
+
 - (IBAction)okAction:(id)sender;
 
 - (IBAction)cancelAction:(id)sender;
@@ -108,6 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)selectChatFont:(id)sender;
 
 - (IBAction)selectMessageInputfont:(id)sender;
+
+- (IBAction)notificationSwitch:(id)sender;
 
 
 

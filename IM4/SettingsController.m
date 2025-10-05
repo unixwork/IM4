@@ -68,6 +68,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSSwitch    *automaticQuoteSub;
 @property (strong) IBOutlet NSTextField *chatFontLabel;
 @property (strong) IBOutlet NSTextField *inputFontLabel;
+@property (strong) IBOutlet NSSwitch    *notifications;
+@property (strong) IBOutlet NSTextField *notificationsSettingsLabel;
 
 @property int editFont; // 1: ChatFont, 2: InputFont
 
@@ -224,24 +226,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     } else {
         _EnableNotifications = NO;
     }
-    if(_EnableNotifications || 1) {
-        __weak typeof(self) weakSelf = self;
-        
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if(!granted) {
-                weakSelf.NotificationsDenied = YES;
-            }
-        }];
-        
-        [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-            switch (settings.authorizationStatus) {
-                case UNAuthorizationStatusDenied: {
-                    weakSelf.NotificationsDenied = YES;
-                }
-            }
-        }];
+    if(_EnableNotifications) {
+        [self checkNotifications];
     }
     
     // get default fonts
@@ -299,6 +285,11 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     
     _chatFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _ChatFont.familyName, (int)_ChatFont.pointSize];
     _inputFontLabel.stringValue = [[NSString alloc] initWithFormat:@"%@ %d", _InputFont.familyName, (int)_InputFont.pointSize];
+    
+    if(_EnableNotifications) {
+        _notifications.state = NSControlStateValueOn;
+    }
+    _notificationsSettingsLabel.stringValue = _NotificationsDenied ? @"Denied" : @"";
 }
 
 - (void)windowDidLoad {
@@ -440,6 +431,10 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:_UnencryptedMessages];
     [_config setValue:unencryptedMessages forKey:@"unencrypted"];
     
+    int notifications = _notifications.state == NSControlStateValueOn;
+    NSNumber *notificationsObj = [[NSNumber alloc] initWithInt:notifications];
+    [_config setValue:notificationsObj forKey:@"notifications"];
+    
     _TextDefaultSubDash = _automaticDashSub.state == NSControlStateValueOn ? YES : NO;
     _TextDefaultSubQuote = _automaticQuoteSub.state == NSControlStateValueOn ? YES : NO;
     NSNumber *subdash = [[NSNumber alloc] initWithBool:_TextDefaultSubDash];
@@ -471,6 +466,37 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_config setValue:inputFontSize forKey:@"inputfontsize"];
     
     [[self window] close];
+}
+
+- (void) checkNotifications {
+    __weak typeof(self) weakSelf = self;
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if(!granted) {
+            weakSelf.NotificationsDenied = YES;
+        }
+    }];
+    
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        switch (settings.authorizationStatus) {
+            default: {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.notificationsSettingsLabel.stringValue = @"";
+                });
+                break;
+            }
+            case UNAuthorizationStatusDenied: {
+                weakSelf.NotificationsDenied = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.notificationsSettingsLabel.stringValue = @"Denied";
+                    weakSelf.notifications.state = NSControlStateValueOff;
+                    weakSelf.EnableNotifications = NO;
+                });
+            }
+        }
+    }];
 }
 
 - (IBAction)cancelAction:(id)sender {
@@ -535,6 +561,13 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 - (IBAction)selectMessageInputfont:(id)sender {
     _editFont = 2;
     [self openFontPanel:_InputFont];
+}
+
+- (IBAction)notificationSwitch:(id)sender {
+    _EnableNotifications = _notifications.state == NSControlStateValueOn;
+    if(_EnableNotifications) {
+        [self checkNotifications];
+    }
 }
 
 @end
