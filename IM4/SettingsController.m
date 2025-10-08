@@ -64,6 +64,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 @property (strong) IBOutlet NSComboBox  *logLevel;
 @property (strong) IBOutlet NSComboBox  *presenceStatus;
 @property (strong) IBOutlet NSComboBox  *unencryptedMessagesBox;
+@property (strong) IBOutlet NSComboBox  *windowVisibleBox;
 @property (strong) IBOutlet NSSwitch    *automaticDashSub;
 @property (strong) IBOutlet NSSwitch    *automaticQuoteSub;
 @property (strong) IBOutlet NSTextField *chatFontLabel;
@@ -154,6 +155,15 @@ static bool nsstreq(NSString *s1, NSString *s2) {
         int um = unsafeMessages.intValue;
         if(um >= 0 && um <= 2) {
             _UnencryptedMessages = um;
+        }
+    }
+    
+    NSNumber *makeWindowVisible = [_config valueForKey:@"makewindowvisible"];
+    _MakeWindowVisible = 0;
+    if(makeWindowVisible) {
+        int wv = makeWindowVisible.intValue;
+        if(wv >= 0 && wv <= 2) {
+            _MakeWindowVisible = wv;
         }
     }
     
@@ -276,6 +286,7 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     [_logLevel selectItemAtIndex:XmppGetLogLevel()];
     [_presenceStatus selectItemAtIndex:_StartupPresence];
     [_unencryptedMessagesBox selectItemAtIndex:_UnencryptedMessages];
+    [_windowVisibleBox selectItemAtIndex:_MakeWindowVisible];
     
     _automaticDashSub.state = _TextDefaultSubDash ? NSControlStateValueOn : NSControlStateValueOff;
     _automaticQuoteSub.state = _TextDefaultSubQuote ? NSControlStateValueOn : NSControlStateValueOff;
@@ -430,6 +441,10 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _UnencryptedMessages = (int)_unencryptedMessagesBox.indexOfSelectedItem;
     NSNumber *unencryptedMessages = [[NSNumber alloc]initWithInt:_UnencryptedMessages];
     [_config setValue:unencryptedMessages forKey:@"unencrypted"];
+    
+    _MakeWindowVisible = (int)_windowVisibleBox.indexOfSelectedItem;
+    NSNumber *makeWindowVisible = [[NSNumber alloc] initWithInt:_MakeWindowVisible];
+    [_config setValue:makeWindowVisible forKey:@"makewindowvisible"];
     
     int notifications = _notifications.state == NSControlStateValueOn;
     NSNumber *notificationsObj = [[NSNumber alloc] initWithInt:notifications];

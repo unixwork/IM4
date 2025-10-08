@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) TemplateSettingsController *tplController;
 
 @property int UnencryptedMessages;
+@property int MakeWindowVisible;
 
 @property int StartupPresence;
 @property int PreviousPresenceStatus;

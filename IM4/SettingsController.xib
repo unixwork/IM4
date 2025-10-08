@@ -25,6 +25,7 @@
                 <outlet property="resource" destination="AfC-cE-KQF" id="PGv-9l-yQ1"/>
                 <outlet property="unencryptedMessagesBox" destination="vqL-TE-ziy" id="e19-RZ-Ta0"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="Zp4-Oi-Vci"/>
+                <outlet property="windowVisibleBox" destination="KTi-WL-Ayq" id="jDa-gT-kEl"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -267,7 +268,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-Xe-LWQ">
-                                            <rect key="frame" x="6" y="257" width="202" height="16"/>
+                                            <rect key="frame" x="6" y="257" width="216" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Log Level" id="M8Q-rI-yfk">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -275,7 +276,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zC2-rO-gyg">
-                                            <rect key="frame" x="221" y="251" width="84" height="23"/>
+                                            <rect key="frame" x="235" y="251" width="84" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="pDc-ue-HJn"/>
                                             </constraints>
@@ -295,7 +296,7 @@ DQ
                                             </connections>
                                         </comboBox>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nma-c8-Xft">
-                                            <rect key="frame" x="6" y="113" width="202" height="16"/>
+                                            <rect key="frame" x="6" y="77" width="216" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Conversation Window Templates" id="wlw-GR-OpI">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -303,7 +304,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bdQ-BQ-7yd">
-                                            <rect key="frame" x="6" y="221" width="202" height="16"/>
+                                            <rect key="frame" x="6" y="221" width="216" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Status at Startup" id="7mL-ic-tU3">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -311,7 +312,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sPS-d8-Uw3">
-                                            <rect key="frame" x="221" y="215" width="84" height="23"/>
+                                            <rect key="frame" x="235" y="215" width="84" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="MGf-N7-kqb"/>
                                             </constraints>
@@ -331,7 +332,7 @@ DQ
                                             </comboBoxCell>
                                         </comboBox>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A9y-DH-xzD">
-                                            <rect key="frame" x="6" y="185" width="202" height="16"/>
+                                            <rect key="frame" x="6" y="185" width="216" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Unencrypted Messages" id="Zx9-5T-8gf">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -339,7 +340,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vqL-TE-ziy">
-                                            <rect key="frame" x="221" y="179" width="84" height="23"/>
+                                            <rect key="frame" x="235" y="179" width="84" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="ryo-Wi-tzp"/>
                                             </constraints>
@@ -355,7 +356,7 @@ DQ
                                             </comboBoxCell>
                                         </comboBox>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAZ-qi-o1f">
-                                            <rect key="frame" x="215" y="102" width="121" height="32"/>
+                                            <rect key="frame" x="229" y="66" width="121" height="32"/>
                                             <buttonCell key="cell" type="push" title="Open Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tW1-XF-ZIW">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -365,7 +366,7 @@ DQ
                                             </connections>
                                         </button>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1E-dW-icM">
-                                            <rect key="frame" x="6" y="149" width="202" height="16"/>
+                                            <rect key="frame" x="6" y="113" width="216" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Notifications" id="2nM-HE-8xL">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -373,25 +374,51 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="MWM-kw-1V6">
-                                            <rect key="frame" x="220" y="141" width="42" height="25"/>
+                                            <rect key="frame" x="234" y="105" width="42" height="25"/>
                                             <connections>
                                                 <action selector="notificationSwitch:" target="-2" id="FbU-ji-XyJ"/>
                                             </connections>
                                         </switch>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uvI-AO-XgG">
-                                            <rect key="frame" x="308" y="149" width="116" height="16"/>
+                                            <rect key="frame" x="322" y="113" width="116" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="notificationSetting" id="idf-jm-Ifu">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JYP-Q0-xmf">
+                                            <rect key="frame" x="6" y="149" width="216" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Make Conversation Window Visible" id="dpk-Xt-Njs">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <comboBox focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KTi-WL-Ayq">
+                                            <rect key="frame" x="235" y="143" width="164" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="Qq3-rQ-JOg"/>
+                                            </constraints>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="wa3-oE-dY0">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>On Conversation Start</string>
+                                                    <string>On New Messages</string>
+                                                    <string>Never</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                        </comboBox>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="MWM-kw-1V6" firstAttribute="top" secondItem="vqL-TE-ziy" secondAttribute="bottom" constant="16" id="1LX-KQ-GP0"/>
+                                        <constraint firstItem="KTi-WL-Ayq" firstAttribute="top" secondItem="vqL-TE-ziy" secondAttribute="bottom" constant="16" id="19L-iM-qag"/>
+                                        <constraint firstItem="MWM-kw-1V6" firstAttribute="top" secondItem="KTi-WL-Ayq" secondAttribute="bottom" constant="16" id="1LX-KQ-GP0"/>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="1Wl-KW-Z7b"/>
                                         <constraint firstItem="uvI-AO-XgG" firstAttribute="leading" secondItem="MWM-kw-1V6" secondAttribute="trailing" constant="50" id="23b-FQ-Jnr"/>
                                         <constraint firstItem="zC2-rO-gyg" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="4bk-l8-7em"/>
+                                        <constraint firstItem="KTi-WL-Ayq" firstAttribute="leading" secondItem="JYP-Q0-xmf" secondAttribute="trailing" constant="16" id="5mL-vb-H4B"/>
                                         <constraint firstItem="bdQ-BQ-7yd" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="7ae-hz-eTH"/>
                                         <constraint firstItem="MWM-kw-1V6" firstAttribute="leading" secondItem="L1E-dW-icM" secondAttribute="trailing" constant="16" id="EVE-u4-BBR"/>
                                         <constraint firstItem="A9y-DH-xzD" firstAttribute="width" secondItem="lqt-Xe-LWQ" secondAttribute="width" id="JUo-hm-OS3"/>
@@ -400,7 +427,7 @@ DQ
                                         <constraint firstItem="bAZ-qi-o1f" firstAttribute="top" secondItem="MWM-kw-1V6" secondAttribute="bottom" constant="14" id="NaM-y1-LKZ"/>
                                         <constraint firstItem="L1E-dW-icM" firstAttribute="width" secondItem="A9y-DH-xzD" secondAttribute="width" id="Nem-dJ-fa6"/>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="top" secondItem="L1E-dW-icM" secondAttribute="bottom" constant="20" id="Oyk-3X-wQz"/>
-                                        <constraint firstItem="L1E-dW-icM" firstAttribute="top" secondItem="A9y-DH-xzD" secondAttribute="bottom" constant="20" id="UqW-Yd-1Qh"/>
+                                        <constraint firstItem="L1E-dW-icM" firstAttribute="top" secondItem="JYP-Q0-xmf" secondAttribute="bottom" constant="20" id="UqW-Yd-1Qh"/>
                                         <constraint firstItem="sPS-d8-Uw3" firstAttribute="top" secondItem="zC2-rO-gyg" secondAttribute="bottom" constant="16" id="Xy8-yg-Uwd"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="aw4-N7-u9s"/>
                                         <constraint firstItem="vqL-TE-ziy" firstAttribute="top" secondItem="sPS-d8-Uw3" secondAttribute="bottom" constant="16" id="awc-9r-Ppq"/>
@@ -408,10 +435,13 @@ DQ
                                         <constraint firstItem="L1E-dW-icM" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="iO7-wo-SMG"/>
                                         <constraint firstItem="zC2-rO-gyg" firstAttribute="leading" secondItem="lqt-Xe-LWQ" secondAttribute="trailing" constant="16" id="itj-M2-R4T"/>
                                         <constraint firstItem="nma-c8-Xft" firstAttribute="width" secondItem="lqt-Xe-LWQ" secondAttribute="width" id="lSj-vV-978"/>
+                                        <constraint firstItem="nma-c8-Xft" firstAttribute="width" secondItem="JYP-Q0-xmf" secondAttribute="width" id="m3O-07-d11"/>
                                         <constraint firstItem="A9y-DH-xzD" firstAttribute="top" secondItem="bdQ-BQ-7yd" secondAttribute="bottom" constant="20" id="mrv-Kn-kqr"/>
+                                        <constraint firstItem="JYP-Q0-xmf" firstAttribute="leading" secondItem="ZPL-4h-9fY" secondAttribute="leading" constant="8" id="oa8-lj-k43"/>
                                         <constraint firstItem="bAZ-qi-o1f" firstAttribute="leading" secondItem="nma-c8-Xft" secondAttribute="trailing" constant="16" id="rD8-jB-iP6"/>
+                                        <constraint firstItem="JYP-Q0-xmf" firstAttribute="top" secondItem="A9y-DH-xzD" secondAttribute="bottom" constant="20" id="s4k-ba-1vX"/>
                                         <constraint firstItem="sPS-d8-Uw3" firstAttribute="leading" secondItem="bdQ-BQ-7yd" secondAttribute="trailing" constant="16" id="uJw-sx-y3G"/>
-                                        <constraint firstItem="uvI-AO-XgG" firstAttribute="top" secondItem="A9y-DH-xzD" secondAttribute="bottom" constant="20" id="v1F-bg-1Hx"/>
+                                        <constraint firstItem="uvI-AO-XgG" firstAttribute="top" secondItem="JYP-Q0-xmf" secondAttribute="bottom" constant="20" id="v1F-bg-1Hx"/>
                                         <constraint firstItem="lqt-Xe-LWQ" firstAttribute="top" secondItem="ZPL-4h-9fY" secondAttribute="top" constant="8" id="vHN-MK-seW"/>
                                         <constraint firstItem="bdQ-BQ-7yd" firstAttribute="width" secondItem="nma-c8-Xft" secondAttribute="width" id="zeM-iQ-5EC"/>
                                     </constraints>

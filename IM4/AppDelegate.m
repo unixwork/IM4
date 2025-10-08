@@ -156,10 +156,12 @@ static const char * presencenum2str(int num) {
     }
     
     ConversationWindowController *conversation = (__bridge ConversationWindowController*)session->conversation->userdata1;
+    BOOL created = NO;
     if(!conversation) {
         conversation = [[ConversationWindowController alloc]initConversation:xid alias:alias xmpp:_xmpp];
         [_conversations setObject:conversation forKey:xid];
         session->conversation->userdata1 = (__bridge void*)conversation;
+        created = YES;
          
         // add all online sessions
         Presence *presence = [self xidStatus:xid];
@@ -168,8 +170,14 @@ static const char * presencenum2str(int num) {
             (void)XmppGetSession(_xmpp, [contact UTF8String]); // adds a session, if it doesn't exist
         }
     }
-    if(!_doNotDisturb && ![conversation.window isVisible]) {
-        [conversation showWindow:nil];
+    // 0: Conversation Start
+    // 1: New Messages (Conversation Start + all kind of messages)
+    // 2: Never
+    int makeWindowVisible = _settingsController.MakeWindowVisible;
+    if(!_doNotDisturb && ![conversation.window isVisible] && makeWindowVisible < 2) {
+        if(created || makeWindowVisible == 1) {
+            [conversation showWindow:nil];
+        }
     }
     return conversation;
 }
