@@ -1,16 +1,16 @@
 IM4
 ===
 
-IM4 is a native XMPP client for macOS that supports end-to-end encryption via OTR. The development
-is at an early stage, but some basic functionality works.
+IM4 is a native XMPP client for macOS that supports end-to-end encryption via OTR.
 
 <img src="screenshot.png" alt="chat window" width="75%">
 
 Already implemented:
- - Simple contact list with online status
+ - Contact list with presence status
  - Chat window
  - Encryption (OTR)
- - Basic configuration GUI
+ - Support for individual OTR sessions per XMPP resource
+ - Configuration GUI
 
 Not implemented yet:
  - Group chat
