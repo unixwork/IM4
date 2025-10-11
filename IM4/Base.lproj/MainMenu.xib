@@ -24,6 +24,7 @@
                 <outlet property="contactsContextMenu" destination="Y9e-co-YNx" id="ImE-GK-rMy"/>
                 <outlet property="loginDialogPassword" destination="TQT-9G-EOx" id="6er-dK-DkX"/>
                 <outlet property="loginDialogXidLabel" destination="3Gf-uh-O53" id="S3H-nf-VKs"/>
+                <outlet property="notificationsItem" destination="Ovb-vZ-Y28" id="EWQ-3o-uZg"/>
                 <outlet property="offlineItem" destination="mo3-qS-ikp" id="34Q-uV-ITI"/>
                 <outlet property="onlineItem" destination="G3Q-MF-jI9" id="xaw-Yi-FgS"/>
                 <outlet property="openConversationDialog" destination="NrB-hi-ISY" id="hh3-18-nNH"/>
@@ -588,6 +589,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
+                            <menuItem title="Notifications" id="Ovb-vZ-Y28">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="notificationsItemClicked:" target="Voe-Tx-rLC" id="MSZ-1V-rZf"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Do Not Disturb" id="tYe-4U-6JV">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

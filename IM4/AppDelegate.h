@@ -56,6 +56,8 @@
 @property (strong) IBOutlet NSMenuItem *offlineItem;
 @property (strong) IBOutlet NSMenuItem *setStatusItem;
 
+@property (strong) IBOutlet NSMenuItem *notificationsItem;
+
 @property (strong) IBOutlet NSTextField *loginDialogXidLabel;
 @property (strong) IBOutlet NSTextField *loginDialogPassword;
 
@@ -117,6 +119,8 @@
 
 - (void) updateFonts:(NSFont*)chatFont inputFont:(NSFont*)inputFont;
 
+- (void) settingsUpdated;
+
 - (IBAction) menuPreferences:(id)sender;
 - (IBAction) menuDebugLog:(id)sender;
 - (IBAction) menuContactList:(id)sender;
@@ -144,6 +148,7 @@
 - (IBAction)cancelSubscriptionDialog:(id)sender;
 
 - (IBAction)doNotDisturb:(id)sender;
+- (IBAction)notificationsItemClicked:(id)sender;
 
 
 @end

@@ -113,6 +113,8 @@ static const char * presencenum2str(int num) {
     self.isOnline = NO;
     
     _originalSetStatusItemLabel = _setStatusItem.title;
+    
+    _notificationsItem.state = _settingsController.EnableNotifications ? NSControlStateValueOn : NSControlStateValueOff;
 }
 
 
@@ -289,7 +291,7 @@ static const char * presencenum2str(int num) {
     ConversationWindowController *conversation = [self conversationController:session];
     [conversation addReceivedMessage:message_text resource:resource secure:secure];
     
-    if(!_doNotDisturb && _settingsController.EnableNotifications) {
+    if(!_doNotDisturb && _notificationsItem.state == NSControlStateValueOn) {
         [self sendUserNotification:message_text from:alias secure:secure];
     }
 }
@@ -542,6 +544,11 @@ static const char * presencenum2str(int num) {
     }
 }
 
+- (void) settingsUpdated {
+    [self updateFonts:_settingsController.ChatFont inputFont:_settingsController.InputFont];
+    _notificationsItem.state = _settingsController.EnableNotifications ? NSControlStateValueOn : NSControlStateValueOff;
+}
+
 - (IBAction) menuPreferences:(id)sender {
     [_settingsController showWindow:nil];
 }
@@ -722,6 +729,15 @@ static const char * presencenum2str(int num) {
         // re-enable unread indicator
         [self addUnread:0];
         menuItem.state = NSControlStateValueOff;
+    }
+}
+
+- (IBAction)notificationsItemClicked:(id)sender {
+    NSMenuItem *menuItem = sender;
+    if(menuItem.state == NSControlStateValueOn) {
+        menuItem.state = NSControlStateValueOff;
+    } else {
+        menuItem.state = NSControlStateValueOn;
     }
 }
 

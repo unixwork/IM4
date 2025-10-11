@@ -413,7 +413,6 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     _ChatFont = _TmpChatFont;
     _InputFont = _TmpInputFont;
     AppDelegate *app = (AppDelegate *)[NSApplication sharedApplication].delegate;
-    [app updateFonts:_ChatFont inputFont:_InputFont];
     
     NSString *jid = _jid.stringValue;
     NSString *password = _password.stringValue;
@@ -468,6 +467,8 @@ static bool nsstreq(NSString *s1, NSString *s2) {
     } else {
         // TODO: update alias via xmpp call
     }
+    
+    [app settingsUpdated];
     
     NSString *chatFontName = _ChatFont.familyName;
     NSNumber *chatFontSize = [[NSNumber alloc] initWithInt:_ChatFont.pointSize];
