@@ -787,9 +787,5 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     }
 }
 
-- (IBAction)add:(id)sender {
-    printf("Conversation add\n");
-}
-
 @end
 
