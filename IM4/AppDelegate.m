@@ -297,9 +297,22 @@ static const char * presencenum2str(int num) {
 }
 
 - (void) sendUserNotification:(NSString*)msg from:(NSString*)from secure:(BOOL)secure {
+    NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSDictionary *options = @{
+        NSDocumentTypeDocumentOption: NSHTMLTextDocumentType,
+        NSCharacterEncodingDocumentOption: @(NSUTF8StringEncoding)
+    };
+
+    NSError *error = nil;
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:data
+                                                                            options:options
+                                                                 documentAttributes:nil
+                                                                              error:&error];
+    
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = from;
-    content.body = msg;
+    content.body = error == nil ? attributedString.string : msg;
     content.sound = [UNNotificationSound defaultSound];
 
     NSString *identifier = @"IM4";
