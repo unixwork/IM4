@@ -13,7 +13,7 @@ IM4PROJ=IM4.xcodeproj
 DEPDIR=dep
 
 # dependencies
-OPENSSL_VERSION=3.6.0
+OPENSSL_VERSION=3.6.1
 LIBSTROPHE_VERSION=0.14.0
 LIBGPGERR_VERSION=1.58
 LIBGCRYPT_VERSION=1.11.2
@@ -27,7 +27,7 @@ DL_LIBGPGERR=https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$LIBGPGERR_V
 DL_LIBGCRYPT=https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$LIBGCRYPT_VERSION.tar.bz2
 DL_LIBOTR=https://otr.cypherpunks.ca/libotr-$LIBOTR_VERSION.tar.gz
 
-SHA256_OPENSSL="b6a5f44b7eb69e3fa35dbf15524405b44837a481d43d81daddde3ff21fcbb8e9  openssl-3.6.0.tar.gz"
+SHA256_OPENSSL="b1bfedcd5b289ff22aee87c9d600f515767ebf45f77168cb6d64f231f518a82e  openssl-3.6.1.tar.gz"
 SHA256_ZLIB="9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23  zlib-1.3.1.tar.gz"
 SHA256_LIBSTROPHE="5c66b1d59d802766bb6cf093d6362c64bb7f9a85533a9972396a3f54861f4311  libstrophe-0.14.0.tar.bz2"
 SHA256_LIBGPGERR="f943aea9a830a8bd938e5124b579efaece24a3225ff4c3d27611a80ce1260c27  libgpg-error-1.58.tar.bz2"
