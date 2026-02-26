@@ -18,17 +18,17 @@ LIBSTROPHE_VERSION=0.14.0
 LIBGPGERR_VERSION=1.59
 LIBGCRYPT_VERSION=1.12.0
 LIBOTR_VERSION=4.1.1
-ZLIB_VERSION=1.3.1
+ZLIB_VERSION=1.3.2
 # dependency 
 DL_OPENSSL=https://github.com/openssl/openssl/releases/download/openssl-$OPENSSL_VERSION/openssl-$OPENSSL_VERSION.tar.gz
-DL_ZLIB=http://zlib.net/zlib-$ZLIB_VERSION.tar.gz
+DL_ZLIB=https://zlib.net/zlib-$ZLIB_VERSION.tar.gz
 DL_LIBSTROPHE=https://github.com/strophe/libstrophe/releases/download/$LIBSTROPHE_VERSION/libstrophe-$LIBSTROPHE_VERSION.tar.bz2
 DL_LIBGPGERR=https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$LIBGPGERR_VERSION.tar.bz2
 DL_LIBGCRYPT=https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$LIBGCRYPT_VERSION.tar.bz2
 DL_LIBOTR=https://otr.cypherpunks.ca/libotr-$LIBOTR_VERSION.tar.gz
 
 SHA256_OPENSSL="b1bfedcd5b289ff22aee87c9d600f515767ebf45f77168cb6d64f231f518a82e  openssl-3.6.1.tar.gz"
-SHA256_ZLIB="9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23  zlib-1.3.1.tar.gz"
+SHA256_ZLIB="bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16  zlib-1.3.2.tar.gz"
 SHA256_LIBSTROPHE="5c66b1d59d802766bb6cf093d6362c64bb7f9a85533a9972396a3f54861f4311  libstrophe-0.14.0.tar.bz2"
 SHA256_LIBGPGERR="a19bc5087fd97026d93cb4b45d51638d1a25202a5e1fbc3905799f424cfa6134  libgpg-error-1.59.tar.bz2"
 SHA256_LIBGCRYPT="0311454e678189bad62a7e9402a9dd793025efff6e7449898616e2fc75e0f4f5  libgcrypt-1.12.0.tar.bz2"
