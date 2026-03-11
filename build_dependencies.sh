@@ -13,6 +13,7 @@ IM4PROJ=IM4.xcodeproj
 DEPDIR=dep
 
 # dependencies
+PKGCONF_VERSION=1.1.0
 OPENSSL_VERSION=3.6.1
 LIBSTROPHE_VERSION=0.14.0
 LIBGPGERR_VERSION=1.59
@@ -20,6 +21,7 @@ LIBGCRYPT_VERSION=1.12.0
 LIBOTR_VERSION=4.1.1
 ZLIB_VERSION=1.3.2
 # dependency 
+DL_PKGCONF=https://distfiles.dereferenced.org/pkgconf/pkgconf-$PKGCONF_VERSION.tar.xz
 DL_OPENSSL=https://github.com/openssl/openssl/releases/download/openssl-$OPENSSL_VERSION/openssl-$OPENSSL_VERSION.tar.gz
 DL_ZLIB=https://zlib.net/zlib-$ZLIB_VERSION.tar.gz
 DL_LIBSTROPHE=https://github.com/strophe/libstrophe/releases/download/$LIBSTROPHE_VERSION/libstrophe-$LIBSTROPHE_VERSION.tar.bz2
@@ -27,6 +29,7 @@ DL_LIBGPGERR=https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-$LIBGPGERR_V
 DL_LIBGCRYPT=https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-$LIBGCRYPT_VERSION.tar.bz2
 DL_LIBOTR=https://otr.cypherpunks.ca/libotr-$LIBOTR_VERSION.tar.gz
 
+SHA256_PKGCONF="5f1ef65d73a880fa5e7012102a17f7b32010e5e46139aed85851a541ba828a63  pkgconf-1.1.0.tar.xz"
 SHA256_OPENSSL="b1bfedcd5b289ff22aee87c9d600f515767ebf45f77168cb6d64f231f518a82e  openssl-3.6.1.tar.gz"
 SHA256_ZLIB="bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16  zlib-1.3.2.tar.gz"
 SHA256_LIBSTROPHE="5c66b1d59d802766bb6cf093d6362c64bb7f9a85533a9972396a3f54861f4311  libstrophe-0.14.0.tar.bz2"
@@ -35,6 +38,7 @@ SHA256_LIBGCRYPT="0311454e678189bad62a7e9402a9dd793025efff6e7449898616e2fc75e0f4
 SHA256_LIBOTR="8b3b182424251067a952fb4e6c7b95a21e644fbb27fbd5f8af2b2ed87ca419f5  libotr-4.1.1.tar.gz"
 
 
+DIR_PKGCONF=pkgconf-$PKGCONF_VERSION
 DIR_OPENSSL=openssl-$OPENSSL_VERSION
 DIR_ZLIB=zlib-$ZLIB_VERSION
 DIR_LIBSTROPHE=libstrophe-$LIBSTROPHE_VERSION
@@ -55,7 +59,7 @@ mkdir -p $DEPDIR
 cd $DEPDIR
 
 
-for url in $DL_OPENSSL $DL_ZLIB $DL_LIBSTROPHE $DL_LIBGPGERR $DL_LIBGCRYPT $DL_LIBOTR; do
+for url in $DL_PKGCONF $DL_OPENSSL $DL_ZLIB $DL_LIBSTROPHE $DL_LIBGPGERR $DL_LIBGCRYPT $DL_LIBOTR; do
 	# clear previous downloads
 	rm -Rf $(basename $url)
 
@@ -69,6 +73,7 @@ for url in $DL_OPENSSL $DL_ZLIB $DL_LIBSTROPHE $DL_LIBGPGERR $DL_LIBGCRYPT $DL_L
 done
 
 # check download hashes
+DL_PKGCONF_SHA256=$(shasum -a 256 pkgconf-$PKGCONF_VERSION.tar.xz)
 DL_OPENSSL_SHA256=$(shasum -a 256 openssl-$OPENSSL_VERSION.tar.gz)
 DL_ZLIB_SHA256=$(shasum -a 256 zlib-$ZLIB_VERSION.tar.gz)
 DL_LIBSTROPHE_SHA256=$(shasum -a 256 libstrophe-$LIBSTROPHE_VERSION.tar.bz2)
@@ -76,6 +81,12 @@ DL_LIBGPGERR_SHA256=$(shasum -a 256 libgpg-error-$LIBGPGERR_VERSION.tar.bz2)
 DL_LIBGCRYPT_SHA256=$(shasum -a 256 libgcrypt-$LIBGCRYPT_VERSION.tar.bz2)
 DL_LIBOTR_SHA256=$(shasum -a 256 libotr-$LIBOTR_VERSION.tar.gz)
 
+if [ "$SHA256_PKGCONF" != "$DL_PKGCONF_SHA256" ]; then
+	echo "pkgconf: wrong checksum"
+	echo "expected: $SHA256_PKGCONF"
+	echo "download: $DL_PKGCONF_SHA256"
+	exit 1
+fi
 if [ "$SHA256_OPENSSL" != "$DL_OPENSSL_SHA256" ]; then
 	echo "openssl: wrong checksum"
 	echo "expected: $SHA256_OPENSSL"
@@ -113,10 +124,35 @@ if [ "$SHA256_LIBOTR" != "$DL_LIBOTR_SHA256" ]; then
 	exit 1
 fi
 
+INSTALL_DIR="$PROJECT_ROOT/$DEPDIR/install"
+PATH=$INSTALL_DIR:$PATH
+
+# build pkgconf
+cd $DIR_PKGCONF
+
+./configure --prefix=$INSTALL_DIR
+if [ $? -ne 0 ]; then
+	echo "pkgconf configure failed"
+	exit 2
+fi
+make
+if [ $? -ne 0 ]; then
+	echo "pkgconf make failed"
+	exit 2
+fi
+make install
+if [ $? -ne 0 ]; then
+	echo "pkgconf make install failed"
+	exit 2
+fi
+ln -s pkgconf $INSTALL_DIR/bin/pkg-config
+
+cd ..
+
 # build openssl
 cd $DIR_OPENSSL
 
-INSTALL_DIR="$PROJECT_ROOT/$DEPDIR/install"
+
 
 ./Configure --prefix=$INSTALL_DIR
 if [ $? -ne 0 ]; then
