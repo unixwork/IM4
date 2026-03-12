@@ -525,9 +525,13 @@ static bool nsstreq(NSString *s1, NSString *s2) {
 }
 
 - (IBAction)otrGenKey:(id)sender {
+    if(_xmpp->settings.jid == NULL) {
+        return;
+    }
     char *filename = app_configfile("otr.private_key");
-    otrl_privkey_generate(_xmpp->userstate, filename, _xmpp->userstate->privkey_root->accountname, _xmpp->userstate->privkey_root->protocol);
+    otrl_privkey_generate(_xmpp->userstate, filename, _xmpp->settings.jid, "xmpp");
     otrl_privkey_read(_xmpp->userstate, filename);
+    free(filename);
     
     [self createFingerprintFromPubkey];
     if(_fingerprint) {

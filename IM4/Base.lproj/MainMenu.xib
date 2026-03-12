@@ -707,7 +707,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="RuS-TJ-Swo">
-                            <rect key="frame" x="1" y="313" width="272" height="17"/>
+                            <rect key="frame" x="1" y="307" width="272" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ux0-y4-Eof">
