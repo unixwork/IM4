@@ -463,10 +463,10 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="3lT-zw-pIh">
-                                            <rect key="frame" x="201" y="180" width="42" height="25"/>
+                                            <rect key="frame" x="203" y="181" width="54" height="24"/>
                                         </switch>
                                         <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="VQs-zF-2rH">
-                                            <rect key="frame" x="201" y="144" width="42" height="25"/>
+                                            <rect key="frame" x="203" y="145" width="54" height="24"/>
                                         </switch>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x2N-dI-SuD">
                                             <rect key="frame" x="6" y="149" width="183" height="16"/>
