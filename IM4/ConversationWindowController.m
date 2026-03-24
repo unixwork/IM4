@@ -549,6 +549,10 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
 }
 
 - (void)sendMessage:(Boolean)force {
+    if(_messageInput.string.length == 0) {
+        return; // don't send empty messages
+    }
+    
     // check if a session is enabled
     BOOL sessionEnabled = FALSE;
     for(int i=0;i<_conversation->nsessions;i++) {
