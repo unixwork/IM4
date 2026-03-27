@@ -576,19 +576,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
                         <items>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbarShown:" target="-1" id="BXY-wc-z0C"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="pQI-g3-MTW"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
                             <menuItem title="Notifications" id="Ovb-vZ-Y28">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -667,7 +654,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="274" height="357"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="274" height="357"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -707,7 +694,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="RuS-TJ-Swo">
-                            <rect key="frame" x="1" y="307" width="272" height="17"/>
+                            <rect key="frame" x="1" y="309" width="272" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ux0-y4-Eof">
@@ -716,7 +703,7 @@
                         </scroller>
                     </scrollView>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oW-MG-he7">
-                        <rect key="frame" x="186" y="329" width="80" height="24"/>
+                        <rect key="frame" x="183" y="329" width="87" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Offline" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="mo3-qS-ikp" id="ngc-98-N1r">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="message"/>
@@ -792,13 +779,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="345" height="145"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="w07-mH-A74">
                 <rect key="frame" x="0.0" y="0.0" width="345" height="145"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hmn-05-dMo">
-                        <rect key="frame" x="265" y="10" width="70" height="24"/>
+                        <rect key="frame" x="258" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hjU-Uf-OWk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -814,7 +801,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="310-FK-fEx">
-                        <rect key="frame" x="185" y="10" width="70" height="24"/>
+                        <rect key="frame" x="178" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Qo-j7-Pix">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -838,7 +825,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <secureTextField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-9G-EOx">
-                        <rect key="frame" x="24" y="61" width="297" height="24"/>
+                        <rect key="frame" x="24" y="64" width="297" height="21"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="THg-MW-FY7">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -868,7 +855,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="343" height="173"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="oqL-X4-VpU">
                 <rect key="frame" x="0.0" y="0.0" width="343" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -882,7 +869,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l4N-Lj-ZEM">
-                        <rect key="frame" x="24" y="89" width="295" height="24"/>
+                        <rect key="frame" x="24" y="92" width="295" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="xzW-gj-ar4">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -890,7 +877,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ijZ-AJ-Vf9">
-                        <rect key="frame" x="263" y="10" width="70" height="24"/>
+                        <rect key="frame" x="256" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TUa-Pj-Rjy">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -906,7 +893,7 @@ DQ
                         </connections>
                     </button>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-5Y-o0m">
-                        <rect key="frame" x="22" y="55" width="37" height="16"/>
+                        <rect key="frame" x="22" y="58" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="VWp-iC-Adl">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -950,13 +937,13 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="342" height="136"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="f5X-iI-p83">
                 <rect key="frame" x="0.0" y="0.0" width="342" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7on-vy-dii">
-                        <rect key="frame" x="262" y="10" width="70" height="24"/>
+                        <rect key="frame" x="255" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XZc-gD-6ES">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -972,7 +959,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NfF-nE-hmA">
-                        <rect key="frame" x="182" y="10" width="70" height="24"/>
+                        <rect key="frame" x="175" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JuT-lJ-K9j">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -996,7 +983,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-aF-CBf">
-                        <rect key="frame" x="22" y="66" width="298" height="24"/>
+                        <rect key="frame" x="22" y="69" width="298" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="FWJ-HS-V1c">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1025,7 +1012,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="344" y="373" width="404" height="191"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="1CA-qG-u47">
                 <rect key="frame" x="0.0" y="0.0" width="404" height="191"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1039,7 +1026,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Izb-rT-wXG">
-                        <rect key="frame" x="24" y="107" width="356" height="24"/>
+                        <rect key="frame" x="24" y="110" width="356" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="rpF-cQ-zvZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1047,7 +1034,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RHL-WI-9Zi">
-                        <rect key="frame" x="324" y="10" width="70" height="24"/>
+                        <rect key="frame" x="317" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pbp-Hf-L1m">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1063,7 +1050,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="db6-RY-c5P">
-                        <rect key="frame" x="244" y="10" width="70" height="24"/>
+                        <rect key="frame" x="237" y="3" width="84" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2y-Ad-9hU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1079,7 +1066,7 @@ Gw
                         </connections>
                     </button>
                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IU3-2b-ndN">
-                        <rect key="frame" x="22" y="73" width="37" height="16"/>
+                        <rect key="frame" x="22" y="76" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="kQ7-Jd-FRV">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1107,7 +1094,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="344" y="373" width="387" height="111"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1667"/>
             <view key="contentView" id="na8-Ih-O1R">
                 <rect key="frame" x="0.0" y="0.0" width="387" height="111"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1121,7 +1108,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="si3-2B-aSJ">
-                        <rect key="frame" x="295" y="10" width="82" height="24"/>
+                        <rect key="frame" x="292" y="3" width="92" height="32"/>
                         <buttonCell key="cell" type="push" title="Authorize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MkW-rz-SG5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1134,7 +1121,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zap-P4-hSR">
-                        <rect key="frame" x="230" y="10" width="55" height="24"/>
+                        <rect key="frame" x="231" y="3" width="65" height="32"/>
                         <buttonCell key="cell" type="push" title="Deny" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZpU-jF-MTH">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1144,7 +1131,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-fI-AyD">
-                        <rect key="frame" x="154" y="10" width="66" height="24"/>
+                        <rect key="frame" x="159" y="3" width="76" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fM1-KE-up1">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
