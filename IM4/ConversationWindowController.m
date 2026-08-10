@@ -375,7 +375,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
     CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
     double scrollPos = scrollview.verticalScroller.doubleValue;
-    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.001 > 1 ? true : false;
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     [textStorage appendAttributedString:mutableAttributedString];
@@ -474,7 +474,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
     CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
     double scrollPos = scrollview.verticalScroller.doubleValue;
-    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.001 > 1 ? true : false;
     
     NSTextStorage *textStorage = _conversationTextView.textStorage;
     NSUInteger chatStateLen = _chatstateMsg == nil ? 0 : _chatstateMsg.length;
@@ -495,7 +495,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     NSScrollView *scrollview = [_conversationTextView enclosingScrollView];
     CGFloat scrollProp = scrollview.verticalScroller.knobProportion;
     double scrollPos = scrollview.verticalScroller.doubleValue;
-    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.0001 > 1 ? true : false;
+    bool scrollToEnd = scrollProp == 0 || scrollPos + 0.001 > 1 ? true : false;
     
     
     NSString *name;
@@ -504,6 +504,7 @@ static NSString* convert_urls_to_links(NSString *input, BOOL escape) {
     } else {
         char *my_alias = _xmpp->settings.alias ? _xmpp->settings.alias : _xmpp->settings.jid;
         name = [[NSString alloc]initWithUTF8String: my_alias];
+        scrollToEnd = true; // always scroll to the end when sending a message
     }
     
     NSString *color = incoming ? @"red" : @"blue";
